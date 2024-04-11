@@ -13,11 +13,13 @@ namespace EmployeeManagementSystem
 
         public class EmergencyContact
         { 
+            public Employee EmployeeID { get; set; }
             public string ContactName { get; set; }
             public string PhoneNumber { get; set; }
 
-            public EmergencyContact (string contactName, string phoneNumber)
+            public EmergencyContact (Employee EmployeeID, string contactName, string phoneNumber)
             {
+                this.EmployeeID = EmployeeID;
                 ContactName = contactName;
                 PhoneNumber = phoneNumber;
             }
@@ -25,13 +27,15 @@ namespace EmployeeManagementSystem
 
         public class Payment
         {
+            public Employee EmployeeID { get; set; }
             public decimal Salary { get; set; }
             public int HoursWorked { get; set; }
 
             public int Performance { get; set; }
 
-            public Payment(decimal salary, int hoursWorked, int performance)
+            public Payment(Employee EmployeeID, decimal salary, int hoursWorked, int performance)
             {
+                this.EmployeeID = EmployeeID;
                 Salary = salary;
                 HoursWorked = hoursWorked;
                 Performance = performance;
