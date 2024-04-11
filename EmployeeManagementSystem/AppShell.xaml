@@ -8,8 +8,7 @@
     Title="EmployeeManagementSystem">
 
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        ContentTemplate="{DataTemplate local:StartupPageView}"
+        Route="StartupPageView" />
 
 </Shell>

@@ -1,10 +1,10 @@
 ﻿namespace EmployeeManagementSystem
 {
-    public partial class MainPage : ContentPage
+    public partial class DashboardView : ContentPage
     {
         int count = 0;
 
-        public MainPage()
+        public DashboardView()
         {
             InitializeComponent();
         }
