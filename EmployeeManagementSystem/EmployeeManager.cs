@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SQLite;
+﻿using SQLite;
 
 namespace EmployeeManagementSystem
 {
@@ -17,8 +12,8 @@ namespace EmployeeManagementSystem
             this.database = new SQLiteConnection(Constants.DatabasePath);
 
             this.database.CreateTable<Employee>();
-            this.database.CreateTable<Employee.EmergencyContact>();
-            this.database.CreateTable<Employee.Payment>();
+            this.database.CreateTable<EmergencyContact>();
+            this.database.CreateTable<Payment>();
         }
 
     }
