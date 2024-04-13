@@ -1,3 +1,7 @@
+using EmployeeManagementSystem.Models;
+using EmployeeManagementSystem.Views;
+using SQLite;
+
 namespace EmployeeManagementSystem;
 
 public partial class LoginView : ContentPage
@@ -9,11 +13,21 @@ public partial class LoginView : ContentPage
 
     private void OnLoginButtonClicked(object sender, EventArgs e)
 	{
-		Shell.Current.GoToAsync(nameof(DashboardView));
+		
+        AuthService authService = new AuthService();
+        TableQuery<User> users = authService.GetUsers();
+        if (authService.AuthenticateUserLogin(username.Text, password.Text, users))
+        {
+            AppShell.Current.GoToAsync(nameof(DashboardView));
+        }
+        else
+        {
+            DisplayAlert("Login Failed", "Invalid username or password", "OK");
+        }
     }
 
     private void OnSignUpButtonClicked(object sender, EventArgs e)
     {
-
+        AppShell.Current.GoToAsync(nameof(CreateUserView));
     }
 }

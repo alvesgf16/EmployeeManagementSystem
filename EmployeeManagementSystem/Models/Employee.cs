@@ -1,39 +1,37 @@
-﻿namespace EmployeeManagementSystem;
+﻿using SQLite;
+namespace EmployeeManagementSystem;
 
-public partial class Employee(int id,
-                string email,
-                string password,
-                string name,
-                string phoneNumber,
-                string address,
-                Position position,
-                Schedule shift,
-                bool isActive)
+public partial class Employee
 {
+    
+    [PrimaryKey, AutoIncrement]
+    public int Id { get; set; }
+    [NotNull]
+    public string Email { get; set; }
 
-    public int Id { get; set; } = id;
+    public string Password { get; set; }
 
-    public string Email { get; set; } = email;
+    public string Name { get; set; }
 
-    public string Password { get; set; } = password;
+    public string PhoneNumber { get; set; }
 
-    public string Name { get; set; } = name;
+    public string Address { get; set; }
+    [Ignore]
+    public EmergencyContact? Contact { get; set; }
+    [Ignore]
+    public Position Position { get; set; }
 
-    public string PhoneNumber { get; set; } = phoneNumber;
+    public int AvailablePTODays { get; set; }
 
-    public string Address { get; set; } = address;
+    public int AvailableSickDays { get; set; }
+    [Ignore]
+    public Schedule Shift { get; set; }
 
-    public EmergencyContact? Contact { get; set; } = null;
+    public bool IsActive { get; set; }
+    [Ignore]
+    public Payment Earnings { get; set; }
 
-    public Position Position { get; set; } = position;
-
-    public int AvailablePTODays { get; set; } = 0;
-
-    public int AvailableSickDays { get; set; } = 10;
-
-    public Schedule Shift { get; set; } = shift;
-
-    public bool IsActive { get; set; } = isActive;
-
-    public Payment Earnings { get; set; } = new(id, 15, 0, 1);
+    public Employee()
+    {
+    }
 }

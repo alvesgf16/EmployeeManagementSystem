@@ -1,4 +1,7 @@
-﻿namespace EmployeeManagementSystem
+﻿using EmployeeManagementSystem.Views;
+using SQLite;
+
+namespace EmployeeManagementSystem
 {
     public partial class AppShell : Shell
     {
@@ -8,6 +11,8 @@
             //register routes of pages
             Routing.RegisterRoute(nameof(DashboardView), typeof(DashboardView));
             Routing.RegisterRoute(nameof(LoginView), typeof(LoginView));
+            Routing.RegisterRoute(nameof(CreateUserView), typeof(CreateUserView));
+            
         }
     }
 }

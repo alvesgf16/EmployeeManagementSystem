@@ -39,10 +39,12 @@
             AlignItems="Center"
             JustifyContent="Center">
             <Entry
+                x:Name="username"
                 Placeholder="Email"
                 WidthRequest="300"
                 Margin="25, 10"/>
             <Entry
+                x:Name="password"
                 Placeholder="Password"
                 IsPassword="True"
                 WidthRequest="300"
