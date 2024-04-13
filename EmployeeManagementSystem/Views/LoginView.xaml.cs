@@ -7,13 +7,13 @@ public partial class LoginView : ContentPage
 		InitializeComponent();
 	}
 
-    private void OnLoginButtonClicked(object sender, EventArgs e)
+    private async void OnLoginButtonClicked(object sender, EventArgs e)
 	{
-		Shell.Current.GoToAsync(nameof(DashboardView));
+		await Shell.Current.GoToAsync(nameof(DashboardView));
     }
 
-    private void OnSignUpButtonClicked(object sender, EventArgs e)
+    private async void OnSignUpButtonClicked(object sender, EventArgs e)
     {
-
+		await Shell.Current.GoToAsync(nameof(RegisterView));
     }
 }
