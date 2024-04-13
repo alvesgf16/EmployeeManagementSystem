@@ -7,7 +7,7 @@
             InitializeComponent();
             //register routes of pages
             Routing.RegisterRoute(nameof(DashboardView), typeof(DashboardView));
-            Routing.RegisterRoute(nameof(StartupPageView), typeof(StartupPageView));
+            Routing.RegisterRoute(nameof(LoginView), typeof(LoginView));
         }
     }
 }

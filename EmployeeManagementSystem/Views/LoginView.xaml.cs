@@ -1,14 +1,19 @@
 namespace EmployeeManagementSystem;
 
-public partial class StartupPageView : ContentPage
+public partial class LoginView : ContentPage
 {
-	public StartupPageView()
+	public LoginView()
 	{
 		InitializeComponent();
 	}
 
     private void OnLoginButtonClicked(object sender, EventArgs e)
-    {
+	{
 		Shell.Current.GoToAsync(nameof(DashboardView));
+    }
+
+    private void OnSignUpButtonClicked(object sender, EventArgs e)
+    {
+
     }
 }

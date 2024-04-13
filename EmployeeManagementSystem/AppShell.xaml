@@ -8,7 +8,7 @@
     Title="EmployeeManagementSystem">
 
     <ShellContent
-        ContentTemplate="{DataTemplate local:StartupPageView}"
-        Route="StartupPageView" />
+        ContentTemplate="{DataTemplate local:LoginView}"
+        Route="LoginView" />
 
 </Shell>
