@@ -11,7 +11,7 @@ public partial class LoginView : ContentPage
 		InitializeComponent();
 	}
 
-    private void OnLoginButtonClicked(object sender, EventArgs e)
+    private async void OnLoginButtonClicked(object sender, EventArgs e)
 	{
 		
         AuthService authService = new AuthService();
@@ -26,7 +26,7 @@ public partial class LoginView : ContentPage
         }
     }
 
-    private void OnSignUpButtonClicked(object sender, EventArgs e)
+    private async void OnSignUpButtonClicked(object sender, EventArgs e)
     {
         AppShell.Current.GoToAsync(nameof(CreateUserView));
     }
