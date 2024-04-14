@@ -1,6 +1,7 @@
 using EmployeeManagementSystem.Exceptions;
 using EmployeeManagementSystem.Models;
 using EmployeeManagementSystem.Services;
+using EmployeeManagementSystem.Views;
 
 namespace EmployeeManagementSystem;
 
@@ -17,7 +18,7 @@ public partial class LoginView : ContentPage
         {
             AuthService authService = new();
             User authenticatedUser = authService.AuthenticateUserLogin(username.Text, password.Text);
-            await Navigation.PushModalAsync(new DashboardView(authenticatedUser));
+            await Navigation.PushModalAsync(new ManageEmployeeView());
         }
         catch (InvalidLoginException ex)
         {
