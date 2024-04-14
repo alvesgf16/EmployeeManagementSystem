@@ -18,7 +18,7 @@ public partial class LoginView : ContentPage
         {
             AuthService authService = new();
             User authenticatedUser = authService.AuthenticateUserLogin(username.Text, password.Text);
-            await Navigation.PushModalAsync(new ManageEmployeeView());
+            await Navigation.PushModalAsync(new ScheduleView());
         }
         catch (InvalidLoginException ex)
         {
