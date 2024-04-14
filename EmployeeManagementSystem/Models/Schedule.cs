@@ -4,5 +4,5 @@ public enum Schedule
 {
     Day,
     Swing,
-    Graceyard
+    Graveyard
 }

@@ -4,11 +4,34 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:EmployeeManagementSystem"
-    Shell.FlyoutBehavior="Disabled"
-    Title="EmployeeManagementSystem">
+    xmlns:views="clr-namespace:EmployeeManagementSystem.Views"
+    Shell.FlyoutBehavior="Locked"
+    Shell.FlyoutWidth="220">
+
 
     <ShellContent
-        ContentTemplate="{DataTemplate local:LoginView}"
-        Route="LoginView" />
+    ContentTemplate="{DataTemplate local:LoginView}"
+    Route="LoginView" />
+
+    <FlyoutItem Title="Dashboard">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate local:DashboardView}"/>
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="Manage Employee">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate views:ManageEmployeeView}"/>
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="Manage Pay">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate views:ManagePayView}"/>
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="Schedule">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate views:ScheduleView}"/>
+        </Tab>
+    </FlyoutItem>
 
 </Shell>

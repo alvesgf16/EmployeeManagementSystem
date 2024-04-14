@@ -18,7 +18,7 @@ public partial class LoginView : ContentPage
         TableQuery<User> users = authService.GetUsers();
         if (authService.AuthenticateUserLogin(username.Text, password.Text, users))
         {
-            AppShell.Current.GoToAsync(nameof(DashboardView));
+            await AppShell.Current.GoToAsync(nameof(DashboardView));
         }
         else
         {
@@ -28,6 +28,6 @@ public partial class LoginView : ContentPage
 
     private async void OnSignUpButtonClicked(object sender, EventArgs e)
     {
-        AppShell.Current.GoToAsync(nameof(CreateUserView));
+        await AppShell.Current.GoToAsync(nameof(CreateUserView));
     }
 }

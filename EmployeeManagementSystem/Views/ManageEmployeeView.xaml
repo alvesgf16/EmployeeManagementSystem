@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EmployeeManagementSystem.Views.ManageEmployeeView">
+
+    <StackLayout Padding="20">
+        <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+            <Label Text="Employees" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Picker x:Name="EmployeePicker" HorizontalOptions="FillAndExpand" 
+                    SelectedIndexChanged="EmployeePicker_SelectedIndexChanged"/>
+        </StackLayout>
+        
+        <Label Text="Personal Information" FontSize="Medium" Margin="0,20,0,10" />
+        <Entry Placeholder="Email" x:Name="EmailEntry" />
+        <Entry Placeholder="Password" IsPassword="True" x:Name="PasswordEntry" />
+        <Entry Placeholder="Name" x:Name="NameEntry" />
+        <Entry Placeholder="Phone Number" x:Name="PhoneNumberEntry" />
+        <Entry Placeholder="Address" x:Name="AddressEntry" />
+
+        <Label Text="Emergency Contact" FontSize="Medium" Margin="0,20,0,10" />
+        <Entry Placeholder="Contact Name" x:Name="ContactNameEntry" />
+        <Entry Placeholder="Contact Phone Number" x:Name="ContactPhoneNumberEntry" />
+
+        <Label Text="Position" FontSize="Medium" Margin="0,20,0,10" />
+        <Picker x:Name="PositionPicker">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Manager</x:String>
+                    <x:String>Employee</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+
+        <Entry Placeholder="Available PTO Days" Keyboard="Numeric" x:Name="AvailablePTOEntry" />
+        <Entry Placeholder="Available Sick Days" Keyboard="Numeric" x:Name="AvailableSickDaysEntry" />
+
+        <Label Text="Schedule" FontSize="Medium" Margin="0,20,0,10" />
+        <Picker x:Name="SchedulePicker">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Day</x:String>
+                    <x:String>Swing</x:String>
+                    <x:String>Graveyard</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+
+        <Entry Placeholder="Salary" Keyboard="Numeric" x:Name="SalaryEntry" />
+        <Entry Placeholder="Hours Worked" Keyboard="Numeric" x:Name="HoursWorkedEntry" />
+        <Entry Placeholder="Performance" Keyboard="Numeric" x:Name="PerformanceEntry" />
+
+        <Button Text="Add New Employee" Clicked="AddNewEmployee_Clicked"/>
+        <Button Text="Update Existing Employee" Clicked="UpdateExistingEmployee_Clicked"/>
+        <Button Text="Delete Employee" Clicked="DeleteEmployee_Clicked"/>
+    </StackLayout>
+</ContentPage>
