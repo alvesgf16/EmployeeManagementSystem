@@ -1,10 +1,17 @@
-﻿namespace EmployeeManagementSystem
+﻿using EmployeeManagementSystem.Models;
+
+namespace EmployeeManagementSystem
 {
     public partial class DashboardView : ContentPage
     {
         int count = 0;
 
         public DashboardView()
+        {
+            InitializeComponent();
+        }
+
+        public DashboardView(User user)
         {
             InitializeComponent();
         }
