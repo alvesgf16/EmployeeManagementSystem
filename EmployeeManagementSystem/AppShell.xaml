@@ -4,25 +4,18 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:EmployeeManagementSystem"
-    xmlns:views="clr-namespace:EmployeeManagementSystem.Views"
-    Shell.FlyoutBehavior="Locked"
-    Shell.FlyoutWidth="220">
+    FlyoutBehavior="Locked"
+    FlyoutWidth="220">
 
     <!-- Content for LoginView -->
     <ShellContent ContentTemplate="{DataTemplate local:LoginView}" Route="LoginView" />
 
     <!-- FlyoutItems for other views -->
-    <FlyoutItem Title="Dashboard" Icon="dashboard.png">
-        <ShellContent ContentTemplate="{DataTemplate local:DashboardView}" />
-    </FlyoutItem>
-    <FlyoutItem Title="Manage Employee" Icon="employee.png">
-        <ShellContent ContentTemplate="{DataTemplate views:ManageEmployeeView}" />
-    </FlyoutItem>
-    <FlyoutItem Title="Manage Pay" Icon="pay.png">
-        <ShellContent ContentTemplate="{DataTemplate views:ManagePayView}" />
-    </FlyoutItem>
-    <FlyoutItem Title="Schedule" Icon="schedule.png">
-        <ShellContent ContentTemplate="{DataTemplate views:ScheduleView}" />
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent Title="Dashboard" Icon="dashboard.png" ContentTemplate="{DataTemplate local:DashboardView}" />
+        <ShellContent Title="Manage Employee" Icon="employee.png" ContentTemplate="{DataTemplate local:ManageEmployeeView}" />
+        <ShellContent Title="Manage Pay" Icon="pay.png" ContentTemplate="{DataTemplate local:ManagePayView}" />
+        <ShellContent Title="Schedule" Icon="schedule.png" ContentTemplate="{DataTemplate local:ScheduleView}" />
     </FlyoutItem>
 
 </Shell>

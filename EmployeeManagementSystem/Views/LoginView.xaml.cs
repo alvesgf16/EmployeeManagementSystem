@@ -1,7 +1,6 @@
 using EmployeeManagementSystem.Exceptions;
 using EmployeeManagementSystem.Models;
 using EmployeeManagementSystem.Services;
-using EmployeeManagementSystem.Views;
 
 namespace EmployeeManagementSystem;
 
@@ -17,8 +16,11 @@ public partial class LoginView : ContentPage
         try
         {
             AuthService authService = new();
-            User authenticatedUser = authService.AuthenticateUserLogin(username.Text, password.Text);
-            await Navigation.PushModalAsync(new ScheduleView());
+            var authenticatedUser = new Dictionary<string, object>()
+            {
+                { "user", authService.AuthenticateUserLogin(username.Text, password.Text) }
+            };
+            await Shell.Current.GoToAsync(nameof(ScheduleView), authenticatedUser);
         }
         catch (InvalidLoginException ex)
         {

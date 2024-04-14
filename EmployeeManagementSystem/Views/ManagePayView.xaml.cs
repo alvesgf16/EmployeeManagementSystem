@@ -1,4 +1,6 @@
-namespace EmployeeManagementSystem.Views;
+using EmployeeManagementSystem.Models;
+
+namespace EmployeeManagementSystem;
 
 public partial class ManagePayView : ContentPage
 {
@@ -6,4 +8,9 @@ public partial class ManagePayView : ContentPage
 	{
 		InitializeComponent();
 	}
+
+    public ManagePayView(User user)
+    {
+        InitializeComponent();
+    }
 }

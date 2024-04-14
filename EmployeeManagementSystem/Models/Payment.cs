@@ -1,12 +1,15 @@
-﻿namespace EmployeeManagementSystem;
+﻿using SQLite;
+using System.ComponentModel.DataAnnotations;
 
-public class Payment(int EmployeeID, decimal salary, int hoursWorked, int performance)
+namespace EmployeeManagementSystem;
+
+public class Payment()
 {
-    public int EmployeeID { get; set; } = EmployeeID;
-    
-    public decimal Salary { get; set; } = salary;
-    
-    public int HoursWorked { get; set; } = hoursWorked;
+    public int EmployeeID { get; set; }
 
-    public int Performance { get; set; } = performance;
+    public decimal Salary { get; set; }
+
+    public int HoursWorked { get; set; }
+
+    public int Performance { get; set; }
 }
