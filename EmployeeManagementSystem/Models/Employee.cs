@@ -16,8 +16,10 @@ public partial class Employee
     public string PhoneNumber { get; set; }
 
     public string Address { get; set; }
-    [Ignore]
-    public EmergencyContact? Contact { get; set; }
+
+    public string EContactName { get; set; }
+
+    public string EContactPhone { get; set; }
     [Ignore]
     public Position Position { get; set; }
 

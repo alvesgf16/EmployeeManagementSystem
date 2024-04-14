@@ -18,12 +18,12 @@
             <CheckBox x:Name="hidePassword" IsChecked="True" />
         </StackLayout>
         <Entry Placeholder="Name" x:Name="NameEntry" />
-        <Entry Placeholder="Phone Number" x:Name="PhoneNumberEntry" />
+        <Entry Placeholder="Phone Number" x:Name="PhoneNumberEntry" MaxLength="10" />
         <Entry Placeholder="Address" x:Name="AddressEntry" />
 
         <Label Text="Emergency Contact" FontSize="Medium" Margin="0,20,0,10" />
         <Entry Placeholder="Contact Name" x:Name="ContactNameEntry" />
-        <Entry Placeholder="Contact Phone Number" x:Name="ContactPhoneNumberEntry" />
+        <Entry Placeholder="Contact Phone Number" x:Name="ContactPhoneNumberEntry" MaxLength="10"/>
 
         <Label Text="Position" FontSize="Medium" Margin="0,20,0,10" />
         <Picker x:Name="PositionPicker">

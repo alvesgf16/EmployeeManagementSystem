@@ -43,8 +43,8 @@ namespace EmployeeManagementSystem.Views
                 NameEntry.Text = selectedEmployee.Name;
                 PhoneNumberEntry.Text = selectedEmployee.PhoneNumber;
                 AddressEntry.Text = selectedEmployee.Address;
-                ContactNameEntry.Text = selectedEmployee.Contact.ContactName;
-                ContactPhoneNumberEntry.Text = selectedEmployee.Contact.PhoneNumber;
+                ContactNameEntry.Text = selectedEmployee.EContactName;
+                ContactPhoneNumberEntry.Text = selectedEmployee.EContactPhone;
                 PositionPicker.SelectedItem = selectedEmployee.Position.ToString();
                 AvailablePTOEntry.Text = selectedEmployee.AvailablePTODays.ToString();
                 AvailableSickDaysEntry.Text = selectedEmployee.AvailableSickDays.ToString();
@@ -77,7 +77,8 @@ namespace EmployeeManagementSystem.Views
                     Name = NameEntry.Text,
                     PhoneNumber = PhoneNumberEntry.Text,
                     Address = AddressEntry.Text,
-                    Contact = emergencyContact,
+                    EContactName = ContactNameEntry.Text,
+                    EContactPhone = ContactPhoneNumberEntry.Text,
                     Position = (Position)Enum.Parse(typeof(Position), PositionPicker.SelectedItem.ToString()),
                     AvailablePTODays = 0,
                     AvailableSickDays = 10,
@@ -114,8 +115,8 @@ namespace EmployeeManagementSystem.Views
                 existingEmployee.Name = NameEntry.Text;
                 existingEmployee.PhoneNumber = PhoneNumberEntry.Text;
                 existingEmployee.Address = AddressEntry.Text;
-                existingEmployee.Contact.ContactName = ContactNameEntry.Text;
-                existingEmployee.Contact.PhoneNumber = ContactPhoneNumberEntry.Text;
+                existingEmployee.EContactName = ContactNameEntry.Text;
+                existingEmployee.EContactPhone = ContactPhoneNumberEntry.Text;
                 existingEmployee.Position = (Position)Enum.Parse(typeof(Position), PositionPicker.SelectedItem.ToString());
                 existingEmployee.AvailablePTODays = Convert.ToInt32(AvailablePTOEntry.Text);
                 existingEmployee.AvailableSickDays = Convert.ToInt32(AvailableSickDaysEntry.Text);
