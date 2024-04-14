@@ -1,3 +1,5 @@
+using EmployeeManagementSystem.Services;
+
 namespace EmployeeManagementSystem;
 
 public partial class RegisterView : ContentPage
@@ -7,9 +9,12 @@ public partial class RegisterView : ContentPage
 		InitializeComponent();
 	}
 
-    private void OnRegisterButtonClicked(object sender, EventArgs e)
+    private async void OnRegisterButtonClicked(object sender, EventArgs e)
     {
-        
+        AuthService authService = new();
+        authService.AddUser(username.Text, password.Text);
+        DisplayAlert("User Created", "User has been created", "OK");
+        await Shell.Current.GoToAsync("..");
     }
 
     private async void OnSignInButtonClicked(object sender, EventArgs e)

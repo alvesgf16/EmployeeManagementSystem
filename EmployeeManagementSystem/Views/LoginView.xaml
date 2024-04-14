@@ -41,7 +41,7 @@
             JustifyContent="Center">
             <Entry
                 x:Name="username"
-                Placeholder="Email"
+                Placeholder="Username"
                 WidthRequest="300"
                 Margin="25, 10"/>
             <Entry

@@ -1,5 +1,4 @@
-﻿using EmployeeManagementSystem.Views;
-using SQLite;
+﻿using SQLite;
 
 namespace EmployeeManagementSystem
 {
@@ -11,7 +10,7 @@ namespace EmployeeManagementSystem
             //register routes of pages
             Routing.RegisterRoute(nameof(DashboardView), typeof(DashboardView));
             Routing.RegisterRoute(nameof(LoginView), typeof(LoginView));
-            Routing.RegisterRoute(nameof(CreateUserView), typeof(CreateUserView));
+            Routing.RegisterRoute(nameof(RegisterView), typeof(RegisterView));
             
         }
     }

@@ -1,6 +1,6 @@
+using EmployeeManagementSystem.Exceptions;
 using EmployeeManagementSystem.Models;
-using EmployeeManagementSystem.Views;
-using SQLite;
+using EmployeeManagementSystem.Services;
 
 namespace EmployeeManagementSystem;
 
@@ -13,21 +13,20 @@ public partial class LoginView : ContentPage
 
     private async void OnLoginButtonClicked(object sender, EventArgs e)
 	{
-		
-        AuthService authService = new AuthService();
-        TableQuery<User> users = authService.GetUsers();
-        if (authService.AuthenticateUserLogin(username.Text, password.Text, users))
+        try
         {
-            await AppShell.Current.GoToAsync(nameof(DashboardView));
+            AuthService authService = new();
+            User authenticatedUser = authService.AuthenticateUserLogin(username.Text, password.Text);
+            await Navigation.PushModalAsync(new DashboardView(authenticatedUser));
         }
-        else
+        catch (InvalidLoginException ex)
         {
-            DisplayAlert("Login Failed", "Invalid username or password", "OK");
+            await DisplayAlert("Login Failed", ex.Message, "OK");
         }
     }
 
     private async void OnSignUpButtonClicked(object sender, EventArgs e)
     {
-        await AppShell.Current.GoToAsync(nameof(CreateUserView));
+        await Shell.Current.GoToAsync(nameof(RegisterView));
     }
 }

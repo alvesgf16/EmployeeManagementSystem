@@ -1,4 +1,4 @@
-﻿using EmployeeManagementSystem.Views;
+﻿using EmployeeManagementSystem.Models;
 
 namespace EmployeeManagementSystem
 {
@@ -9,8 +9,7 @@ namespace EmployeeManagementSystem
             InitializeComponent();
         }
 
-        // Event handler for the "Employees" button
-        private void OnEmployeesButtonClicked(object sender, EventArgs e)
+        private void OnCounterClicked(object sender, EventArgs e)
         {
             // Navigate to ManageEmployeeView.xaml
             AppShell.Current.GoToAsync(nameof(ManageEmployeeView));
