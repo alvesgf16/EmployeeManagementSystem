@@ -36,4 +36,10 @@ public partial class Employee
     public Employee()
     {
     }
+    
+    //override toString method
+    public override string ToString()
+    {
+        return $"ID: {Id} Name: {Name} Position: {Position} Shift: {Shift}";
+    }
 }
