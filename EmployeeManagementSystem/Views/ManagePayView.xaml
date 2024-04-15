@@ -26,7 +26,7 @@
             <Label Text="Employee Salary"/>
             <Entry Placeholder="Salary" x:Name="EmployeeSalary"/>
             <Label Text="Employee Total Hours Worked"/>
-            <Entry Placeholder="Total Hours Worked" IsReadOnly="True" x:Name="EmployeeHours"/>
+            <Entry Placeholder="Total Hours Worked" IsReadOnly="False" x:Name="EmployeeHours"/>
             <Label Text="Employee Hours Worked This Week"/>
             <Entry Placeholder="Hours Worked This Week" IsReadOnly="True" x:Name="EmployeeHoursThisWeek"/>
             <Label Text="Employee Overtime Hours Worked This Week"/>
@@ -34,7 +34,7 @@
             <Label Text="Employee Performace Rating (1-10)"/>
             <Entry Placeholder="Performance" x:Name="EmployeePerformance"/>
 
-            <Button Text="Update Employee Information" Margin="5"/>
+            <Button Text="Update Employee Information" Margin="5" Clicked="UpdateEPayInfo_Clicked"/>
             <Button Text="Calculate Employee Pay" Margin="5" Clicked="CalculatePayButton_Clicked"/>
         </StackLayout>
             <StackLayout x:Name="PayStubLayout" Margin="10" IsVisible="False">
