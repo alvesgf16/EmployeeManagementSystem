@@ -5,13 +5,13 @@ namespace EmployeeManagementSystem.Views;
 
 public partial class ManageEmployeeView : ContentPage
 {
+    EmployeeService employeeManager = new();
+    
     public ManageEmployeeView()
     {
         InitializeComponent();
         PopulateEmployeePicker();
     }
-
-    EmployeeService employeeManager = new();
 
     private void PopulateEmployeePicker()
     {
