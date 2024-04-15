@@ -4,9 +4,21 @@
              x:Class="EmployeeManagementSystem.ManagePayView"
              Title="ManagePayView">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
+        <!-- Search Bar -->
+        <SearchBar 
+            Placeholder="Employee Name"
             VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+            HorizontalOptions="FillAndExpand" />
+
+        <!-- Picker -->
+        <Picker Title="Select Position">
+            <!-- Add Picker Items Here -->
+        </Picker>
+
+        <!-- Form -->
+        <StackLayout Margin="10">
+            <Entry Placeholder="Employee Name" />
+            <Entry Placeholder="Employee Position" />
+        </StackLayout>
     </VerticalStackLayout>
 </ContentPage>

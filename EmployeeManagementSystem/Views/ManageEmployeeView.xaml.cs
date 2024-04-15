@@ -8,14 +8,17 @@ public partial class ManageEmployeeView : ContentPage
     public ManageEmployeeView()
     {
         InitializeComponent();
+        PopulateEmployeePicker();
     }
 
     public ManageEmployeeView(User user)
     {
         InitializeComponent();
+        PopulateEmployeePicker();
     }
 
     EmployeeService employeeManager = new();
+    int mostRecentEmployeeId;
 
     private void PopulateEmployeePicker()
     {
@@ -24,6 +27,7 @@ public partial class ManageEmployeeView : ContentPage
 
         // Clear existing items in the picker
         EmployeePicker.Items.Clear();
+
 
         // Add each employee to the picker
         foreach (var employee in employees)
@@ -43,6 +47,7 @@ public partial class ManageEmployeeView : ContentPage
             var selectedEmployee = employeeManager.GetEmployeeByName(selectedEmployeeName);
 
             // Populate the entry fields with the selected employee's information
+            EmployeeID.Text = selectedEmployee.Id.ToString();
             EmailEntry.Text = selectedEmployee.Email;
             PasswordEntry.Text = selectedEmployee.Password;
             NameEntry.Text = selectedEmployee.Name;
@@ -54,9 +59,6 @@ public partial class ManageEmployeeView : ContentPage
             AvailablePTOEntry.Text = selectedEmployee.AvailablePTODays.ToString();
             AvailableSickDaysEntry.Text = selectedEmployee.AvailableSickDays.ToString();
             SchedulePicker.SelectedItem = selectedEmployee.Shift.ToString();
-            SalaryEntry.Text = selectedEmployee.Earnings.Salary.ToString();
-            HoursWorkedEntry.Text = selectedEmployee.Earnings.HoursWorked.ToString();
-            PerformanceEntry.Text = selectedEmployee.Earnings.Performance.ToString();
         }
     }
 
@@ -64,22 +66,9 @@ public partial class ManageEmployeeView : ContentPage
     {
         if (ValidateEmployeeInformation())
         {
-            // Get the next available EmployeeID
-            int employeeId = employeeManager.GetNextEmployeeId();
-
-            // Create a new Payment object with the same EmployeeID
-            Payment payment = new()
-            {
-                EmployeeID = employeeId,
-                Salary = Convert.ToDecimal(SalaryEntry.Text),
-                HoursWorked = Convert.ToInt32(HoursWorkedEntry.Text),
-                Performance = Convert.ToInt32(PerformanceEntry.Text)
-            };
-
             // Create a new Employee object
             Employee newEmployee = new Employee
             {
-                Id = employeeId,
                 Email = EmailEntry.Text,
                 Password = PasswordEntry.Text,
                 Name = NameEntry.Text,
@@ -92,6 +81,7 @@ public partial class ManageEmployeeView : ContentPage
                 AvailableSickDays = 10,
                 Shift = (Schedule)Enum.Parse(typeof(Schedule), SchedulePicker.SelectedItem.ToString()),
                 IsActive = true // Assuming new employees are always active
+
             };
 
             // Save the new employee to the database
@@ -113,7 +103,7 @@ public partial class ManageEmployeeView : ContentPage
         if (ValidateEmployeeInformation())
         {
             // Retrieve the existing employee from the database based on Id
-            int employeeId = 0; // Get the employee Id from somewhere (e.g., a selected item)
+            int employeeId = int.Parse(EmployeeID.Text); // Get the employee Id from somewhere (e.g., a selected item)
             Employee existingEmployee = GetEmployeeFromDatabase(employeeId);
 
             // Update the existing employee with the new information
@@ -128,9 +118,6 @@ public partial class ManageEmployeeView : ContentPage
             existingEmployee.AvailablePTODays = Convert.ToInt32(AvailablePTOEntry.Text);
             existingEmployee.AvailableSickDays = Convert.ToInt32(AvailableSickDaysEntry.Text);
             existingEmployee.Shift = (Schedule)Enum.Parse(typeof(Schedule), SchedulePicker.SelectedItem.ToString());
-            existingEmployee.Earnings.Salary = Convert.ToDecimal(SalaryEntry.Text);
-            existingEmployee.Earnings.HoursWorked = Convert.ToInt32(HoursWorkedEntry.Text);
-            existingEmployee.Earnings.Performance = Convert.ToInt32(PerformanceEntry.Text);
 
             // Save the updated employee to the database
             employeeManager.UpdateEmployee(existingEmployee);
@@ -159,15 +146,13 @@ public partial class ManageEmployeeView : ContentPage
                PositionPicker.SelectedItem != null &&
                SchedulePicker.SelectedItem != null &&
                !string.IsNullOrWhiteSpace(AvailablePTOEntry.Text) &&
-               !string.IsNullOrWhiteSpace(AvailableSickDaysEntry.Text) &&
-               !string.IsNullOrWhiteSpace(SalaryEntry.Text) &&
-               !string.IsNullOrWhiteSpace(HoursWorkedEntry.Text) &&
-               !string.IsNullOrWhiteSpace(PerformanceEntry.Text);
+               !string.IsNullOrWhiteSpace(AvailableSickDaysEntry.Text);
     }
 
     private void ClearForm()
     {
         // Clear all entry fields and reset picker selections
+        EmployeeID.Text = string.Empty;
         EmailEntry.Text = string.Empty;
         PasswordEntry.Text = string.Empty;
         NameEntry.Text = string.Empty;
@@ -179,9 +164,6 @@ public partial class ManageEmployeeView : ContentPage
         SchedulePicker.SelectedItem = null;
         AvailablePTOEntry.Text = string.Empty;
         AvailableSickDaysEntry.Text = string.Empty;
-        SalaryEntry.Text = string.Empty;
-        HoursWorkedEntry.Text = string.Empty;
-        PerformanceEntry.Text = string.Empty;
     }
 
     private Employee GetEmployeeFromDatabase(int employeeId)
@@ -198,8 +180,8 @@ public partial class ManageEmployeeView : ContentPage
         if (selectedIndex != -1)
         {
             // Retrieve the corresponding employee from the database
-            var selectedEmployeeName = EmployeePicker.Items[selectedIndex];
-            var selectedEmployee = employeeManager.GetEmployeeByName(selectedEmployeeName);
+            int employeeId = int.Parse(EmployeeID.Text); // Get the employee Id from somewhere (e.g., a selected item)
+            Employee selectedEmployee = GetEmployeeFromDatabase(employeeId);
 
             // Confirm deletion
             Dispatcher.Dispatch(async () =>
