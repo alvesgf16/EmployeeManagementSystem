@@ -52,11 +52,11 @@
 
         <Entry Placeholder="Salary" Keyboard="Numeric" x:Name="SalaryEntry" />
         <Entry Placeholder="Hours Worked" Keyboard="Numeric" x:Name="HoursWorkedEntry" />
-        <Entry Placeholder="Performance" Keyboard="Numeric" x:Name="PerformanceEntry" />
+        <Entry Placeholder="Performance" Keyboard="Numeric" x:Name="PerformanceEntry" Margin="0 0 5" />
 
-        <Button Text="Add New Employee" Clicked="AddNewEmployee_Clicked"/>
-        <Button Text="Update Existing Employee" Clicked="UpdateExistingEmployee_Clicked"/>
-        <Button Text="Delete Employee" Clicked="DeleteEmployee_Clicked"/>
+        <Button Margin="5" Text="Add New Employee" Clicked="AddNewEmployee_Clicked"/>
+        <Button Margin="5" Text="Update Existing Employee" Clicked="UpdateExistingEmployee_Clicked"/>
+        <Button Margin="5" Text="Delete Employee" Clicked="DeleteEmployee_Clicked"/>
     </StackLayout>
     </ScrollView>
 </ContentPage>
