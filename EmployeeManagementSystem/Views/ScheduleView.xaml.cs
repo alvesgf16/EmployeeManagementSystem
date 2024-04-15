@@ -6,12 +6,6 @@ namespace EmployeeManagementSystem;
 
 public partial class ScheduleView : ContentPage
 {
-    public class CalendarDayViewModel
-    {
-        public int Day { get; set; }
-        public Color BackgroundColor { get; set; }
-    }
-
     public ObservableCollection<CalendarDayViewModel> CalendarDays { get; set; }
     public ICommand DayTappedCommand { get; private set; }
 
