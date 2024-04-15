@@ -10,11 +10,6 @@ public partial class ManageEmployeeView : ContentPage
         InitializeComponent();
     }
 
-    public ManageEmployeeView(User user)
-    {
-        InitializeComponent();
-    }
-
     EmployeeService employeeManager = new();
 
     private void PopulateEmployeePicker()

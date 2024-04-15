@@ -8,11 +8,6 @@ public partial class DashboardView : ContentPage
         InitializeComponent();
     }
 
-    public DashboardView(User user)
-    {
-        InitializeComponent();
-    }
-
     private void OnCounterClicked(object sender, EventArgs e)
     {
         // Navigate to ManageEmployeeView.xaml

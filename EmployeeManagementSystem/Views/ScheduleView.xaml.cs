@@ -7,20 +7,12 @@ namespace EmployeeManagementSystem.Views;
 public partial class ScheduleView : ContentPage
 {
     public ObservableCollection<CalendarDayModel> CalendarDays { get; set; }
+    
     public ICommand DayTappedCommand { get; private set; }
 
     private DateTime currentMonth;
 
     public ScheduleView()
-    {
-        InitializeComponent();
-        DayTappedCommand = new Command<CalendarDayModel>(OnDayTapped);
-        currentMonth = DateTime.Today;
-        UpdateMonthYearLabel();
-        InitializeCalendar();
-    }
-
-    public ScheduleView(User user)
     {
         InitializeComponent();
         DayTappedCommand = new Command<CalendarDayModel>(OnDayTapped);

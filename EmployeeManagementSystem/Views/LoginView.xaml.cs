@@ -6,6 +6,7 @@ namespace EmployeeManagementSystem.Views;
 
 public partial class LoginView : ContentPage
 {
+
 	public LoginView()
 	{
 		InitializeComponent();
@@ -16,11 +17,9 @@ public partial class LoginView : ContentPage
         try
         {
             AuthService authService = new();
-            var authenticatedUser = new Dictionary<string, object>()
-            {
-                { "user", authService.AuthenticateUserLogin(username.Text, password.Text) }
-            };
-            await Shell.Current.GoToAsync(nameof(ScheduleView), authenticatedUser);
+            User authenticatedUser = authService.AuthenticateUserLogin(username.Text, password.Text);
+            await SecureStorage.Default.SetAsync("user", authenticatedUser.Username);
+            await Shell.Current.GoToAsync(nameof(ScheduleView));
         }
         catch (InvalidLoginException ex)
         {

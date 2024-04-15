@@ -8,9 +8,4 @@ public partial class ManagePayView : ContentPage
 	{
 		InitializeComponent();
 	}
-
-    public ManagePayView(User user)
-    {
-        InitializeComponent();
-    }
 }
