@@ -32,5 +32,9 @@ namespace EmployeeManagementSystem.Services
         public List<Employee> GetAllEmployees() => [.. database.Table<Employee>()];
 
         public Employee GetEmployeeByName(string name) => database.Table<Employee>().FirstOrDefault(e => e.Name == name);
+
+        public void SavePayment(Payment payment) => database.Insert(payment);
+
+        public Payment GetEmployeePay(int employeeId) => database.Table<Payment>().FirstOrDefault(e => e.EmployeeID == employeeId);
     }
 }

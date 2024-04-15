@@ -8,17 +8,20 @@
         <SearchBar 
             Placeholder="Employee Name"
             VerticalOptions="Center" 
-            HorizontalOptions="FillAndExpand" />
+            HorizontalOptions="FillAndExpand"
+            TextChanged="OnText_Changed"/>
 
         <!-- Picker -->
-        <Picker Title="Select Position">
-            <!-- Add Picker Items Here -->
-        </Picker>
+        <Picker Title="Select an Employee" x:Name="EmployeePicker" ItemDisplayBinding="{Binding Name}" SelectedIndexChanged="EmployeePicker_SelectedIndexChanged"/>
 
         <!-- Form -->
         <StackLayout Margin="10">
-            <Entry Placeholder="Employee Name" />
-            <Entry Placeholder="Employee Position" />
+            <Entry Placeholder="Employee ID" IsReadOnly="True" x:Name="EmployeeID"/>
+            <Entry Placeholder="Employee Name" IsReadOnly="True" x:Name="EmployeeName"/>
+            <Entry Placeholder="Employee Position" IsReadOnly="True" x:Name="EmployeePosition"/>
+            <Entry Placeholder="Salary" x:Name="EmployeeSalary"/>
+            <Entry Placeholder="Hours Worked" x:Name="EmployeeHours"/>
+            <Entry Placeholder="Performance" x:Name="EmployeePerformance"/>
         </StackLayout>
     </VerticalStackLayout>
 </ContentPage>

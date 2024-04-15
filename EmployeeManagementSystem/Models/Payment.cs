@@ -7,7 +7,7 @@ public class Payment()
 {
     public int EmployeeID { get; set; }
 
-    public decimal Salary { get; set; }
+    public double Salary { get; set; }
 
     public int HoursWorked { get; set; }
 

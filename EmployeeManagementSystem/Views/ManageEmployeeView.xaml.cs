@@ -18,7 +18,6 @@ public partial class ManageEmployeeView : ContentPage
     }
 
     EmployeeService employeeManager = new();
-    int mostRecentEmployeeId;
 
     private void PopulateEmployeePicker()
     {
@@ -56,8 +55,6 @@ public partial class ManageEmployeeView : ContentPage
             ContactNameEntry.Text = selectedEmployee.EContactName;
             ContactPhoneNumberEntry.Text = selectedEmployee.EContactPhone;
             PositionPicker.SelectedItem = selectedEmployee.Position.ToString();
-            AvailablePTOEntry.Text = selectedEmployee.AvailablePTODays.ToString();
-            AvailableSickDaysEntry.Text = selectedEmployee.AvailableSickDays.ToString();
             SchedulePicker.SelectedItem = selectedEmployee.Shift.ToString();
         }
     }
@@ -87,8 +84,29 @@ public partial class ManageEmployeeView : ContentPage
             // Save the new employee to the database
             employeeManager.SaveEmployee(newEmployee);
 
-            // Clear the form after adding the employee
-            ClearForm();
+            double salary = 0;
+
+            if (newEmployee.Position.ToString().ToLower() == "manager")
+            {
+                salary = 25;
+            }
+            else
+            {
+                salary = 15;
+            }
+            Payment newPayment = new Payment
+            {
+                EmployeeID = newEmployee.Id,
+                Salary = salary,
+                HoursWorked = 0,
+                Performance = 0
+            };
+
+            //Save the new payment to the database
+            employeeManager.SavePayment(newPayment);
+
+        // Clear the form after adding the employee
+        ClearForm();
             DisplayAlert("Confirmation", "Employee has been created", "OK");
         }
         else
@@ -115,8 +133,8 @@ public partial class ManageEmployeeView : ContentPage
             existingEmployee.EContactName = ContactNameEntry.Text;
             existingEmployee.EContactPhone = ContactPhoneNumberEntry.Text;
             existingEmployee.Position = (Position)Enum.Parse(typeof(Position), PositionPicker.SelectedItem.ToString());
-            existingEmployee.AvailablePTODays = Convert.ToInt32(AvailablePTOEntry.Text);
-            existingEmployee.AvailableSickDays = Convert.ToInt32(AvailableSickDaysEntry.Text);
+            existingEmployee.AvailablePTODays = 0;
+            existingEmployee.AvailableSickDays = 10;
             existingEmployee.Shift = (Schedule)Enum.Parse(typeof(Schedule), SchedulePicker.SelectedItem.ToString());
 
             // Save the updated employee to the database
@@ -144,9 +162,7 @@ public partial class ManageEmployeeView : ContentPage
                !string.IsNullOrWhiteSpace(ContactNameEntry.Text) &&
                !string.IsNullOrWhiteSpace(ContactPhoneNumberEntry.Text) &&
                PositionPicker.SelectedItem != null &&
-               SchedulePicker.SelectedItem != null &&
-               !string.IsNullOrWhiteSpace(AvailablePTOEntry.Text) &&
-               !string.IsNullOrWhiteSpace(AvailableSickDaysEntry.Text);
+               SchedulePicker.SelectedItem != null;
     }
 
     private void ClearForm()
@@ -162,8 +178,6 @@ public partial class ManageEmployeeView : ContentPage
         ContactPhoneNumberEntry.Text = string.Empty;
         PositionPicker.SelectedItem = null;
         SchedulePicker.SelectedItem = null;
-        AvailablePTOEntry.Text = string.Empty;
-        AvailableSickDaysEntry.Text = string.Empty;
     }
 
     private Employee GetEmployeeFromDatabase(int employeeId)

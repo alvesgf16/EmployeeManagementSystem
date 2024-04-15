@@ -12,35 +12,32 @@
         </StackLayout>
 
             <Label Text="Personal Information" FontSize="Medium" Margin="0,20,0,10" />
-            <Label Text="Employee ID" x:Name="EmployeeID" IsVisible="False"/>
-            <Entry Placeholder="Email" x:Name="EmailEntry"/>
+            <Label Text="Employee ID" x:Name="EmployeeID" IsVisible="False" Margin="1.5"/>
+            <Entry Placeholder="Email" x:Name="EmailEntry" Margin="1.5"/>
             <StackLayout Orientation="Horizontal">
-            <Entry MinimumWidthRequest="380" Placeholder="Password" IsPassword="{Binding Source={x:Reference hidePassword}, Path=IsChecked }" x:Name="PasswordEntry" />
-            <Label Text="      Hide Password" VerticalOptions="Center" />
-            <CheckBox x:Name="hidePassword" IsChecked="True" />
+                <Entry MinimumWidthRequest="380" Placeholder="Password" IsPassword="{Binding Source={x:Reference hidePassword}, Path=IsChecked }" x:Name="PasswordEntry" Margin="1.5" />
+                <Label Text="      Hide Password" VerticalOptions="Center" Margin="1.5"/>
+                <CheckBox x:Name="hidePassword" IsChecked="True" Margin="1.5"/>
         </StackLayout>
-        <Entry Placeholder="Name" x:Name="NameEntry" />
-        <Entry Placeholder="Phone Number" x:Name="PhoneNumberEntry" MaxLength="10" />
-        <Entry Placeholder="Address" x:Name="AddressEntry" />
+            <Entry Placeholder="Name" x:Name="NameEntry" Margin="1.5"/>
+            <Entry Placeholder="Phone Number" x:Name="PhoneNumberEntry" MaxLength="10" Margin="1.5"/>
+            <Entry Placeholder="Address" x:Name="AddressEntry" Margin="1.5"/>
 
         <Label Text="Emergency Contact" FontSize="Medium" Margin="0,20,0,10" />
-        <Entry Placeholder="Contact Name" x:Name="ContactNameEntry" />
-        <Entry Placeholder="Contact Phone Number" x:Name="ContactPhoneNumberEntry" MaxLength="10"/>
+            <Entry Placeholder="Contact Name" x:Name="ContactNameEntry" Margin="1.5"/>
+            <Entry Placeholder="Contact Phone Number" x:Name="ContactPhoneNumberEntry" MaxLength="10" Margin="1.5"/>
 
         <Label Text="Position" FontSize="Medium" Margin="0,20,0,10" />
-        <Picker x:Name="PositionPicker">
-            <Picker.ItemsSource>
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>Manager</x:String>
-                    <x:String>Employee</x:String>
-                </x:Array>
-            </Picker.ItemsSource>
-        </Picker>
+            <Picker x:Name="PositionPicker">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Manager</x:String>
+                        <x:String>Employee</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
 
-        <Entry Placeholder="Available PTO Days" Keyboard="Numeric" x:Name="AvailablePTOEntry" />
-        <Entry Placeholder="Available Sick Days" Keyboard="Numeric" x:Name="AvailableSickDaysEntry" />
-
-        <Label Text="Schedule" FontSize="Medium" Margin="0,20,0,10" />
+            <Label Text="Schedule" FontSize="Medium" Margin="0,20,0,10" />
             <Picker x:Name="SchedulePicker">
                 <Picker.ItemsSource>
                     <x:Array Type="{x:Type x:String}">
@@ -51,9 +48,9 @@
                 </Picker.ItemsSource>
             </Picker>
 
-            <Button Text="Add New Employee" Clicked="AddNewEmployee_Clicked"/>
-        <Button Text="Update Existing Employee" Clicked="UpdateExistingEmployee_Clicked"/>
-        <Button Text="Delete Employee" Clicked="DeleteEmployee_Clicked"/>
+        <Button Text="Add New Employee" Clicked="AddNewEmployee_Clicked" Margin="5"/>
+            <Button Text="Update Existing Employee" Clicked="UpdateExistingEmployee_Clicked" Margin="5"/>
+            <Button Text="Delete Employee" Clicked="DeleteEmployee_Clicked" Margin="5"/>
     </StackLayout>
     </ScrollView>
 </ContentPage>

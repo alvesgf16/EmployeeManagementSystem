@@ -20,7 +20,7 @@ public partial class LoginView : ContentPage
             {
                 { "user", authService.AuthenticateUserLogin(username.Text, password.Text) }
             };
-            await Shell.Current.GoToAsync(nameof(ScheduleView), authenticatedUser);
+            await Shell.Current.GoToAsync(nameof(ManagePayView), authenticatedUser);
         }
         catch (InvalidLoginException ex)
         {
