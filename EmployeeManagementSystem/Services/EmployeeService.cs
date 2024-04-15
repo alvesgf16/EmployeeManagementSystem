@@ -27,6 +27,8 @@ namespace EmployeeManagementSystem.Services
 
         public void UpdateEmployee(Employee employee) => database.Update(employee);
 
+        public void UpdatePayment(Payment payment) => database.Update(payment);
+
         public Employee GetEmployeeById(int employeeId) => database.Table<Employee>().FirstOrDefault(e => e.Id == employeeId);
 
         public List<Employee> GetAllEmployees() => [.. database.Table<Employee>()];

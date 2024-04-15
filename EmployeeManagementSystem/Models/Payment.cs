@@ -5,6 +5,7 @@ namespace EmployeeManagementSystem;
 
 public class Payment()
 {
+    [PrimaryKey]
     public int EmployeeID { get; set; }
 
     public double Salary { get; set; }
