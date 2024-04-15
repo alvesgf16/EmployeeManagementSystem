@@ -1,11 +1,11 @@
 ﻿using SQLite;
 namespace EmployeeManagementSystem;
 
-public partial class Employee
+public partial class Employee()
 {
-    
     [PrimaryKey, AutoIncrement]
     public int Id { get; set; }
+
     [NotNull]
     public string Email { get; set; }
 
@@ -31,13 +31,6 @@ public partial class Employee
 
     public bool IsActive { get; set; }
 
-    public Employee()
-    {
-    }
-    
     //override toString method
-    public override string ToString()
-    {
-        return $"ID: {Id} Name: {Name} Position: {Position} Shift: {Shift}";
-    }
+    public override string ToString() => $"ID: {Id} Name: {Name} Position: {Position} Shift: {Shift}";
 }
