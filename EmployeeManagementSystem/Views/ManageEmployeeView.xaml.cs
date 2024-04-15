@@ -181,6 +181,26 @@ public partial class ManageEmployeeView : ContentPage
         return employeeManager.GetEmployeeById(employeeId);
     }
 
+    private void SetEmployeeInactive_Clicked(object sender, EventArgs e)
+    {
+        // Get the selected employee index
+        int selectedIndex = EmployeePicker.SelectedIndex;
+        if (selectedIndex != -1)
+        {
+            int employeeId = int.Parse(EmployeeID.Text);
+            Employee selectedEmployee = GetEmployeeFromDatabase(employeeId);
+
+            selectedEmployee.IsActive = false;
+            selectedEmployee.AvailablePTODays = 0;
+            selectedEmployee.AvailableSickDays = 0;
+
+            employeeManager.UpdateEmployee(selectedEmployee);
+
+            PopulateEmployeePicker();
+            ClearForm();
+        }
+    }
+
     private void DeleteEmployee_Clicked(object sender, EventArgs e)
     {
         // Get the selected employee index
