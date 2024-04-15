@@ -9,7 +9,7 @@ namespace EmployeeManagementSystem.Services
 
         public EmployeeService()
         {
-            database = new SQLiteConnection(Constants.DatabasePath);
+            this.database = new SQLiteConnection(Constants.DatabasePath);
 
             database.CreateTable<Employee>();
             database.CreateTable<Payment>();
