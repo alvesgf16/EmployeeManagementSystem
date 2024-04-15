@@ -193,6 +193,18 @@ public partial class ManagePayView : ContentPage, INotifyPropertyChanged
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
+
+    private void ClearForm()
+    {
+        EmployeeID.Text = string.Empty;
+        EmployeeName.Text = string.Empty;
+        EmployeePosition.Text = string.Empty;
+        EmployeeSalary.Text = string.Empty;
+        EmployeeHours.Text = string.Empty ;
+        EmployeeHoursThisWeek.Text = string.Empty;
+        EmployeeOvertime.Text = string.Empty;
+        EmployeePerformance.Text = string.Empty;
+    }
 }
 
 public class PayStubViewModel

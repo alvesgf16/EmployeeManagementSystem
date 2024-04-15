@@ -3,6 +3,7 @@ using EmployeeManagementSystem.Services;
 
 namespace EmployeeManagementSystem.Views;
 
+[QueryProperty(nameof(EmpID), "Id")]
 public partial class ManageEmployeeView : ContentPage
 {
     EmployeeService employeeManager = new();
@@ -180,9 +181,30 @@ public partial class ManageEmployeeView : ContentPage
         // You need to implement this method based on your database access logic
         return employeeManager.GetEmployeeById(employeeId);
     }
-
-    private void SetEmployeeInactive_Clicked(object sender, EventArgs e)
+    public string EmpID
     {
+        set
+        {
+            var employee = GetEmployeeFromDatabase(Convert.ToInt32(value));
+            if (employee != null)
+            {
+                // Populate the entry fields with the selected employee's information
+                EmployeeID.Text = employee.Id.ToString();
+                EmailEntry.Text = employee.Email;
+                PasswordEntry.Text = employee.Password;
+                NameEntry.Text = employee.Name;
+                PhoneNumberEntry.Text = employee.PhoneNumber;
+                AddressEntry.Text = employee.Address;
+                ContactNameEntry.Text = employee.EContactName;
+                ContactPhoneNumberEntry.Text = employee.EContactPhone;
+                PositionPicker.SelectedItem = employee.Position.ToString();
+                SchedulePicker.SelectedItem = employee.Shift.ToString();
+            }
+        }
+    }
+
+     public void SetEmployeeInactive_Clicked(object sender, EventArgs e)
+     {
         // Get the selected employee index
         int selectedIndex = EmployeePicker.SelectedIndex;
         if (selectedIndex != -1)
@@ -199,7 +221,7 @@ public partial class ManageEmployeeView : ContentPage
             PopulateEmployeePicker();
             ClearForm();
         }
-    }
+     }
 
     private void DeleteEmployee_Clicked(object sender, EventArgs e)
     {

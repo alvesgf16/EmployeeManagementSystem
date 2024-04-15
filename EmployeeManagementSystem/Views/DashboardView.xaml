@@ -20,7 +20,8 @@
 
 
         <Frame Grid.Row="1" BorderColor="Gray" CornerRadius="10"/>
-        <Label Grid.Row="1" x:Name="Payroll" HorizontalOptions="Center" VerticalOptions="Center" />
+        <Label Grid.Row="1" Text="Total Upcoming Payroll:" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Start" />
+        <Label Grid.Row="1" x:Name="payroll_display" HorizontalOptions="Center" VerticalOptions="Center" />
 
         <Frame Grid.Row="1" Grid.Column="1" BorderColor="Grey" CornerRadius="10"/>
         <Label Grid.Row="1" Grid.Column="1" x:Name="SickDaysYTD" HorizontalOptions="Center" VerticalOptions="Center" />
@@ -40,7 +41,7 @@
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout>
-                                <Frame BorderColor="Grey" CornerRadius="10" BackgroundColor="LightGrey" Margin="5" Padding="5">
+                                <Frame BorderColor="Grey" CornerRadius="10" BackgroundColor="LightCyan" Margin="5" Padding="5">
                                     <Label Text="{Binding .}" FontAttributes="Bold" />
                                 </Frame>
                             </StackLayout>
