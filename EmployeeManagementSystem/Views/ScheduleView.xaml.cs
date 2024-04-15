@@ -132,12 +132,12 @@ public partial class ScheduleView : ContentPage
 
     private void LogHoursButton_Clicked(object sender, EventArgs e)
     {
+        int employeeID = int.Parse(EmployeeID.Text);
+        Payment payment = employeeManager.GetEmployeePay(employeeID);
+        double hours = double.Parse(HoursToday.Text);
+
         if (EmployeeID.Text != "Hours")
         {
-            int employeeID = int.Parse(EmployeeID.Text);
-            Payment payment = employeeManager.GetEmployeePay(employeeID);
-            double hours = double.Parse(HoursToday.Text);
-
             if (hours > 8.5)
             {
                 double overtime = hours - 8.5;
@@ -146,6 +146,21 @@ public partial class ScheduleView : ContentPage
                 payment.OvertimeHoursWorkedThisWeek = payment.OvertimeHoursWorkedThisWeek + overtime;
                 employeeManager.UpdatePayment(payment);
             }
+            else
+            {
+                payment.HoursWorkedThisWeek = payment.HoursWorkedThisWeek + hours;
+                employeeManager.UpdatePayment(payment);
+            }
+
+            ClearForm();
         }
+    }
+
+    private void ClearForm()
+    {
+        EmployeeID.Text = string.Empty;
+        EmployeeName.Text = string.Empty;
+        Date.Text = string.Empty;
+        HoursToday.Text = string.Empty;
     }
 }
