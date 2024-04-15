@@ -1,4 +1,6 @@
-﻿namespace EmployeeManagementSystem;
+﻿using EmployeeManagementSystem.Views;
+
+namespace EmployeeManagementSystem;
 
 public partial class AppShell : Shell
 {

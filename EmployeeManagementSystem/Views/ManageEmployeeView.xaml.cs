@@ -1,7 +1,7 @@
 using EmployeeManagementSystem.Models;
 using EmployeeManagementSystem.Services;
 
-namespace EmployeeManagementSystem;
+namespace EmployeeManagementSystem.Views;
 
 public partial class ManageEmployeeView : ContentPage
 {

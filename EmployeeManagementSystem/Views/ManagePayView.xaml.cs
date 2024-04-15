@@ -1,6 +1,6 @@
 using EmployeeManagementSystem.Models;
 
-namespace EmployeeManagementSystem;
+namespace EmployeeManagementSystem.Views;
 
 public partial class ManagePayView : ContentPage
 {

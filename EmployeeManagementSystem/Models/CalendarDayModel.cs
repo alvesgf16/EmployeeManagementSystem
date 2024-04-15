@@ -1,7 +1,7 @@
 ﻿namespace EmployeeManagementSystem;
 
+public class CalendarDayModel
 
-public class CalendarDayViewModel
 {
     public int Day { get; set; }
     public Color BackgroundColor { get; set; }

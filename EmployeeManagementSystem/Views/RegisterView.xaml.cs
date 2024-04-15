@@ -1,6 +1,6 @@
 using EmployeeManagementSystem.Services;
 
-namespace EmployeeManagementSystem;
+namespace EmployeeManagementSystem.Views;
 
 public partial class RegisterView : ContentPage
 {
