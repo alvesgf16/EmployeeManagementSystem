@@ -22,6 +22,7 @@ namespace EmployeeManagementSystem.Views
         {
             base.OnAppearing();
             PopulateEmployeeCollection();
+            PopulatePayrollDisplay();
         }
        
 
@@ -30,7 +31,11 @@ namespace EmployeeManagementSystem.Views
             EmployeeManager.GetAllEmployees().ForEach(EmployeeCollection.Add);
             EmployeeListView.ItemsSource = EmployeeCollection;
         }
-
+        public void PopulatePayrollDisplay()
+        {
+            double totalPayroll = PayrollService.CalculatePayroll();
+            payroll_display.Text = $"${totalPayroll}";
+        }
 
         private async void EmployeeListView_ItemSelected(object sender, EventArgs e)
         {
