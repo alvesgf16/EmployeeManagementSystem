@@ -23,6 +23,7 @@ namespace EmployeeManagementSystem.Views
             base.OnAppearing();
             PopulateEmployeeCollection();
             PopulatePayrollDisplay();
+            CalculateSickDaysTakenYTD();
         }
        
 
@@ -36,6 +37,16 @@ namespace EmployeeManagementSystem.Views
             double totalPayroll = PayrollService.CalculatePayroll();
             payroll_display.Text = $"${totalPayroll}";
         }
+        public void CalculateSickDaysTakenYTD() 
+        {
+            int availableSickDays = 0;
+            foreach (var employee in EmployeeCollection)
+            {
+                availableSickDays += employee.AvailableSickDays;
+            }
+            int sickDaysTakenYTD = (EmployeeCollection.Count() * 10) - availableSickDays;
+            SickDaysYTD.Text = $"{sickDaysTakenYTD}";
+        }
 
         private async void EmployeeListView_ItemSelected(object sender, EventArgs e)
         {
@@ -45,5 +56,6 @@ namespace EmployeeManagementSystem.Views
             }
             
         }
+
     }
 }
