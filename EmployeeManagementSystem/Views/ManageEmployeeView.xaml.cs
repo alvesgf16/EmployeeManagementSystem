@@ -8,6 +8,7 @@ public partial class ManageEmployeeView : ContentPage
     public ManageEmployeeView()
     {
         InitializeComponent();
+        PopulateEmployeePicker();
     }
 
     EmployeeService employeeManager = new();
@@ -38,6 +39,7 @@ public partial class ManageEmployeeView : ContentPage
             var selectedEmployee = employeeManager.GetEmployeeByName(selectedEmployeeName);
 
             // Populate the entry fields with the selected employee's information
+            EmployeeID.Text = selectedEmployee.Id.ToString();
             EmailEntry.Text = selectedEmployee.Email;
             PasswordEntry.Text = selectedEmployee.Password;
             NameEntry.Text = selectedEmployee.Name;
@@ -46,12 +48,7 @@ public partial class ManageEmployeeView : ContentPage
             ContactNameEntry.Text = selectedEmployee.EContactName;
             ContactPhoneNumberEntry.Text = selectedEmployee.EContactPhone;
             PositionPicker.SelectedItem = selectedEmployee.Position.ToString();
-            AvailablePTOEntry.Text = selectedEmployee.AvailablePTODays.ToString();
-            AvailableSickDaysEntry.Text = selectedEmployee.AvailableSickDays.ToString();
             SchedulePicker.SelectedItem = selectedEmployee.Shift.ToString();
-            SalaryEntry.Text = selectedEmployee.Earnings.Salary.ToString();
-            HoursWorkedEntry.Text = selectedEmployee.Earnings.HoursWorked.ToString();
-            PerformanceEntry.Text = selectedEmployee.Earnings.Performance.ToString();
         }
     }
 
@@ -59,22 +56,9 @@ public partial class ManageEmployeeView : ContentPage
     {
         if (ValidateEmployeeInformation())
         {
-            // Get the next available EmployeeID
-            int employeeId = employeeManager.GetNextEmployeeId();
-
-            // Create a new Payment object with the same EmployeeID
-            Payment payment = new()
-            {
-                EmployeeID = employeeId,
-                Salary = Convert.ToDecimal(SalaryEntry.Text),
-                HoursWorked = Convert.ToInt32(HoursWorkedEntry.Text),
-                Performance = Convert.ToInt32(PerformanceEntry.Text)
-            };
-
             // Create a new Employee object
             Employee newEmployee = new Employee
             {
-                Id = employeeId,
                 Email = EmailEntry.Text,
                 Password = PasswordEntry.Text,
                 Name = NameEntry.Text,
@@ -92,8 +76,31 @@ public partial class ManageEmployeeView : ContentPage
             // Save the new employee to the database
             employeeManager.SaveEmployee(newEmployee);
 
-            // Clear the form after adding the employee
-            ClearForm();
+            double salary = 0;
+
+            if (newEmployee.Position.ToString().ToLower() == "manager")
+            {
+                salary = 25;
+            }
+            else
+            {
+                salary = 15;
+            }
+            Payment newPayment = new Payment
+            {
+                EmployeeID = newEmployee.Id,
+                Salary = salary,
+                TotalHours = 0,
+                HoursWorkedThisWeek = 0,
+                OvertimeHoursWorkedThisWeek = 0,
+                Performance = 0
+            };
+
+            //Save the new payment to the database
+            employeeManager.SavePayment(newPayment);
+
+        // Clear the form after adding the employee
+        ClearForm();
             DisplayAlert("Confirmation", "Employee has been created", "OK");
         }
         else
@@ -108,7 +115,7 @@ public partial class ManageEmployeeView : ContentPage
         if (ValidateEmployeeInformation())
         {
             // Retrieve the existing employee from the database based on Id
-            int employeeId = 0; // Get the employee Id from somewhere (e.g., a selected item)
+            int employeeId = int.Parse(EmployeeID.Text); // Get the employee Id from somewhere (e.g., a selected item)
             Employee existingEmployee = GetEmployeeFromDatabase(employeeId);
 
             // Update the existing employee with the new information
@@ -120,12 +127,9 @@ public partial class ManageEmployeeView : ContentPage
             existingEmployee.EContactName = ContactNameEntry.Text;
             existingEmployee.EContactPhone = ContactPhoneNumberEntry.Text;
             existingEmployee.Position = (Position)Enum.Parse(typeof(Position), PositionPicker.SelectedItem.ToString());
-            existingEmployee.AvailablePTODays = Convert.ToInt32(AvailablePTOEntry.Text);
-            existingEmployee.AvailableSickDays = Convert.ToInt32(AvailableSickDaysEntry.Text);
+            existingEmployee.AvailablePTODays = 0;
+            existingEmployee.AvailableSickDays = 10;
             existingEmployee.Shift = (Schedule)Enum.Parse(typeof(Schedule), SchedulePicker.SelectedItem.ToString());
-            existingEmployee.Earnings.Salary = Convert.ToDecimal(SalaryEntry.Text);
-            existingEmployee.Earnings.HoursWorked = Convert.ToInt32(HoursWorkedEntry.Text);
-            existingEmployee.Earnings.Performance = Convert.ToInt32(PerformanceEntry.Text);
 
             // Save the updated employee to the database
             employeeManager.UpdateEmployee(existingEmployee);
@@ -152,17 +156,13 @@ public partial class ManageEmployeeView : ContentPage
                !string.IsNullOrWhiteSpace(ContactNameEntry.Text) &&
                !string.IsNullOrWhiteSpace(ContactPhoneNumberEntry.Text) &&
                PositionPicker.SelectedItem != null &&
-               SchedulePicker.SelectedItem != null &&
-               !string.IsNullOrWhiteSpace(AvailablePTOEntry.Text) &&
-               !string.IsNullOrWhiteSpace(AvailableSickDaysEntry.Text) &&
-               !string.IsNullOrWhiteSpace(SalaryEntry.Text) &&
-               !string.IsNullOrWhiteSpace(HoursWorkedEntry.Text) &&
-               !string.IsNullOrWhiteSpace(PerformanceEntry.Text);
+               SchedulePicker.SelectedItem != null;
     }
 
     private void ClearForm()
     {
         // Clear all entry fields and reset picker selections
+        EmployeeID.Text = string.Empty;
         EmailEntry.Text = string.Empty;
         PasswordEntry.Text = string.Empty;
         NameEntry.Text = string.Empty;
@@ -172,11 +172,6 @@ public partial class ManageEmployeeView : ContentPage
         ContactPhoneNumberEntry.Text = string.Empty;
         PositionPicker.SelectedItem = null;
         SchedulePicker.SelectedItem = null;
-        AvailablePTOEntry.Text = string.Empty;
-        AvailableSickDaysEntry.Text = string.Empty;
-        SalaryEntry.Text = string.Empty;
-        HoursWorkedEntry.Text = string.Empty;
-        PerformanceEntry.Text = string.Empty;
     }
 
     private Employee GetEmployeeFromDatabase(int employeeId)
@@ -193,8 +188,8 @@ public partial class ManageEmployeeView : ContentPage
         if (selectedIndex != -1)
         {
             // Retrieve the corresponding employee from the database
-            var selectedEmployeeName = EmployeePicker.Items[selectedIndex];
-            var selectedEmployee = employeeManager.GetEmployeeByName(selectedEmployeeName);
+            int employeeId = int.Parse(EmployeeID.Text); // Get the employee Id from somewhere (e.g., a selected item)
+            Employee selectedEmployee = GetEmployeeFromDatabase(employeeId);
 
             // Confirm deletion
             Dispatcher.Dispatch(async () =>

@@ -5,11 +5,16 @@ namespace EmployeeManagementSystem;
 
 public class Payment()
 {
+    [PrimaryKey]
     public int EmployeeID { get; set; }
 
-    public decimal Salary { get; set; }
+    public double Salary { get; set; }
 
-    public int HoursWorked { get; set; }
+    public double TotalHours { get; set; }
 
-    public int Performance { get; set; }
+    public double HoursWorkedThisWeek { get; set; }
+
+    public double OvertimeHoursWorkedThisWeek { get; set; }
+
+    public double Performance { get; set; }
 }

@@ -5,17 +5,18 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:EmployeeManagementSystem.Views"
     FlyoutBehavior="Locked"
-    FlyoutWidth="220">
+    FlyoutWidth="220"
+    Shell.TabBarIsVisible="False">
 
     <!-- Content for LoginView -->
     <ShellContent ContentTemplate="{DataTemplate local:LoginView}" Route="LoginView" />
 
     <!-- FlyoutItems for other views -->
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
-        <ShellContent Title="Dashboard" Icon="dashboard.png" ContentTemplate="{DataTemplate local:DashboardView}" />
-        <ShellContent Title="Manage Employee" Icon="employee.png" ContentTemplate="{DataTemplate local:ManageEmployeeView}" />
-        <ShellContent Title="Manage Pay" Icon="pay.png" ContentTemplate="{DataTemplate local:ManagePayView}" />
-        <ShellContent Title="Schedule" Icon="schedule.png" ContentTemplate="{DataTemplate local:ScheduleView}" />
+        <ShellContent Title="Dashboard" ContentTemplate="{DataTemplate local:DashboardView}" />
+        <ShellContent Title="Manage Employee" ContentTemplate="{DataTemplate local:ManageEmployeeView}" />
+        <ShellContent Title="Manage Pay" ContentTemplate="{DataTemplate local:ManagePayView}" />
+        <ShellContent Title="Schedule" ContentTemplate="{DataTemplate local:ScheduleView}" />
     </FlyoutItem>
 
 </Shell>

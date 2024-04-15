@@ -6,7 +6,6 @@ namespace EmployeeManagementSystem.Views;
 
 public partial class LoginView : ContentPage
 {
-
 	public LoginView()
 	{
 		InitializeComponent();
@@ -31,4 +30,10 @@ public partial class LoginView : ContentPage
     {
         await Shell.Current.GoToAsync(nameof(RegisterView));
     }
+
+    private void OnEntryCompleted(object sender, EventArgs e)
+    {
+        OnLoginButtonClicked(sender, e);
+    }
+
 }

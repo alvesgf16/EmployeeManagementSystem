@@ -20,20 +20,24 @@ public partial class Employee
     public string EContactName { get; set; }
 
     public string EContactPhone { get; set; }
-    [Ignore]
+
     public Position Position { get; set; }
 
     public int AvailablePTODays { get; set; }
 
     public int AvailableSickDays { get; set; }
-    [Ignore]
+
     public Schedule Shift { get; set; }
 
     public bool IsActive { get; set; }
-    [Ignore]
-    public Payment Earnings { get; set; }
 
     public Employee()
     {
+    }
+    
+    //override toString method
+    public override string ToString()
+    {
+        return $"ID: {Id} Name: {Name} Position: {Position} Shift: {Shift}";
     }
 }

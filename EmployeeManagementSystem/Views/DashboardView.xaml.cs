@@ -1,6 +1,9 @@
 ﻿using EmployeeManagementSystem.Models;
+using EmployeeManagementSystem.Services;
+using System.Collections.ObjectModel;
 
 namespace EmployeeManagementSystem.Views;
+
 public partial class DashboardView : ContentPage
 {
     public DashboardView()
@@ -26,5 +29,20 @@ public partial class DashboardView : ContentPage
     {
         // Navigate to ScheduleView.xaml
         AppShell.Current.GoToAsync(nameof(ScheduleView));
+    }
+
+    public EmployeeService employeeManager = new();
+
+    private void PopulateEmployeeCollection()
+    {
+        // Retrieve all employees from the database
+        List<Employee> employees = employeeManager.GetAllEmployees();
+        ObservableCollection<Employee> employeeCollection = new ObservableCollection<Employee>(employees);
+        EmployeeListView.ItemsSource = employeeCollection;
+    }
+
+    private async void EmployeeListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+    {
+        await Shell.Current.GoToAsync(nameof(ManageEmployeeView) + $"?employeeId={((Employee)e.SelectedItem).Id}");
     }
 }

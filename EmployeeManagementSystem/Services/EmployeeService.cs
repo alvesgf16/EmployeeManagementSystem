@@ -9,7 +9,7 @@ namespace EmployeeManagementSystem.Services
 
         public EmployeeService()
         {
-            database = new SQLiteConnection(Constants.DatabasePath);
+            this.database = new SQLiteConnection(Constants.DatabasePath);
 
             database.CreateTable<Employee>();
             database.CreateTable<Payment>();
@@ -27,10 +27,16 @@ namespace EmployeeManagementSystem.Services
 
         public void UpdateEmployee(Employee employee) => database.Update(employee);
 
+        public void UpdatePayment(Payment payment) => database.Update(payment);
+
         public Employee GetEmployeeById(int employeeId) => database.Table<Employee>().FirstOrDefault(e => e.Id == employeeId);
 
         public List<Employee> GetAllEmployees() => [.. database.Table<Employee>()];
 
         public Employee GetEmployeeByName(string name) => database.Table<Employee>().FirstOrDefault(e => e.Name == name);
+
+        public void SavePayment(Payment payment) => database.Insert(payment);
+
+        public Payment GetEmployeePay(int employeeId) => database.Table<Payment>().FirstOrDefault(e => e.EmployeeID == employeeId);
     }
 }

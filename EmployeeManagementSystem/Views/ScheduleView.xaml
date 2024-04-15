@@ -5,9 +5,9 @@
              Shell.FlyoutBehavior="Locked">
     <StackLayout>
         <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-            <Button Text="Previous" Clicked="PreviousMonth_Clicked"/>
-            <Label x:Name="MonthYearLabel" HorizontalOptions="CenterAndExpand"/>
-            <Button Text="Next" Clicked="NextMonth_Clicked"/>
+            <Button Text="Previous" Clicked="PreviousMonth_Clicked" VerticalOptions="Center"/>
+            <Label x:Name="MonthYearLabel" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" Padding="10"/>
+            <Button Text="Next" Clicked="NextMonth_Clicked" VerticalOptions="Center"/>
         </StackLayout>
         <CollectionView x:Name="CalendarCollectionView"
                         ItemsSource="{Binding CalendarDays}"
@@ -34,5 +34,32 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+        <ScrollView>
+            <VerticalStackLayout>
+                <!-- Search Bar -->
+                <SearchBar 
+    Placeholder="Employee Name"
+    VerticalOptions="Center" 
+    HorizontalOptions="FillAndExpand"
+    TextChanged="OnText_Changed"/>
+
+                <!-- Picker -->
+                <Picker Title="Select an Employee" x:Name="EmployeePicker" ItemDisplayBinding="{Binding Name}" SelectedIndexChanged="EmployeePicker_SelectedIndexChanged"/>
+
+                <!-- Form -->
+                <StackLayout Margin="10">
+                    <Label Text="Employee ID"/>
+                    <Entry Placeholder="Employee ID" IsReadOnly="True" x:Name="EmployeeID"/>
+                    <Label Text="Employee Name"/>
+                    <Entry Placeholder="Employee Name" IsReadOnly="True" x:Name="EmployeeName"/>
+                    <Label Text="Date"/>
+                    <Entry Placeholder="Date" IsReadOnly="True" x:Name="Date"/>
+                    <Label Text="Enter Todays Hours"/>
+                    <Entry Placeholder="Hours" x:Name="HoursToday"/>
+
+                    <Button Text="Log Hours" Margin="5" Clicked="LogHoursButton_Clicked"/>
+                </StackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
     </StackLayout>
 </ContentPage>
