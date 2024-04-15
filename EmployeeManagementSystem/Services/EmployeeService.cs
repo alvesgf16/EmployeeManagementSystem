@@ -30,7 +30,7 @@ namespace EmployeeManagementSystem.Services
 
         public void UpdatePayment(Payment payment) => _database.Update(payment);
 
-        public Employee GetEmployeeById(int employeeId) => _database.Table<Employee>().FirstOrDefault(e => e.Id == employeeId);
+        public Employee GetEmployeeById(int employeeId) => _database.Find<Employee>(employeeId);
 
         public List<Employee> GetAllEmployees() => [.. _database.Table<Employee>()];
 

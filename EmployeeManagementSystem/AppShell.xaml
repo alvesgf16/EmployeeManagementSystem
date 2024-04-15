@@ -14,8 +14,8 @@
     <!-- FlyoutItems for other views -->
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
         <ShellContent Title="Dashboard" ContentTemplate="{DataTemplate local:DashboardView}" />
-        <ShellContent Title="Manage Employee" ContentTemplate="{DataTemplate local:ManageEmployeeView}" />
-        <ShellContent Title="Manage Pay" ContentTemplate="{DataTemplate local:ManagePayView}" />
+        <ShellContent Title="Manage Employee" ContentTemplate="{DataTemplate local:ManageEmployeeView}" x:Name="ManageEmployeeFlyoutItem"/>
+        <ShellContent Title="Manage Pay" ContentTemplate="{DataTemplate local:ManagePayView}" x:Name="ManagePayFlyoutItem"/>
         <ShellContent Title="Schedule" ContentTemplate="{DataTemplate local:ScheduleView}" />
     </FlyoutItem>
 
