@@ -7,7 +7,7 @@ namespace EmployeeManagementSystem.Views;
 
 public partial class ScheduleView : ContentPage
 {
-    public ObservableCollection<CalendarDayModel> CalendarDays { get; set; }
+    public ObservableCollection<CalendarDay> CalendarDays { get; set; }
     
     public ICommand DayTappedCommand { get; private set; }
 
@@ -16,7 +16,7 @@ public partial class ScheduleView : ContentPage
     public ScheduleView()
     {
         InitializeComponent();
-        DayTappedCommand = new Command<CalendarDayModel>(OnDayTapped);
+        DayTappedCommand = new Command<CalendarDay>(OnDayTapped);
         currentMonth = DateTime.Today;
         UpdateMonthYearLabel();
         InitializeCalendar();
@@ -28,13 +28,13 @@ public partial class ScheduleView : ContentPage
     private void InitializeCalendar()
     {
         // Initialize the calendar with days, months, and years
-        CalendarDays = new ObservableCollection<CalendarDayModel>();
+        CalendarDays = new ObservableCollection<CalendarDay>();
         // Populate the CalendarDays collection with appropriate data based on the desired date range
 
         // For example, populate with dummy data for demonstration
         for (int i = 1; i <= DateTime.DaysInMonth(currentMonth.Year, currentMonth.Month); i++)
         {
-            CalendarDays.Add(new CalendarDayModel
+            CalendarDays.Add(new CalendarDay
             {
                 Day = i,
                 BackgroundColor = Color.FromHex("#00FFFFFF") // Set default background color
@@ -44,7 +44,7 @@ public partial class ScheduleView : ContentPage
         BindingContext = this;
     }
 
-    private void OnDayTapped(CalendarDayModel dayViewModel)
+    private void OnDayTapped(CalendarDay dayViewModel)
     {
         // Handle day selection and highlighting here
         foreach (var day in CalendarDays)

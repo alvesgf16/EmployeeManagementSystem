@@ -1,5 +1,4 @@
 using EmployeeManagementSystem.Exceptions;
-using EmployeeManagementSystem.Models;
 using EmployeeManagementSystem.Services;
 
 namespace EmployeeManagementSystem.Views;
@@ -16,8 +15,8 @@ public partial class LoginView : ContentPage
         try
         {
             AuthService authService = new();
-            User authenticatedUser = authService.AuthenticateUserLogin(username.Text, password.Text);
-            await SecureStorage.Default.SetAsync("user", authenticatedUser.Username);
+            int authenticatedUserId = authService.AuthenticateUserLogin(email.Text, password.Text);
+            await SecureStorage.Default.SetAsync("user", authenticatedUserId.ToString());
             await Shell.Current.GoToAsync(nameof(ScheduleView));
         }
         catch (InvalidLoginException ex)

@@ -31,8 +31,8 @@
             AlignItems="Center"
             JustifyContent="Center">
             <Entry
-                x:Name="username"
-                Placeholder="Username"
+                x:Name="email"
+                Placeholder="Email"
                 WidthRequest="300"
                 Margin="25, 10"/>
             <Entry

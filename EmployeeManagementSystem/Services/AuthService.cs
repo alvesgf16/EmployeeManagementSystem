@@ -11,23 +11,14 @@ class AuthService
     public AuthService()
     {
         _database = new SQLiteConnection(Constants.DatabasePath);
-        _database.CreateTable<User>();
     }
 
-    public List<User> GetUsers() => _database.Table<User>().ToList();
-
-    public User AuthenticateUserLogin(string username, string password)
+    public int AuthenticateUserLogin(string email, string password)
     {
-        if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password)) throw new InvalidLoginException("Invalid username or password");
+        if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password)) throw new InvalidLoginException("Invalid email or password");
 
-        var userToAuth = _database.Find<User>(username);
+        var userToAuth = _database.Table<Employee>().FirstOrDefault((employee) => employee.Email == email && employee.Password == password);
 
-        return userToAuth is not null && userToAuth.Password == password
-            ? userToAuth
-            : throw new InvalidLoginException("Invalid username or password");
+        return userToAuth is null ? throw new InvalidLoginException("Invalid email or password") : userToAuth.Id;
     }
-
-    public void AddUser(string username, string password) => _database.Insert(new User() { Username = username, Password = password });
-
-    public void DeleteUser(string username) => _database.Delete<User>(username);
 }
