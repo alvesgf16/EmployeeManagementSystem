@@ -39,5 +39,7 @@ namespace EmployeeManagementSystem.Services
         public void SavePayment(Payment payment) => _database.Insert(payment);
 
         public Payment GetEmployeePay(int employeeId) => _database.Table<Payment>().FirstOrDefault(e => e.EmployeeID == employeeId);
+
+        public void UpdateEmployeePay(Payment selectedPayment) => _database.Update(selectedPayment);
     }
 }
