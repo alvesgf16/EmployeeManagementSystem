@@ -6,29 +6,19 @@ namespace EmployeeManagementSystem.Services;
 
 class AuthService
 {
-    private readonly SQLiteConnection database;
+    private readonly SQLiteConnection _database;
 
     public AuthService()
     {
-
-        database = new SQLiteConnection(Constants.DatabasePath);
-        database.CreateTable<User>();
+        _database = new SQLiteConnection(Constants.DatabasePath);
     }
 
-    public List<User> GetUsers() => database.Table<User>().ToList();
-
-    public User AuthenticateUserLogin(string username, string password)
+    public int AuthenticateUserLogin(string email, string password)
     {
-        if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password)) throw new InvalidLoginException("Invalid username or password");
+        if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password)) throw new InvalidLoginException("Invalid email or password");
 
-        var userToAuth = database.Find<User>(username);
+        var userToAuth = _database.Table<Employee>().FirstOrDefault((employee) => employee.Email == email && employee.Password == password);
 
-        return userToAuth is not null && userToAuth.Password == password
-            ? userToAuth
-            : throw new InvalidLoginException("Invalid username or password");
+        return userToAuth is null ? throw new InvalidLoginException("Invalid email or password") : userToAuth.Id;
     }
-
-    public void AddUser(string username, string password) => database.Insert(new User() { Username = username, Password = password });
-
-    public void DeleteUser(string username) => database.Delete<User>(username);
 }

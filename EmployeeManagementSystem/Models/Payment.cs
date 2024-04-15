@@ -1,7 +1,6 @@
 ﻿using SQLite;
-using System.ComponentModel.DataAnnotations;
 
-namespace EmployeeManagementSystem;
+namespace EmployeeManagementSystem.Models;
 
 public class Payment()
 {

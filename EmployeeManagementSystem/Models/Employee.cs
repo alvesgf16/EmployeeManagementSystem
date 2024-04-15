@@ -189,13 +189,6 @@ public partial class Employee : ObservableObject
         }
     }
 
-    public Employee()
-    {
-    }
-    
     //override toString method
-    public override string ToString()
-    {
-        return $"ID: {Id} Name: {Name} Position: {Position} Shift: {Shift}";
-    }
+    public override string ToString() => $"ID: {Id} Name: {Name} Position: {Position} Shift: {Shift}";
 }

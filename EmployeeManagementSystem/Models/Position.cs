@@ -1,5 +1,4 @@
-﻿namespace EmployeeManagementSystem;
-
+﻿namespace EmployeeManagementSystem.Models;
 
 public enum Position
 {

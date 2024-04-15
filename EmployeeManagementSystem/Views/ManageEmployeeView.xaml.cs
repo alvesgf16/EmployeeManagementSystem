@@ -1,18 +1,12 @@
 using EmployeeManagementSystem.Models;
 using EmployeeManagementSystem.Services;
 
-namespace EmployeeManagementSystem;
+namespace EmployeeManagementSystem.Views;
 
 [QueryProperty(nameof(EmpID), "Id")]
 public partial class ManageEmployeeView : ContentPage
 {
     public ManageEmployeeView()
-    {
-        InitializeComponent();
-        PopulateEmployeePicker();
-    }
-
-    public ManageEmployeeView(User user)
     {
         InitializeComponent();
         PopulateEmployeePicker();
@@ -27,7 +21,6 @@ public partial class ManageEmployeeView : ContentPage
 
         // Clear existing items in the picker
         EmployeePicker.Items.Clear();
-
 
         // Add each employee to the picker
         foreach (var employee in employees)
@@ -79,7 +72,6 @@ public partial class ManageEmployeeView : ContentPage
                 AvailableSickDays = 10,
                 Shift = (Schedule)Enum.Parse(typeof(Schedule), SchedulePicker.SelectedItem.ToString()),
                 IsActive = true // Assuming new employees are always active
-
             };
 
             // Save the new employee to the database
@@ -209,8 +201,26 @@ public partial class ManageEmployeeView : ContentPage
                 SchedulePicker.SelectedItem = employee.Shift.ToString();
             }
 
+    private void SetEmployeeInactive_Clicked(object sender, EventArgs e)
+    {
+        // Get the selected employee index
+        int selectedIndex = EmployeePicker.SelectedIndex;
+        if (selectedIndex != -1)
+        {
+            int employeeId = int.Parse(EmployeeID.Text);
+            Employee selectedEmployee = GetEmployeeFromDatabase(employeeId);
+
+            selectedEmployee.IsActive = false;
+            selectedEmployee.AvailablePTODays = 0;
+            selectedEmployee.AvailableSickDays = 0;
+
+            employeeManager.UpdateEmployee(selectedEmployee);
+
+            PopulateEmployeePicker();
+            ClearForm();
         }
     }
+
     private void DeleteEmployee_Clicked(object sender, EventArgs e)
     {
         // Get the selected employee index

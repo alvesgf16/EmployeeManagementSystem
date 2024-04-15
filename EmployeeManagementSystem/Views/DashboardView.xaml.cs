@@ -6,35 +6,22 @@ namespace EmployeeManagementSystem
 {
     public partial class DashboardView : ContentPage
     {
-        public double Payroll { get; set; }
-        public EmployeeService employeeManager = new();
         public DashboardView()
         {
             InitializeComponent();
+            PopulateEmployeeCollection();
         }
 
         public DashboardView(User user)
         {
             InitializeComponent();
+            PopulateEmployeeCollection();
         }
-        protected override void OnAppearing()
+
+        private void OnCounterClicked(object sender, EventArgs e)
         {
-            base.OnAppearing();
-            // Retrieve all employees from the database
-            List<Employee> employees = employeeManager.GetAllEmployees();
-            ObservableCollection<Employee> employeeCollection = new ObservableCollection<Employee>(employees);
-            EmployeeListView.ItemsSource = employeeCollection;
-            // Calculate the total payroll
-            foreach (Employee employee in employees)
-            {
-                Payment payment = employeeManager.GetEmployeePay(employee.Id);
-                if(payment is null)
-                {
-                    continue;
-                }
-                Payroll += (payment.Salary * payment.TotalHours);
-            }
-            payroll_display.Text = Payroll.ToString();
+            // Navigate to ManageEmployeeView.xaml
+            AppShell.Current.GoToAsync(nameof(ManageEmployeeView));
         }
 
 

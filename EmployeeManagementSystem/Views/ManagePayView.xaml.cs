@@ -1,23 +1,14 @@
 using EmployeeManagementSystem.Models;
 using EmployeeManagementSystem.Services;
-using System.Xml.Linq;
 using System.ComponentModel;
 
-namespace EmployeeManagementSystem;
+namespace EmployeeManagementSystem.Views;
 
 public partial class ManagePayView : ContentPage, INotifyPropertyChanged
 {
 	public ManagePayView()
 	{
 		InitializeComponent();
-        PopulateEmployeePicker();
-        PayStubViewModel payStubViewModel = new PayStubViewModel();
-        this.BindingContext = payStubViewModel;
-    }
-
-    public ManagePayView(User user)
-    {
-        InitializeComponent();
         PopulateEmployeePicker();
         PayStubViewModel payStubViewModel = new PayStubViewModel();
         this.BindingContext = payStubViewModel;
@@ -119,37 +110,82 @@ public partial class ManagePayView : ContentPage, INotifyPropertyChanged
         }
     }
 
-    private void CalculatePayButton_Clicked(object sender, EventArgs e)
+    private void UpdateEPayInfo_Clicked(object sender, EventArgs e)
     {
         int employeeID = int.Parse(EmployeeID.Text);
         Employee selectedEmployee = employeeManager.GetEmployeeById(employeeID);
         Payment selectedPayment = employeeManager.GetEmployeePay(employeeID);
 
-        double hoursWorked = selectedPayment.HoursWorkedThisWeek;
-        double overtimeWorked = selectedPayment.OvertimeHoursWorkedThisWeek;
-        double salary = selectedPayment.Salary;
-        double totalHours = hoursWorked + (overtimeWorked * 1.5);
+        selectedPayment.Salary = double.Parse(EmployeeSalary.Text);
+        selectedPayment.TotalHours = double.Parse(EmployeeHours.Text);
+        selectedPayment.HoursWorkedThisWeek = double.Parse(EmployeeHoursThisWeek.Text);
+        selectedPayment.OvertimeHoursWorkedThisWeek = double.Parse(EmployeeOvertime.Text);
+        selectedPayment.Performance = double.Parse(EmployeePerformance.Text);
 
-        double grossPay = totalHours * salary;
+        employeeManager.UpdateEmployeePay(selectedPayment);
+
+        EmployeeSalary.Text = selectedPayment.Salary.ToString();
+        EmployeeHours.Text = selectedPayment.TotalHours.ToString();
+        EmployeeHoursThisWeek.Text = selectedPayment.HoursWorkedThisWeek.ToString();
+        EmployeeOvertime.Text = selectedPayment.OvertimeHoursWorkedThisWeek.ToString();
+        EmployeePerformance.Text = selectedPayment.Performance.ToString();
+    }
+
+    private void UpdatePayStub(PayStubViewModel payStub)
+    {
+        PayStubLayout.Children.Clear();
+
+        Label employeeIDLabel = new Label { Text = "Employee ID: " + payStub.EmployeeID };
+        Label employeeNameLabel = new Label { Text = "Employee Name: " + payStub.EmployeeName };
+        Label employeePositionLabel = new Label { Text = "Employee Position: " + payStub.EmployeePosition };
+        Label salaryLabel = new Label { Text = "Salary: " + payStub.Salary };
+        Label hoursWorkedThisWeekLabel = new Label { Text = "Hours Worked This Week: " + payStub.HoursWorkedThisWeek };
+        Label overtimeHoursWorkedThisWeekLabel = new Label { Text = "Overtime Hours Worked This Week: " + payStub.OvertimeHoursWorkedThisWeek };
+        Label totalHoursLabel = new Label { Text = "Total Hours: " + payStub.TotalHours };
+        Label grossPayLabel = new Label { Text = "Gross Pay: " + payStub.GrossPay };
+        Label taxLabel = new Label { Text = "Tax: " + payStub.Tax };
+        Label netPayLabel = new Label { Text = "Net Pay: " + payStub.NetPay };
+
+        PayStubLayout.Children.Add(employeeIDLabel);
+        PayStubLayout.Children.Add(employeeNameLabel);
+        PayStubLayout.Children.Add(employeePositionLabel);
+        PayStubLayout.Children.Add(salaryLabel);
+        PayStubLayout.Children.Add(hoursWorkedThisWeekLabel);
+        PayStubLayout.Children.Add(overtimeHoursWorkedThisWeekLabel);
+        PayStubLayout.Children.Add(totalHoursLabel);
+        PayStubLayout.Children.Add(grossPayLabel);
+        PayStubLayout.Children.Add(taxLabel);
+        PayStubLayout.Children.Add(netPayLabel);
+    }
+
+    private void CalculatePayButton_Clicked(object sender, EventArgs e)
+    { 
+        double salary = double.Parse(EmployeeSalary.Text);
+        double hours = double.Parse(EmployeeHours.Text);
+        double overtime = double.Parse(EmployeeOvertime.Text);
+        double performance = double.Parse(EmployeePerformance.Text);
+
+        double grossPay = salary * hours + (1.5 * salary * overtime);
         double tax = CalculateTax(grossPay);
         double netPay = grossPay - tax;
 
         PayStub = new PayStubViewModel
         {
-            EmployeeID = selectedEmployee.Id,
-            EmployeeName = selectedEmployee.Name,
-            EmployeePosition = selectedEmployee.Position.ToString(),
+            EmployeeID = int.Parse(EmployeeID.Text),
+            EmployeeName = EmployeeName.Text,
+            EmployeePosition = EmployeePosition.Text,
             Salary = salary,
-            HoursWorkedThisWeek = hoursWorked,
-            OvertimeHoursWorkedThisWeek = overtimeWorked,
-            TotalHours = totalHours,
+            HoursWorkedThisWeek = double.Parse(EmployeeHoursThisWeek.Text),
+            OvertimeHoursWorkedThisWeek = overtime,
+            TotalHours = hours,
             GrossPay = grossPay,
             Tax = tax,
             NetPay = netPay
-        };
+        };        
+
+        UpdatePayStub(PayStub);
 
         PayStubLayout.IsVisible = true;
-
 
     }
 

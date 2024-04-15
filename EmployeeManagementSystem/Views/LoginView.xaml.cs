@@ -1,36 +1,28 @@
 using EmployeeManagementSystem.Exceptions;
-using EmployeeManagementSystem.Models;
 using EmployeeManagementSystem.Services;
 
-namespace EmployeeManagementSystem;
+namespace EmployeeManagementSystem.Views;
 
 public partial class LoginView : ContentPage
 {
-	public LoginView()
-	{
-		InitializeComponent();
-	}
+    public LoginView()
+    {
+        InitializeComponent();
+    }
 
     private async void OnLoginButtonClicked(object sender, EventArgs e)
-	{
+    {
         try
         {
             AuthService authService = new();
-            var authenticatedUser = new Dictionary<string, object>()
-            {
-                { "user", authService.AuthenticateUserLogin(username.Text, password.Text) }
-            };
-            await Shell.Current.GoToAsync(nameof(ManagePayView), authenticatedUser);
+            int authenticatedUserId = authService.AuthenticateUserLogin(email.Text, password.Text);
+            await SecureStorage.Default.SetAsync("user", authenticatedUserId.ToString());
+            await Shell.Current.GoToAsync(nameof(ScheduleView));
         }
         catch (InvalidLoginException ex)
         {
             await DisplayAlert("Login Failed", ex.Message, "OK");
         }
-    }
-
-    private async void OnSignUpButtonClicked(object sender, EventArgs e)
-    {
-        await Shell.Current.GoToAsync(nameof(RegisterView));
     }
 
     private void OnEntryCompleted(object sender, EventArgs e)
