@@ -14,7 +14,7 @@
         <Label Text="Personal Information" FontSize="Medium" Margin="0,20,0,10" />
         <Entry Placeholder="Email" x:Name="EmailEntry" />
         <StackLayout Orientation="Horizontal">
-            <Entry MinimumWidthRequest="600" Placeholder="Password" IsPassword="{Binding Source={x:Reference hidePassword}, Path=IsChecked }" x:Name="PasswordEntry" />
+            <Entry MinimumWidthRequest="380" Placeholder="Password" IsPassword="{Binding Source={x:Reference hidePassword}, Path=IsChecked }" x:Name="PasswordEntry" />
             <Label Text="      Hide Password" VerticalOptions="Center" />
             <CheckBox x:Name="hidePassword" IsChecked="True" />
         </StackLayout>

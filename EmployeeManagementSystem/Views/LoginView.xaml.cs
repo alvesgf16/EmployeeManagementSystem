@@ -32,4 +32,10 @@ public partial class LoginView : ContentPage
     {
         await Shell.Current.GoToAsync(nameof(RegisterView));
     }
+
+    private void OnEntryCompleted(object sender, EventArgs e)
+    {
+        OnLoginButtonClicked(sender, e);
+    }
+
 }

@@ -49,12 +49,17 @@
                 Placeholder="Password"
                 IsPassword="True"
                 WidthRequest="300"
-                Margin="25, 10"/>
+                Margin="25, 10"
+                Completed="OnEntryCompleted"
+            />
             <Button
                 Text="Login"
                 Clicked="OnLoginButtonClicked"
                 WidthRequest="300"
-                Margin="25, 10"/>
+                Margin="25, 10"
+                BackgroundColor="#4B088A"
+                TextColor="White"
+                CornerRadius="10"/>
         </FlexLayout>
     </FlexLayout>
     
