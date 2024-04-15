@@ -1,18 +1,18 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using SQLite;
 using System.ComponentModel;
-namespace EmployeeManagementSystem;
+namespace EmployeeManagementSystem.Models;
 
 public partial class Employee : ObservableObject
 {
     private int _id;
     private string _email;
-    private string _password;
-    private string _name;
-    private string _phoneNumber;
-    private string _address;
-    private string _eContactName;
-    private string _eContactPhone;
+    private string? _password;
+    private string? _name;
+    private string? _phoneNumber;
+    private string? _address;
+    private string? _eContactName;
+    private string? _eContactPhone;
     private Position _position;
     private int _availablePTODays;
     private int _availableSickDays;

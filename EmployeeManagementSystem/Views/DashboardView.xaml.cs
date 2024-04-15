@@ -2,29 +2,34 @@
 using EmployeeManagementSystem.Services;
 using System.Collections.ObjectModel;
 
-namespace EmployeeManagementSystem
+namespace EmployeeManagementSystem.Views
+
 {
     public partial class DashboardView : ContentPage
     {
+        public ObservableCollection<Employee> EmployeeCollection { get; set; } = new ObservableCollection<Employee>();
+        public EmployeeService EmployeeManager = new();
         public DashboardView()
         {
             InitializeComponent();
-            PopulateEmployeeCollection();
         }
-
-        public DashboardView(User user)
+        public DashboardView(Employee employee)
         {
             InitializeComponent();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
             PopulateEmployeeCollection();
         }
+       
 
-        private void OnCounterClicked(object sender, EventArgs e)
+        public void PopulateEmployeeCollection()
         {
-            // Navigate to ManageEmployeeView.xaml
-            AppShell.Current.GoToAsync(nameof(ManageEmployeeView));
+            EmployeeManager.GetAllEmployees().ForEach(EmployeeCollection.Add);
+            EmployeeListView.ItemsSource = EmployeeCollection;
         }
-
-
 
 
         private async void EmployeeListView_ItemSelected(object sender, EventArgs e)

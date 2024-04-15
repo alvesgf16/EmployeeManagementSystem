@@ -186,7 +186,7 @@ public partial class ManageEmployeeView : ContentPage
         set
         {
             var employee = GetEmployeeFromDatabase(Convert.ToInt32(value));
-            if (employee != null) 
+            if (employee != null)
             {
                 // Populate the entry fields with the selected employee's information
                 EmployeeID.Text = employee.Id.ToString();
@@ -200,9 +200,11 @@ public partial class ManageEmployeeView : ContentPage
                 PositionPicker.SelectedItem = employee.Position.ToString();
                 SchedulePicker.SelectedItem = employee.Shift.ToString();
             }
+        }
+    }
 
-    private void SetEmployeeInactive_Clicked(object sender, EventArgs e)
-    {
+     public void SetEmployeeInactive_Clicked(object sender, EventArgs e)
+     {
         // Get the selected employee index
         int selectedIndex = EmployeePicker.SelectedIndex;
         if (selectedIndex != -1)
@@ -219,7 +221,7 @@ public partial class ManageEmployeeView : ContentPage
             PopulateEmployeePicker();
             ClearForm();
         }
-    }
+     }
 
     private void DeleteEmployee_Clicked(object sender, EventArgs e)
     {
