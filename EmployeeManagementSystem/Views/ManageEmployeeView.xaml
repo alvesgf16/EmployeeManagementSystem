@@ -50,6 +50,7 @@
 
         <Button Text="Add New Employee" Clicked="AddNewEmployee_Clicked" Margin="5"/>
             <Button Text="Update Existing Employee" Clicked="UpdateExistingEmployee_Clicked" Margin="5"/>
+            <Button Text="Set Employee as Inactive" Clicked="SetEmployeeInactive_Clicked" Margin="5"/>
             <Button Text="Delete Employee" Clicked="DeleteEmployee_Clicked" Margin="5"/>
     </StackLayout>
     </ScrollView>
