@@ -6,51 +6,47 @@ namespace EmployeeManagementSystem
 {
     public partial class DashboardView : ContentPage
     {
+        public double Payroll { get; set; }
+        public EmployeeService employeeManager = new();
         public DashboardView()
         {
             InitializeComponent();
-            PopulateEmployeeCollection();
         }
 
         public DashboardView(User user)
         {
             InitializeComponent();
-            PopulateEmployeeCollection();
         }
-
-        private void OnCounterClicked(object sender, EventArgs e)
+        protected override void OnAppearing()
         {
-            // Navigate to ManageEmployeeView.xaml
-            AppShell.Current.GoToAsync(nameof(ManageEmployeeView));
-        }
-
-        // Event handler for the "Pay" button
-        private void OnPayButtonClicked(object sender, EventArgs e)
-        {
-            // Navigate to ManagePayView.xaml
-            AppShell.Current.GoToAsync(nameof(ManagePayView));
-        }
-
-        // Event handler for the "Schedule" button
-        private void OnScheduleButtonClicked(object sender, EventArgs e)
-        {
-            // Navigate to ScheduleView.xaml
-            AppShell.Current.GoToAsync(nameof(ScheduleView));
-        }
-
-        public EmployeeService employeeManager = new();
-
-        private void PopulateEmployeeCollection()
-        {
+            base.OnAppearing();
             // Retrieve all employees from the database
             List<Employee> employees = employeeManager.GetAllEmployees();
             ObservableCollection<Employee> employeeCollection = new ObservableCollection<Employee>(employees);
             EmployeeListView.ItemsSource = employeeCollection;
+            // Calculate the total payroll
+            foreach (Employee employee in employees)
+            {
+                Payment payment = employeeManager.GetEmployeePay(employee.Id);
+                if(payment is null)
+                {
+                    continue;
+                }
+                Payroll += (payment.Salary * payment.TotalHours);
+            }
+            payroll_display.Text = Payroll.ToString();
         }
 
-        private async void EmployeeListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+
+
+
+        private async void EmployeeListView_ItemSelected(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync(nameof(ManageEmployeeView) + $"?employeeId={((Employee)e.SelectedItem).Id}");
+            if (EmployeeListView.SelectedItem != null)
+            {
+                await Shell.Current.GoToAsync($"{nameof(ManageEmployeeView)}" + $"?EmpID={((Employee)EmployeeListView.SelectedItem).Id}");
+            }
+            
         }
     }
 }
