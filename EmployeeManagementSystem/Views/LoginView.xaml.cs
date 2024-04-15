@@ -17,7 +17,7 @@ public partial class LoginView : ContentPage
             AuthService authService = new();
             int authenticatedUserId = authService.AuthenticateUserLogin(email.Text, password.Text);
             await SecureStorage.Default.SetAsync("user", authenticatedUserId.ToString());
-            await Shell.Current.GoToAsync(nameof(ScheduleView));
+            await Shell.Current.GoToAsync(nameof(DashboardView));
         }
         catch (InvalidLoginException ex)
         {
