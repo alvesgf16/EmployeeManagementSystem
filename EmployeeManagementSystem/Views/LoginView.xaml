@@ -24,15 +24,6 @@
                     Text="Welcome to the Employee Management System"
                     Padding="20"/>
             </FlexLayout>
-            <VerticalStackLayout>
-                <Label
-                    Text="Register an Account"
-                    HorizontalOptions="Center"/>
-                <Button
-                    Text="SIGN UP"
-                    Clicked="OnSignUpButtonClicked"
-                    Margin="25, 20"/>
-            </VerticalStackLayout>
         </FlexLayout>
         <FlexLayout
             Direction="Column"
