@@ -5,9 +5,9 @@
              Shell.FlyoutBehavior="Locked">
     <StackLayout>
         <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-            <Button Text="Previous" Clicked="PreviousMonth_Clicked"/>
-            <Label x:Name="MonthYearLabel" HorizontalOptions="CenterAndExpand"/>
-            <Button Text="Next" Clicked="NextMonth_Clicked"/>
+            <Button Text="Previous" Clicked="PreviousMonth_Clicked" Margin="15"/>
+            <Label x:Name="MonthYearLabel" HorizontalOptions="CenterAndExpand" Margin="15"/>
+            <Button Text="Next" Clicked="NextMonth_Clicked" Margin="15"/>
         </StackLayout>
         <CollectionView x:Name="CalendarCollectionView"
                         ItemsSource="{Binding CalendarDays}"

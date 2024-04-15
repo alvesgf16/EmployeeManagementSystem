@@ -98,7 +98,9 @@ public partial class ManageEmployeeView : ContentPage
             {
                 EmployeeID = newEmployee.Id,
                 Salary = salary,
-                HoursWorked = 0,
+                TotalHours = 0,
+                HoursWorkedThisWeek = 0,
+                OvertimeHoursWorkedThisWeek = 0,
                 Performance = 0
             };
 

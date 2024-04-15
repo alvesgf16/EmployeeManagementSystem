@@ -9,7 +9,11 @@ public class Payment()
 
     public double Salary { get; set; }
 
-    public int HoursWorked { get; set; }
+    public double TotalHours { get; set; }
 
-    public int Performance { get; set; }
+    public double HoursWorkedThisWeek { get; set; }
+
+    public double OvertimeHoursWorkedThisWeek { get; set; }
+
+    public double Performance { get; set; }
 }
