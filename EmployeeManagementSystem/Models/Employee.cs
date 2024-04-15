@@ -1,5 +1,5 @@
 ﻿using SQLite;
-namespace EmployeeManagementSystem;
+namespace EmployeeManagementSystem.Models;
 
 public partial class Employee()
 {
