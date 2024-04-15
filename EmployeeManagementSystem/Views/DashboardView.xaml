@@ -3,6 +3,52 @@
              x:Class="EmployeeManagementSystem.DashboardView"
              Shell.FlyoutBehavior="Locked"
              >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.ColumnSpacing>6</Grid.ColumnSpacing>
+        <Grid.RowSpacing>6</Grid.RowSpacing>
 
-    
+
+
+        <Frame Grid.Row="1" BorderColor="Gray" CornerRadius="10"/>
+        <Label Grid.Row="1" x:Name="Payroll" HorizontalOptions="Center" VerticalOptions="Center" />
+
+        <Frame Grid.Row="1" Grid.Column="1" BorderColor="Grey" CornerRadius="10"/>
+        <Label Grid.Row="1" Grid.Column="1" x:Name="SickDaysYTD" HorizontalOptions="Center" VerticalOptions="Center" />
+
+        <Frame Grid.Row="2" BorderColor="Grey" CornerRadius="10"/>
+        <Label Grid.Row="2" x:Name="TopPerformingEmployee" HorizontalOptions="Center" VerticalOptions="Center" />
+
+        <Frame Grid.Row="2" Grid.Column="1" BorderColor="Grey" CornerRadius="10"/>
+        <Label Grid.Row="2" Grid.Column="1" x:Name="LowestPerformingEmployee" HorizontalOptions="Center" VerticalOptions="Center" />
+
+        <Frame Grid.Row="3" Grid.Column="0" BorderColor="Grey" CornerRadius="10"/>
+        <Label Grid.Row="3" Grid.Column="0" x:Name="PTORequests" HorizontalOptions="Center" VerticalOptions="Center" />
+        <Frame Grid.Row="3" Grid.Column="1" BorderColor="Grey" CornerRadius="10"/>
+        <ScrollView Grid.Row="3" Grid.Column="1">
+            <ListView Grid.Row="3" Grid.Column="1" x:Name="EmployeeListView" ItemSelected="EmployeeListView_ItemSelected" Header="Active Employees" Margin="15" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Frame BorderColor="Grey" CornerRadius="10" BackgroundColor="LightGrey" Margin="5" Padding="5">
+                                    <Label Text="{Binding .}" FontAttributes="Bold" />
+                                </Frame>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ScrollView>
+    </Grid>
+
 </ContentPage>
