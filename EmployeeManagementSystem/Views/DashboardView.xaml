@@ -21,18 +21,22 @@
 
         <Frame Grid.Row="1" BorderColor="Gray" CornerRadius="10"/>
         <Label Grid.Row="1" Text="Total Upcoming Payroll:" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Start" />
-        <Label Grid.Row="1" x:Name="payroll_display" HorizontalOptions="Center" VerticalOptions="Center" />
+        <Label Grid.Row="1" x:Name="payroll_display" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Large"/>
 
         <Frame Grid.Row="1" Grid.Column="1" BorderColor="Grey" CornerRadius="10"/>
-        <Label Grid.Row="1" Grid.Column="1" x:Name="SickDaysYTD" HorizontalOptions="Center" VerticalOptions="Center" />
+        <Label Grid.Row="1" Grid.Column="1" Text="Sick Days Taken Year-to-date:" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Start" />
+        <Label Grid.Row="1" Grid.Column="1" x:Name="SickDaysYTD" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Large"/>
 
         <Frame Grid.Row="2" BorderColor="Grey" CornerRadius="10"/>
+        <Label Grid.Row="2" Text="Top Performing Employees" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Start" />
         <Label Grid.Row="2" x:Name="TopPerformingEmployee" HorizontalOptions="Center" VerticalOptions="Center" />
 
         <Frame Grid.Row="2" Grid.Column="1" BorderColor="Grey" CornerRadius="10"/>
+        <Label Grid.Row="2" Grid.Column="1" Text="Lowest Performing Employees" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Start" />
         <Label Grid.Row="2" Grid.Column="1" x:Name="LowestPerformingEmployee" HorizontalOptions="Center" VerticalOptions="Center" />
 
         <Frame Grid.Row="3" Grid.Column="0" BorderColor="Grey" CornerRadius="10"/>
+        <Label Grid.Row="3" Grid.Column="0" Text="Time-off Requests" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Start" />
         <Label Grid.Row="3" Grid.Column="0" x:Name="PTORequests" HorizontalOptions="Center" VerticalOptions="Center" />
         <Frame Grid.Row="3" Grid.Column="1" BorderColor="Grey" CornerRadius="10"/>
         <ScrollView Grid.Row="3" Grid.Column="1">

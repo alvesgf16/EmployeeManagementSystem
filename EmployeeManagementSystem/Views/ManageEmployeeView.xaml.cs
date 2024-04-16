@@ -3,9 +3,10 @@ using EmployeeManagementSystem.Services;
 
 namespace EmployeeManagementSystem.Views;
 
-[QueryProperty(nameof(EmpID), "Id")]
+[QueryProperty(nameof(EmpID), "EmpID")]
 public partial class ManageEmployeeView : ContentPage
 {
+    string? empid;
     EmployeeService employeeManager = new();
     
     public ManageEmployeeView()
@@ -60,7 +61,7 @@ public partial class ManageEmployeeView : ContentPage
             // Create a new Employee object
             Employee newEmployee = new Employee
             {
-                Email = EmailEntry.Text,
+                Email = EmailEntry.Text.ToLower(),
                 Password = PasswordEntry.Text,
                 Name = NameEntry.Text,
                 PhoneNumber = PhoneNumberEntry.Text,
@@ -120,7 +121,7 @@ public partial class ManageEmployeeView : ContentPage
             Employee existingEmployee = GetEmployeeFromDatabase(employeeId);
 
             // Update the existing employee with the new information
-            existingEmployee.Email = EmailEntry.Text;
+            existingEmployee.Email = EmailEntry.Text.ToLower();
             existingEmployee.Password = PasswordEntry.Text;
             existingEmployee.Name = NameEntry.Text;
             existingEmployee.PhoneNumber = PhoneNumberEntry.Text;
@@ -183,8 +184,10 @@ public partial class ManageEmployeeView : ContentPage
     }
     public string EmpID
     {
+        get => empid ?? string.Empty;
         set
         {
+            empid = value;
             var employee = GetEmployeeFromDatabase(Convert.ToInt32(value));
             if (employee != null)
             {
@@ -200,6 +203,7 @@ public partial class ManageEmployeeView : ContentPage
                 PositionPicker.SelectedItem = employee.Position.ToString();
                 SchedulePicker.SelectedItem = employee.Shift.ToString();
             }
+            OnPropertyChanged(nameof(EmpID));
         }
     }
 
