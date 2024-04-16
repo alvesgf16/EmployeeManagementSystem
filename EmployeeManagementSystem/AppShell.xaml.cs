@@ -19,7 +19,7 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(ManagePayView), typeof(ManagePayView));
     }
 
-    protected override async void OnAppearing()
+    /*protected override async void OnAppearing()
     {
         int userId = int.Parse(await SecureStorage.Default.GetAsync("user"));
         Employee user = employeeManager.GetEmployeeById(userId);
@@ -28,6 +28,7 @@ public partial class AppShell : Shell
         {
             ManageEmployeeFlyoutItem.IsVisible = false;
             ManagePayFlyoutItem.IsVisible = false;
-        }
-    }
+        }*/
+    //}
 }
+

@@ -3,9 +3,10 @@ using EmployeeManagementSystem.Services;
 
 namespace EmployeeManagementSystem.Views;
 
-[QueryProperty(nameof(EmpID), "Id")]
+[QueryProperty(nameof(EmpID), "EmpID")]
 public partial class ManageEmployeeView : ContentPage
 {
+    string? empid;
     EmployeeService employeeManager = new();
     
     public ManageEmployeeView()
@@ -183,8 +184,10 @@ public partial class ManageEmployeeView : ContentPage
     }
     public string EmpID
     {
+        get => empid ?? string.Empty;
         set
         {
+            empid = value;
             var employee = GetEmployeeFromDatabase(Convert.ToInt32(value));
             if (employee != null)
             {
@@ -200,6 +203,7 @@ public partial class ManageEmployeeView : ContentPage
                 PositionPicker.SelectedItem = employee.Position.ToString();
                 SchedulePicker.SelectedItem = employee.Shift.ToString();
             }
+            OnPropertyChanged(nameof(EmpID));
         }
     }
 
