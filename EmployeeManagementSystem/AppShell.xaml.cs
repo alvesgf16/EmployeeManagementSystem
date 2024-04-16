@@ -28,6 +28,7 @@ public partial class AppShell : Shell
         {
             ManageEmployeeFlyoutItem.IsVisible = false;
             ManagePayFlyoutItem.IsVisible = false;
-        }
-    }*/
+        }*/
+    //}
 }
+
