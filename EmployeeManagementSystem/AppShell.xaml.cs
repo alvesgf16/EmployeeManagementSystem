@@ -17,6 +17,7 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(ScheduleView), typeof(ScheduleView));
         Routing.RegisterRoute(nameof(ManageEmployeeView), typeof(ManageEmployeeView));
         Routing.RegisterRoute(nameof(ManagePayView), typeof(ManagePayView));
+        Routing.RegisterRoute(nameof(WeekDaysSelection), typeof(WeekDaysSelection));
     }
 
     /*protected override async void OnAppearing()

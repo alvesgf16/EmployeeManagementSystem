@@ -17,6 +17,7 @@
         <ShellContent Title="Manage Employee" ContentTemplate="{DataTemplate local:ManageEmployeeView}" x:Name="ManageEmployeeFlyoutItem"/>
         <ShellContent Title="Manage Pay" ContentTemplate="{DataTemplate local:ManagePayView}" x:Name="ManagePayFlyoutItem"/>
         <ShellContent Title="Schedule" ContentTemplate="{DataTemplate local:ScheduleView}" />
+        <ShellContent Title="Weekly Schedule" ContentTemplate="{DataTemplate local:WeekDaysSelection}" x:Name="WeeklyScheduleFlyoutItem"/>
     </FlyoutItem>
 
 </Shell>

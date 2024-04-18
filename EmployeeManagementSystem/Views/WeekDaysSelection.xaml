@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EmployeeManagementSystem.Views.WeekDaysSelection"
+             Shell.FlyoutBehavior="Locked">   
+    <ScrollView>
+    <StackLayout Orientation="Vertical" Padding="10" Spacing="5">
+            <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal" Spacing="10">
+                <Label Text="Employees" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center" />
+                <Picker x:Name="EmployeePicker" HorizontalOptions="FillAndExpand" 
+                   SelectedIndexChanged="EmployeePicker_SelectedIndexChanged"/>
+            </StackLayout>
+            <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                <Label Text="Select Days" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center" />
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal"  HorizontalOptions="Center" Spacing="8">
+                <Label Text="Monday" FontSize="Small" HorizontalOptions="Center" VerticalOptions="Center" Margin="5"/>
+                <Label Text="Tuesday" FontSize="Small" HorizontalOptions="Center" VerticalOptions="Center" Margin="5"/>
+                <Label Text="Wednesday" FontSize="Small" HorizontalOptions="Center" VerticalOptions="Center" Margin="5"/>
+                <Label Text="Thursday" FontSize="Small" HorizontalOptions="Center" VerticalOptions="Center" Margin="5"/>
+                <Label Text="Friday" FontSize="Small" HorizontalOptions="Center" VerticalOptions="Center" Margin="5"/>
+                <Label Text="Saturday" FontSize="Small" HorizontalOptions="Center" VerticalOptions="Center" Margin="5"/>
+                <Label Text="Sunday" FontSize="Small" HorizontalOptions="Center" VerticalOptions="Center" Margin="5"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="50">
+                <CheckBox x:Name="Monday" CheckedChanged="DaySelectionChanged"/>
+                <CheckBox x:Name="Tuesday" CheckedChanged="DaySelectionChanged"/>
+                <CheckBox x:Name="Wednesday" CheckedChanged="DaySelectionChanged"/>
+                <CheckBox x:Name="Thursday" CheckedChanged="DaySelectionChanged"/>
+                <CheckBox x:Name="Friday" CheckedChanged="DaySelectionChanged"/>
+                <CheckBox x:Name="Saturday" CheckedChanged="DaySelectionChanged"/>
+                <CheckBox x:Name="Sunday" CheckedChanged="DaySelectionChanged"/>
+            </StackLayout>
+
+        
+        <StackLayout Orientation="Vertical" Margin="20" Spacing="10">
+                <Label Text="Name" FontSize="Medium"></Label>
+                <Entry x:Name="Name"></Entry>
+                <Label Text="Total Hours" FontSize="Medium"></Label>
+                <Entry x:Name="TotalHoursEntry" IsReadOnly="True"></Entry>
+                <Label Text="Overtime Hours"></Label>
+                <Entry x:Name="OvertimeHoursEntry" IsReadOnly="True"></Entry>
+                <Label Text="Pay per Hour"></Label>
+                <Entry x:Name="Salary" IsReadOnly="True"></Entry>
+                <Label Text="Expected Pay"></Label>
+                <Entry x:Name="ExpectedPayEntry" IsReadOnly="True"></Entry>
+
+                <Button Text="Save Schedule and Payment" Clicked="SavePaymentButton_Clicked" HorizontalOptions="Center" VerticalOptions="Center" />
+                <Button Text="Reset Weekly Payroll" Clicked="ResetWeeklyPayroll_Clicked" HorizontalOptions="Center" VerticalOptions="Center" />
+
+            </StackLayout>
+    </StackLayout>
+    </ScrollView>
+</ContentPage>
