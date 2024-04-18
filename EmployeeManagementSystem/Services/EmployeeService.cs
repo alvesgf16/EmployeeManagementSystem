@@ -41,5 +41,7 @@ namespace EmployeeManagementSystem.Services
         public Payment GetEmployeePay(int employeeId) => _database.Table<Payment>().FirstOrDefault(e => e.EmployeeID == employeeId);
 
         public void UpdateEmployeePay(Payment selectedPayment) => _database.Update(selectedPayment);
+
+        public void SetAllPaymentsToZero() => _database.Table<Payment>().ToList().ForEach(p => { p.TotalHours = 0; p.HoursWorkedThisWeek = 0; p.OvertimeHoursWorkedThisWeek = 0; p.Performance = 0; });
     }
 }
