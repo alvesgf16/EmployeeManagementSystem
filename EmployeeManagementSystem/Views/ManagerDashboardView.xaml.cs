@@ -121,7 +121,7 @@ namespace EmployeeManagementSystem.Views
             if (WorstEmployeeListView.SelectedItem != null)
             {
                 worstEmpID = WorstEmployeeListView.SelectedItem.ToString().Split(' ')[1];
-                await Shell.Current.GoToAsync($"{nameof(ManageEmployeeView)}" + $"?EmpID={worstEmpID}");
+                await Shell.Current.GoToAsync($"{nameof(ManagerEmployeeDetailsView)}" + $"?EmpID={worstEmpID}");
             }
         }
     }
