@@ -3,7 +3,7 @@
              x:Class="EmployeeManagementSystem.Views.ManagerDashboardView"
              Shell.FlyoutBehavior="Locked"
              >
-    <Grid>
+    <Grid Margin="15">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="20"/>
@@ -26,7 +26,7 @@
         <Label Grid.Row="1" Text="Total Upcoming Payroll:" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" />
         <Label Grid.Row="2" x:Name="payroll_display" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Large"/>
 
-        <Frame Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" BorderColor="Grey" CornerRadius="10"/>
+        <Frame Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" BorderColor="Grey" BackgroundColor="Gray" CornerRadius="10"/>
         <Label Grid.Row="1" Grid.Column="1" Text="Sick Days Taken Year-to-date:" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Start" />
         <Label Grid.Row="2" Grid.Column="1" x:Name="SickDaysYTD" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Large"/>
 
@@ -38,7 +38,7 @@
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout>
-                                <Frame BorderColor="Grey" CornerRadius="10" BackgroundColor="MediumPurple" Margin="5" Padding="5">
+                                <Frame BorderColor="Grey" CornerRadius="10" BackgroundColor="#512BD4" Margin="5" Padding="5">
                                     <Label Text="{Binding .}" FontAttributes="Bold"  />
                                 </Frame>
                             </StackLayout>
@@ -48,7 +48,7 @@
             </ListView>
         </ScrollView>
 
-        <Frame Grid.Row="3" Grid.RowSpan="2" Grid.Column="1" BorderColor="Grey" CornerRadius="10"/>
+        <Frame Grid.Row="3" Grid.RowSpan="2" Grid.Column="1" BorderColor="Grey" BackgroundColor="Gray" CornerRadius="10"/>
         <Label Grid.Row="3" Grid.Column="1" Text="Lowest Performing Employees" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" />
         <ScrollView Grid.Row="4" Grid.Column="1" >
             <ListView Grid.Row="4" Grid.Column="1" x:Name="WorstEmployeeListView" ItemSelected="WorstEmployeeListView_ItemSelected" Margin="15" >
@@ -56,7 +56,7 @@
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout>
-                                <Frame BorderColor="Grey" CornerRadius="10" BackgroundColor="MediumPurple" Margin="5" Padding="5">
+                                <Frame BorderColor="Grey" CornerRadius="10" BackgroundColor="#512BD4" Margin="5" Padding="5">
                                     <Label Text="{Binding .}" FontAttributes="Bold"  />
                                 </Frame>
                             </StackLayout>
@@ -66,11 +66,11 @@
             </ListView>
         </ScrollView>
 
-        <Frame Grid.Row="5" Grid.RowSpan="2" Grid.Column="0" BorderColor="Grey" CornerRadius="10"/>
+        <Frame Grid.Row="5" Grid.RowSpan="2" Grid.Column="0" BorderColor="Grey" BackgroundColor="Gray" CornerRadius="10"/>
         <Label Grid.Row="5" Grid.Column="0" Text="Time-off Requests" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" />
         <Label Grid.Row="6" Grid.Column="0" x:Name="PTORequests" HorizontalOptions="Center" VerticalOptions="Center" />
 
-        <Frame Grid.Row="5" Grid.RowSpan="2" Grid.Column="1" BorderColor="Grey" CornerRadius="10"/>
+        <Frame Grid.Row="5" Grid.RowSpan="2" Grid.Column="1" BorderColor="Grey" BackgroundColor="Gray" CornerRadius="10"/>
         <Label Grid.Row="5" Grid.Column="1" Text="Active Employees" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" />
         <ScrollView Grid.Row="6" Grid.Column="1">
             <ListView Grid.Row="6" Grid.Column="1" x:Name="EmployeeListView" ItemSelected="EmployeeListView_ItemSelected" Margin="15" >
@@ -78,7 +78,7 @@
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout>
-                                <Frame BorderColor="Grey" CornerRadius="10" BackgroundColor="MediumPurple" Margin="5" Padding="5">
+                                <Frame BorderColor="Grey" CornerRadius="10" BackgroundColor="#512BD4" Margin="5" Padding="5">
                                     <Label Text="{Binding .}" FontAttributes="Bold"  />
                                 </Frame>
                             </StackLayout>
