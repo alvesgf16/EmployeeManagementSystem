@@ -13,7 +13,6 @@ namespace EmployeeManagementSystem.Services
             _database = new SQLiteConnection(Constants.DatabasePath);
             _database.CreateTable<Employee>();
             _database.CreateTable<Payment>();
-            _database.CreateTable<WorkDays>();
         }
 
         //Employee methods
