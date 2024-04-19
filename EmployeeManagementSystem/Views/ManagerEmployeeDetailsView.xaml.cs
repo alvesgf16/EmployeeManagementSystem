@@ -1,5 +1,6 @@
 using EmployeeManagementSystem.Models;
 using EmployeeManagementSystem.Services;
+using System.Text.RegularExpressions;
 
 namespace EmployeeManagementSystem.Views;
 
@@ -105,10 +106,6 @@ public partial class ManagerEmployeeDetailsView : ContentPage
         ClearForm();
             DisplayAlert("Confirmation", "Employee has been created", "OK");
         }
-        else
-        {
-            DisplayAlert("Error", "Please fill out all fields correctly.", "OK");
-        }
         PopulateEmployeePicker();
     }
 
@@ -148,17 +145,31 @@ public partial class ManagerEmployeeDetailsView : ContentPage
 
     private bool ValidateEmployeeInformation()
     {
-        // Perform validation here (e.g., check if all required fields are filled)
-        // You can add more specific validation rules as needed
-        return !string.IsNullOrWhiteSpace(EmailEntry.Text) &&
-               !string.IsNullOrWhiteSpace(PasswordEntry.Text) &&
-               !string.IsNullOrWhiteSpace(NameEntry.Text) &&
-               !string.IsNullOrWhiteSpace(PhoneNumberEntry.Text) &&
-               !string.IsNullOrWhiteSpace(AddressEntry.Text) &&
-               !string.IsNullOrWhiteSpace(ContactNameEntry.Text) &&
-               !string.IsNullOrWhiteSpace(ContactPhoneNumberEntry.Text) &&
-               PositionPicker.SelectedItem != null &&
-               SchedulePicker.SelectedItem != null;
+        if (Regex.IsMatch(EmailEntry.Text, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+        {
+            if (PhoneNumberEntry.Text.Length == 9 && ContactPhoneNumberEntry.Text.Length == 9)
+            {
+                return !string.IsNullOrWhiteSpace(EmailEntry.Text) &&
+                !string.IsNullOrWhiteSpace(PasswordEntry.Text) &&
+                !string.IsNullOrWhiteSpace(NameEntry.Text) &&
+                !string.IsNullOrWhiteSpace(PhoneNumberEntry.Text) &&
+                !string.IsNullOrWhiteSpace(AddressEntry.Text) &&
+                !string.IsNullOrWhiteSpace(ContactNameEntry.Text) &&
+                !string.IsNullOrWhiteSpace(ContactPhoneNumberEntry.Text) &&
+                PositionPicker.SelectedItem != null &&
+                SchedulePicker.SelectedItem != null;
+            }
+            else
+            {
+                DisplayAlert("Error", "Please enter valid phone numbers.", "OK");
+                return false;
+            }
+        }
+        else
+        {
+            DisplayAlert("Error", "Please enter a valid email address.", "OK");
+            return false;
+        }
     }
 
     private void ClearForm()

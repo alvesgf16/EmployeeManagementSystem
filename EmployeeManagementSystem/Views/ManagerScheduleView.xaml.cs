@@ -136,7 +136,7 @@ public partial class ManagerScheduleView : ContentPage
         Payment payment = employeeManager.GetEmployeePay(employeeID);
         double hours = double.Parse(HoursToday.Text);
 
-        if (EmployeeID.Text != "Hours")
+        if (EmployeeID.Text != "Hours" && hours < 25)
         {
             if (hours > 8.5)
             {
