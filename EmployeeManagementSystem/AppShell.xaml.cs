@@ -19,17 +19,4 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(ManagePayView), typeof(ManagePayView));
         Routing.RegisterRoute(nameof(WeekDaysSelection), typeof(WeekDaysSelection));
     }
-
-    /*protected override async void OnAppearing()
-    {
-        int userId = int.Parse(await SecureStorage.Default.GetAsync("user"));
-        Employee user = employeeManager.GetEmployeeById(userId);
-
-        if (user.Position != Position.Manager)
-        {
-            ManageEmployeeFlyoutItem.IsVisible = false;
-            ManagePayFlyoutItem.IsVisible = false;
-        }*/
-    //}
 }
-
