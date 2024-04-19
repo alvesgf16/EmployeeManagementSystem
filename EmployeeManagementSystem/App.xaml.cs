@@ -17,8 +17,13 @@ namespace EmployeeManagementSystem
         {
             Window window = base.CreateWindow(activationState);
             
-            window.Width = 800;
-            window.Height = 600;
+            window.Width = 900;
+            window.Height = 1000;
+
+            if (window != null)
+            {
+                window.Title = "Group 3 - Employee Management System";
+            }
             
             return window;
         }

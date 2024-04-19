@@ -134,6 +134,8 @@ public partial class ManagerWeekDaysSelectionView : ContentPage
 
             employeeManager.UpdateEmployeePay(payment);
         }
+        DisplayAlert("Confirmation", "Weekly payment information has been saved", "OK");
+        PopulateEmployeePicker();
     }
 
     private void ResetWeeklyPayroll_Clicked(object sender, EventArgs e)

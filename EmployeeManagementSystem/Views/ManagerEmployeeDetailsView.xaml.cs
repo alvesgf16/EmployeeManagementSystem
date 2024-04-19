@@ -24,6 +24,15 @@ public partial class ManagerEmployeeDetailsView : ContentPage
         // Clear existing items in the picker
         EmployeePicker.Items.Clear();
 
+        if (IsActiveBox.IsChecked)
+        {
+            employees = employees.Where(e => e.IsActive == true).ToList();
+        }
+        else
+        {
+            employees = employees.Where(e => e.IsActive == false).ToList();
+        }
+
         // Add each employee to the picker
         foreach (var employee in employees)
         {
@@ -104,7 +113,7 @@ public partial class ManagerEmployeeDetailsView : ContentPage
 
         // Clear the form after adding the employee
         ClearForm();
-            DisplayAlert("Confirmation", "Employee has been created", "OK");
+        DisplayAlert("Confirmation", "Employee has been created", "OK");
         }
         PopulateEmployeePicker();
     }
@@ -135,6 +144,7 @@ public partial class ManagerEmployeeDetailsView : ContentPage
 
             // Clear the form after updating the employee
             ClearForm();
+            DisplayAlert("Confirmation", "Employee has been updated", "OK");
         }
         else
         {
@@ -147,7 +157,7 @@ public partial class ManagerEmployeeDetailsView : ContentPage
     {
         if (Regex.IsMatch(EmailEntry.Text, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
         {
-            if (PhoneNumberEntry.Text.Length == 9 && ContactPhoneNumberEntry.Text.Length == 9)
+            if (PhoneNumberEntry.Text.Length == 10 && ContactPhoneNumberEntry.Text.Length == 10)
             {
                 return !string.IsNullOrWhiteSpace(EmailEntry.Text) &&
                 !string.IsNullOrWhiteSpace(PasswordEntry.Text) &&
@@ -263,5 +273,10 @@ public partial class ManagerEmployeeDetailsView : ContentPage
                 }
             });
         }
+    }
+
+    private void IsActiveBoxChanged(object sender, CheckedChangedEventArgs e)
+    {
+        PopulateEmployeePicker();
     }
 }
