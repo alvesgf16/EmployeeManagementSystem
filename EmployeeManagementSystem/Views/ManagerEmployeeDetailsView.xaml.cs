@@ -24,6 +24,15 @@ public partial class ManagerEmployeeDetailsView : ContentPage
         // Clear existing items in the picker
         EmployeePicker.Items.Clear();
 
+        if (IsActiveBox.IsChecked)
+        {
+            employees = employees.Where(e => e.IsActive == true).ToList();
+        }
+        else
+        {
+            employees = employees.Where(e => e.IsActive == false).ToList();
+        }
+
         // Add each employee to the picker
         foreach (var employee in employees)
         {
@@ -263,5 +272,10 @@ public partial class ManagerEmployeeDetailsView : ContentPage
                 }
             });
         }
+    }
+
+    private void IsActiveBoxChanged(object sender, CheckedChangedEventArgs e)
+    {
+        PopulateEmployeePicker();
     }
 }
