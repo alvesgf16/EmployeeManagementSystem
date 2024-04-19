@@ -127,8 +127,8 @@ public partial class ManagerWeekDaysSelectionView : ContentPage
                 EmployeeID = selectedEmployee.Id,
                 Salary = selectedPayment.Salary,
                 TotalHours = int.Parse(TotalHoursEntry.Text),
-                HoursWorkedThisWeek = int.Parse(TotalHoursEntry.Text),
-                OvertimeHoursWorkedThisWeek = int.Parse(OvertimeHoursEntry.Text),
+                RegHours = int.Parse(TotalHoursEntry.Text),
+                OverTimeHours = int.Parse(OvertimeHoursEntry.Text),
                 Performance = 0
             };
 

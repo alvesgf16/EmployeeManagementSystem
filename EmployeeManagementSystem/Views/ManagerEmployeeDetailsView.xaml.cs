@@ -93,8 +93,8 @@ public partial class ManagerEmployeeDetailsView : ContentPage
                 EmployeeID = newEmployee.Id,
                 Salary = salary,
                 TotalHours = 0,
-                HoursWorkedThisWeek = 0,
-                OvertimeHoursWorkedThisWeek = 0,
+                RegHours = 0,
+                OverTimeHours = 0,
                 Performance = 0
             };
 

@@ -64,8 +64,8 @@ public partial class ManagerEmployeePayView : ContentPage, INotifyPropertyChange
             EmployeePosition.Text = selectedEmployee.Position.ToString();
             EmployeeSalary.Text = selectedPayment.Salary.ToString();
             EmployeeHours.Text = selectedPayment.TotalHours.ToString();
-            EmployeeHoursThisWeek.Text = selectedPayment.HoursWorkedThisWeek.ToString();
-            EmployeeOvertime.Text = selectedPayment.OvertimeHoursWorkedThisWeek.ToString();
+            EmployeeHoursThisWeek.Text = selectedPayment.RegHours.ToString();
+            EmployeeOvertime.Text = selectedPayment.OverTimeHours.ToString();
             EmployeePerformance.Text = selectedPayment.Performance.ToString();
         }
     }
@@ -118,16 +118,16 @@ public partial class ManagerEmployeePayView : ContentPage, INotifyPropertyChange
 
         selectedPayment.Salary = double.Parse(EmployeeSalary.Text);
         selectedPayment.TotalHours = double.Parse(EmployeeHours.Text);
-        selectedPayment.HoursWorkedThisWeek = double.Parse(EmployeeHoursThisWeek.Text);
-        selectedPayment.OvertimeHoursWorkedThisWeek = double.Parse(EmployeeOvertime.Text);
+        selectedPayment.RegHours = double.Parse(EmployeeHoursThisWeek.Text);
+        selectedPayment.OverTimeHours = double.Parse(EmployeeOvertime.Text);
         selectedPayment.Performance = int.Parse(EmployeePerformance.Text);
 
         employeeManager.UpdateEmployeePay(selectedPayment);
 
         EmployeeSalary.Text = selectedPayment.Salary.ToString();
         EmployeeHours.Text = selectedPayment.TotalHours.ToString();
-        EmployeeHoursThisWeek.Text = selectedPayment.HoursWorkedThisWeek.ToString();
-        EmployeeOvertime.Text = selectedPayment.OvertimeHoursWorkedThisWeek.ToString();
+        EmployeeHoursThisWeek.Text = selectedPayment.RegHours.ToString();
+        EmployeeOvertime.Text = selectedPayment.OverTimeHours.ToString();
         EmployeePerformance.Text = selectedPayment.Performance.ToString();
     }
 
