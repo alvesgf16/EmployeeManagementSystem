@@ -16,80 +16,19 @@
         <Picker Title="Select an Employee" x:Name="EmployeePicker" ItemDisplayBinding="{Binding Name}" SelectedIndexChanged="EmployeePicker_SelectedIndexChanged"/>
 
         <!-- Form -->
-        <StackLayout Margin="10">
-            <Label Text="Employee ID"/>
-            <Entry Placeholder="Employee ID" IsReadOnly="True" x:Name="EmployeeID"/>
-            <Label Text="Employee Name"/>
-            <Entry Placeholder="Employee Name" IsReadOnly="True" x:Name="EmployeeName"/>
-            <Label Text="Employee Position"/>
-            <Entry Placeholder="Employee Position" IsReadOnly="True" x:Name="EmployeePosition"/>
-            <Label Text="Employee Salary"/>
-            <Entry Placeholder="Salary" x:Name="EmployeeSalary"/>
-            <Label Text="Employee Total Hours Worked"/>
-            <Entry Placeholder="Total Hours Worked" IsReadOnly="False" x:Name="EmployeeHours"/>
-            <Label Text="Employee Hours Worked This Week"/>
-            <Entry Placeholder="Hours Worked This Week" IsReadOnly="True" x:Name="EmployeeHoursThisWeek"/>
-            <Label Text="Employee Overtime Hours Worked This Week"/>
-            <Entry Placeholder="Overtime Hours Worked" IsReadOnly="True" x:Name="EmployeeOvertime"/>
-            <Label Text="Employee Performace Rating (1-10)"/>
-            <Entry Placeholder="Performance" x:Name="EmployeePerformance"/>
+            <StackLayout Margin="10" Spacing="5">
+                <Label Text="Employee ID"/>
+                <Entry Placeholder="Employee ID" IsReadOnly="True" x:Name="EmployeeID"/>
+                <Label Text="Employee Name"/>
+                <Entry Placeholder="Employee Name" IsReadOnly="True" x:Name="EmployeeName"/>
+                <Label Text="Employee Position"/>
+                <Entry Placeholder="Employee Position" IsReadOnly="True" x:Name="EmployeePosition"/>
+                <Label Text="Employee Salary"/>
+                <Entry Placeholder="Salary" x:Name="EmployeeSalary"/>
+                <Label Text="Employee Performace Rating (1-10)"/>
+                <Entry Placeholder="Performance" x:Name="EmployeePerformance"/>
 
-            <Button Text="Update Employee Information" Margin="5" Clicked="UpdateEPayInfo_Clicked"/>
-            <Button Text="Calculate Employee Pay" Margin="5" Clicked="CalculatePayButton_Clicked"/>
-        </StackLayout>
-            <StackLayout x:Name="PayStubLayout" Margin="10" IsVisible="False">
-                <Label Text="Pay Stub" FontAttributes="Bold" HorizontalOptions="Center"/>
-
-                <Grid Margin="10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-
-                    <Label Text="Employee ID:" Grid.Row="0" Grid.Column="0" FontAttributes="Bold"/>
-                    <Label Text="{Binding EmployeeID}" Grid.Row="0" Grid.Column="1" />
-
-                    <Label Text="Employee Name:" Grid.Row="1" Grid.Column="0" FontAttributes="Bold"/>
-                    <Label Text="{Binding EmployeeName}" Grid.Row="1" Grid.Column="1" />
-
-                    <Label Text="Employee Position:" Grid.Row="2" Grid.Column="0" FontAttributes="Bold"/>
-                    <Label Text="{Binding EmployeePosition}" Grid.Row="2" Grid.Column="1" />
-
-                    <Label Text="Salary:" Grid.Row="3" Grid.Column="0" FontAttributes="Bold"/>
-                    <Label Text="{Binding Salary, StringFormat='{0:C}'}" Grid.Row="3" Grid.Column="1" />
-
-                    <Label Text="Hours Worked This Week:" Grid.Row="4" Grid.Column="0" FontAttributes="Bold"/>
-                    <Label Text="{Binding HoursWorkedThisWeek, StringFormat='{0:F2}'}" Grid.Row="4" Grid.Column="1" />
-
-                    <Label Text="Overtime Hours Worked This Week:" Grid.Row="5" Grid.Column="0" FontAttributes="Bold"/>
-                    <Label Text="{Binding OvertimeHoursWorkedThisWeek, StringFormat='{0:F2}'}" Grid.Row="5" Grid.Column="1" />
-
-                    <Label Text="Total Hours Worked:" Grid.Row="6" Grid.Column="0" FontAttributes="Bold"/>
-                    <Label Text="{Binding TotalHours, StringFormat='{0:F2}'}" Grid.Row="6" Grid.Column="1" />
-
-                    <Label Text="Gross Pay:" Grid.Row="7" Grid.Column="0" FontAttributes="Bold"/>
-                    <Label Text="{Binding GrossPay, StringFormat='{0:C}'}" Grid.Row="7" Grid.Column="1" />
-
-                    <Label Text="Tax:" Grid.Row="8" Grid.Column="0" FontAttributes="Bold"/>
-                    <Label Text="{Binding Tax, StringFormat='{0:C}'}" Grid.Row="8" Grid.Column="1" />
-
-                    <Label Text="Net Pay:" Grid.Row="9" Grid.Column="0" FontAttributes="Bold"/>
-                    <Label Text="{Binding NetPay, StringFormat='{0:C}'}" Grid.Row="9" Grid.Column="1" />
-                </Grid>
+                <Button Text="Update Employee Information" Margin="5" Clicked="UpdateEPayInfo_Clicked"/>
             </StackLayout>
         </VerticalStackLayout>
     </ScrollView>
