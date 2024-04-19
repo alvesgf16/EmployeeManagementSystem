@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EmployeeManagementSystem.Views.EmployeeDetailsView"
+             Shell.FlyoutBehavior="Locked">
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="5">
+            <Label Text="Personal Information" FontSize="Medium" Margin="0,20,0,10" />
+            <Label Text="Employee ID" x:Name="EmployeeID" IsVisible="False" Margin="1.5"/>
+            <Label Text="Email" x:Name="EmailEntry" IsVisible="False" Margin="1.5"/>
+            <Label Text="Password" x:Name="PasswordEntry" IsVisible="False"  Margin="1.5" />
+            <Entry Placeholder="Name" x:Name="NameEntry" Margin="1.5"/>
+            <Entry Placeholder="Phone Number" x:Name="PhoneNumberEntry" MaxLength="10" Margin="1.5"/>
+            <Entry Placeholder="Address" x:Name="AddressEntry" Margin="1.5"/>
+
+            <Label Text="Emergency Contact" FontSize="Medium" Margin="0,20,0,10" />
+            <Entry Placeholder="Contact Name" x:Name="ContactNameEntry" Margin="1.5"/>
+            <Entry Placeholder="Contact Phone Number" x:Name="ContactPhoneNumberEntry" MaxLength="10" Margin="1.5"/>
+
+            <Picker x:Name="PositionPicker">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Manager</x:String>
+                        <x:String>Employee</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+            <Picker x:Name="SchedulePicker">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Day</x:String>
+                        <x:String>Swing</x:String>
+                        <x:String>Graveyard</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+
+            <Button Text="Update Information" Clicked="UpdateExistingEmployee_Clicked" Margin="5"/>
+
+
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

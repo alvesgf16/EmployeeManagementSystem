@@ -5,16 +5,16 @@ using System.Collections.ObjectModel;
 namespace EmployeeManagementSystem.Views
 
 {
-    public partial class DashboardView : ContentPage
+    public partial class ManagerDashboardView : ContentPage
     {
         public ObservableCollection<Employee> EmployeeCollection { get; set; } = [];
         public ObservableCollection<string> TopEmployees { get; set; } = [];
         public EmployeeService EmployeeManager = new();
-        public DashboardView()
+        public ManagerDashboardView()
         {
             InitializeComponent();
         }
-        public DashboardView(Employee employee)
+        public ManagerDashboardView(Employee employee)
         {
             InitializeComponent();
         }
@@ -56,7 +56,7 @@ namespace EmployeeManagementSystem.Views
         {
             if (EmployeeListView.SelectedItem != null)
             {
-                await Shell.Current.GoToAsync($"{nameof(ManageEmployeeView)}" + $"?EmpID={((Employee)EmployeeListView.SelectedItem).Id}");
+                await Shell.Current.GoToAsync($"{nameof(ManagerEmployeeDetailsView)}" + $"?EmpID={((Employee)EmployeeListView.SelectedItem).Id}");
             }
             
         }
@@ -87,7 +87,7 @@ namespace EmployeeManagementSystem.Views
             if (TopEmployeeListView.SelectedItem != null)
             {
                 topEmpID = TopEmployeeListView.SelectedItem.ToString().Split(' ')[1];
-                await Shell.Current.GoToAsync($"{nameof(ManageEmployeeView)}" + $"?EmpID={topEmpID}");
+                await Shell.Current.GoToAsync($"{nameof(ManagerEmployeeDetailsView)}" + $"?EmpID={topEmpID}");
             }
         }
     }

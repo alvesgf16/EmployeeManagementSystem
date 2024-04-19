@@ -5,7 +5,7 @@ using EmployeeManagementSystem.Services;
 
 namespace EmployeeManagementSystem.Views;
 
-public partial class ScheduleView : ContentPage
+public partial class ManagerScheduleView : ContentPage
 {
     public ObservableCollection<CalendarDay> CalendarDays { get; set; }
     
@@ -13,7 +13,7 @@ public partial class ScheduleView : ContentPage
 
     private DateTime currentMonth;
 
-    public ScheduleView()
+    public ManagerScheduleView()
     {
         InitializeComponent();
         DayTappedCommand = new Command<CalendarDay>(OnDayTapped);

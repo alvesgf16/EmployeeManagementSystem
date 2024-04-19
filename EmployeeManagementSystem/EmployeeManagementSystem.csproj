@@ -67,17 +67,26 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Views\DashboardView.xaml.cs">
-	    <DependentUpon>DashboardView.xaml</DependentUpon>
+	  <Compile Update="Views\EmployeeDetailsView.xaml.cs">
+	    <DependentUpon>EmployeeDetailsView.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Views\ManageEmployeeView.xaml.cs">
-	    <DependentUpon>ManageEmployeeView.xaml</DependentUpon>
+	  <Compile Update="Views\ManagerEmployeePayView.xaml.cs">
+	    <DependentUpon>ManagerEmployeePayView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\ManagerDashboardView.xaml.cs">
+	    <DependentUpon>ManagerDashboardView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\ManagerEmployeeDetailsView.xaml.cs">
+	    <DependentUpon>ManagerEmployeeDetailsView.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\LoadingView.xaml.cs">
 	    <DependentUpon>LoadingView.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Views\WeekDaysSelectionView.xaml.cs">
-	    <DependentUpon>WeekDaysSelectionView.xaml</DependentUpon>
+	  <Compile Update="Views\ManagerScheduleView.xaml.cs">
+	    <DependentUpon>ManagerScheduleView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\ManagerWeekDaysSelectionView.xaml.cs">
+	    <DependentUpon>ManagerWeekDaysSelectionView.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
@@ -88,19 +97,22 @@
 	  <MauiXaml Update="Views\LoginView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\ManageEmployeeView.xaml">
+	  <MauiXaml Update="Views\EmployeeDetailsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\ManagePayView.xaml">
+	  <MauiXaml Update="Views\ManagerEmployeeDetailsView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ManagerEmployeePayView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\LoadingView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\ScheduleView.xaml">
+	  <MauiXaml Update="Views\ManagerScheduleView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\WeekDaysSelectionView.xaml">
+	  <MauiXaml Update="Views\ManagerWeekDaysSelectionView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

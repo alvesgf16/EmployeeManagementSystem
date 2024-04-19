@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using EmployeeManagementSystem.Controls;
 using EmployeeManagementSystem.Exceptions;
+using EmployeeManagementSystem.Models;
 using EmployeeManagementSystem.Services;
 using EmployeeManagementSystem.Views;
 
@@ -31,10 +32,7 @@ public partial class LoginViewModel : BaseViewModel
 
             await SecureStorage.Default.SetAsync("userId", authenticatedUser.Id.ToString());
             App.AuthenticatedUser = authenticatedUser;
-            Shell.Current.FlyoutHeader = new FlyoutHeaderControl();
-            
-            await Shell.Current.GoToAsync(nameof(DashboardView));
-
+            await Constants.AddFlyoutMenuDetails();
         }
         catch (InvalidLoginException ex)
         {

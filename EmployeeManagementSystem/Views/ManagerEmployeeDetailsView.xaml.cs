@@ -4,12 +4,12 @@ using EmployeeManagementSystem.Services;
 namespace EmployeeManagementSystem.Views;
 
 [QueryProperty(nameof(EmpID), "EmpID")]
-public partial class ManageEmployeeView : ContentPage
+public partial class ManagerEmployeeDetailsView : ContentPage
 {
     string? empid;
     EmployeeService employeeManager = new();
     
-    public ManageEmployeeView()
+    public ManagerEmployeeDetailsView()
     {
         InitializeComponent();
         PopulateEmployeePicker();

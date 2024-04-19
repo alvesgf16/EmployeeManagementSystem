@@ -4,9 +4,9 @@ using System.ComponentModel;
 
 namespace EmployeeManagementSystem.Views;
 
-public partial class ManagePayView : ContentPage, INotifyPropertyChanged
+public partial class ManagerEmployeePayView : ContentPage, INotifyPropertyChanged
 {
-	public ManagePayView()
+	public ManagerEmployeePayView()
 	{
 		InitializeComponent();
         PopulateEmployeePicker();

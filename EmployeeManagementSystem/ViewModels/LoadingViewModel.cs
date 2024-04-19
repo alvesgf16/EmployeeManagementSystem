@@ -1,4 +1,5 @@
 ﻿using EmployeeManagementSystem.Controls;
+using EmployeeManagementSystem.Models;
 using EmployeeManagementSystem.Services;
 using EmployeeManagementSystem.Views;
 
@@ -19,14 +20,13 @@ public partial class LoadingViewModel
 
         if (isUserLoggedIn)
         {
-            await Shell.Current.GoToAsync($"{nameof(DashboardView)}");
-        }
-        else
-        {
             EmployeeService employeeManager = new();
             var authenticatedUser = employeeManager.GetEmployeeById(authenticatedUserId);
             App.AuthenticatedUser = authenticatedUser;
-            Shell.Current.FlyoutHeader = new FlyoutHeaderControl();
+            await Constants.AddFlyoutMenuDetails();
+        }
+        else
+        {
             await Shell.Current.GoToAsync($"//{nameof(LoginView)}");
         }
     }

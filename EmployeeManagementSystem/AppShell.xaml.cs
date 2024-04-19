@@ -1,4 +1,5 @@
-﻿using EmployeeManagementSystem.Services;
+﻿using EmployeeManagementSystem.Models;
+using EmployeeManagementSystem.Services;
 using EmployeeManagementSystem.ViewModels;
 using EmployeeManagementSystem.Views;
 
@@ -16,10 +17,11 @@ public partial class AppShell : Shell
         //register routes of pages
         Routing.RegisterRoute(nameof(LoadingView), typeof(LoadingView));
         Routing.RegisterRoute(nameof(LoginView), typeof(LoginView));
-        Routing.RegisterRoute(nameof(DashboardView), typeof(DashboardView));
-        Routing.RegisterRoute(nameof(ScheduleView), typeof(ScheduleView));
-        Routing.RegisterRoute(nameof(ManageEmployeeView), typeof(ManageEmployeeView));
-        Routing.RegisterRoute(nameof(ManagePayView), typeof(ManagePayView));
-        Routing.RegisterRoute(nameof(WeekDaysSelectionView), typeof(WeekDaysSelectionView));
+        Routing.RegisterRoute(nameof(ManagerDashboardView), typeof(ManagerDashboardView));
+        Routing.RegisterRoute(nameof(ManagerScheduleView), typeof(ManagerScheduleView));
+        Routing.RegisterRoute(nameof(ManagerEmployeeDetailsView), typeof(ManagerEmployeeDetailsView));
+        Routing.RegisterRoute(nameof(ManagerEmployeePayView), typeof(ManagerEmployeePayView));
+        Routing.RegisterRoute(nameof(ManagerWeekDaysSelectionView), typeof(ManagerWeekDaysSelectionView));
+        Routing.RegisterRoute(nameof(EmployeeDetailsView), typeof(EmployeeDetailsView));
     }
 }

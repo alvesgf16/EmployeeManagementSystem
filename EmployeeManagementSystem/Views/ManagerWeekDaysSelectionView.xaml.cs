@@ -3,10 +3,10 @@ using EmployeeManagementSystem.Models;
 
 namespace EmployeeManagementSystem.Views;
 
-public partial class WeekDaysSelectionView : ContentPage
+public partial class ManagerWeekDaysSelectionView : ContentPage
 {
     EmployeeService employeeManager = new();
-	public WeekDaysSelectionView()
+	public ManagerWeekDaysSelectionView()
 	{
 		InitializeComponent();
         PopulateEmployeePicker();
