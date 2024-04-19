@@ -132,12 +132,12 @@ public partial class ManagerScheduleView : ContentPage
 
     private void LogHoursButton_Clicked(object sender, EventArgs e)
     {
-        int employeeID = int.Parse(EmployeeID.Text);
-        Payment payment = employeeManager.GetEmployeePay(employeeID);
         double hours = double.Parse(HoursToday.Text);
 
         if (EmployeeID.Text != "Hours" && hours < 25)
         {
+            int employeeID = int.Parse(EmployeeID.Text);
+            Payment payment = employeeManager.GetEmployeePay(employeeID);
             if (hours > 8.5)
             {
                 double overtime = hours - 8.5;
@@ -153,6 +153,11 @@ public partial class ManagerScheduleView : ContentPage
             }
 
             ClearForm();
+            DisplayAlert("Confirmation", "Hours have been logged", "OK");
+        }
+        else
+        {
+            DisplayAlert("Error", "Please confirm all entry's are filled correctly.", "OK");
         }
     }
 

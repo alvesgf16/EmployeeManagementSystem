@@ -129,6 +129,8 @@ public partial class ManagerEmployeePayView : ContentPage, INotifyPropertyChange
         EmployeeHoursThisWeek.Text = selectedPayment.RegHours.ToString();
         EmployeeOvertime.Text = selectedPayment.OverTimeHours.ToString();
         EmployeePerformance.Text = selectedPayment.Performance.ToString();
+
+        DisplayAlert("Confirmation", "Employee has been updated", "OK");
     }
 
     private void UpdatePayStub(PayStubViewModel payStub)
