@@ -15,5 +15,5 @@ public class Payment()
 
     public double OvertimeHoursWorkedThisWeek { get; set; }
 
-    public double Performance { get; set; }
+    public int Performance { get; set; }
 }

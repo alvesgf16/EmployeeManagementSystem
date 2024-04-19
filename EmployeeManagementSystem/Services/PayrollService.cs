@@ -43,5 +43,31 @@ namespace EmployeeManagementSystem.Services
             return totalPayroll;
         }
 
+        public static Dictionary<int, int> CalculateTopEmployees()
+        {
+            // Calculate top employees based on performance rating
+            EmployeeService employeeManager = new();
+            var employees = employeeManager.GetAllEmployees();
+            Dictionary<int, int> EmployeeRatingList = [];
+            foreach (var employee in employees)
+            {
+                Payment payment = employeeManager.GetEmployeePay(employee.Id);
+                if (payment is null)
+                {
+                    payment = new Payment
+                    {
+                        EmployeeID = employee.Id,
+                        Salary = 0,
+                        TotalHours = 0,
+                        HoursWorkedThisWeek = 0,
+                        OvertimeHoursWorkedThisWeek = 0,
+                        Performance = 0
+                    };
+                }
+                EmployeeRatingList.Add(payment.EmployeeID, payment.Performance);
+            }
+            return EmployeeRatingList;
+        }
+
     }
 }

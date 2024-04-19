@@ -120,7 +120,7 @@ public partial class ManagePayView : ContentPage, INotifyPropertyChanged
         selectedPayment.TotalHours = double.Parse(EmployeeHours.Text);
         selectedPayment.HoursWorkedThisWeek = double.Parse(EmployeeHoursThisWeek.Text);
         selectedPayment.OvertimeHoursWorkedThisWeek = double.Parse(EmployeeOvertime.Text);
-        selectedPayment.Performance = double.Parse(EmployeePerformance.Text);
+        selectedPayment.Performance = int.Parse(EmployeePerformance.Text);
 
         employeeManager.UpdateEmployeePay(selectedPayment);
 

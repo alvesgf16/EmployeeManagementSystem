@@ -7,7 +7,8 @@ namespace EmployeeManagementSystem.Views
 {
     public partial class DashboardView : ContentPage
     {
-        public ObservableCollection<Employee> EmployeeCollection { get; set; } = new ObservableCollection<Employee>();
+        public ObservableCollection<Employee> EmployeeCollection { get; set; } = [];
+        public ObservableCollection<string> TopEmployees { get; set; } = [];
         public EmployeeService EmployeeManager = new();
         public DashboardView()
         {
@@ -21,9 +22,12 @@ namespace EmployeeManagementSystem.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            EmployeeCollection.Clear();
+            TopEmployees.Clear();
             PopulateEmployeeCollection();
             PopulatePayrollDisplay();
             CalculateSickDaysTakenYTD();
+            PopulateTopEmployees();
         }
        
 
@@ -56,6 +60,35 @@ namespace EmployeeManagementSystem.Views
             }
             
         }
+        //method to populate the top employees list, calculates the top employees based on the performance rating
+        public void PopulateTopEmployees()
+        {
+            var topEmployees = PayrollService.CalculateTopEmployees().ToList();
+            int noOfTopEmployees = topEmployees.Count();
+            if (noOfTopEmployees > 5)
+            {
+                noOfTopEmployees = 5;
+            }
+            //get the top 5 employees
+            topEmployees = topEmployees.OrderByDescending(e => e.Value).Take(noOfTopEmployees).ToList();
+            foreach (var employee in topEmployees)
+            {
+                string employeeID = employee.Key.ToString();
+                string employeeName = EmployeeManager.GetEmployeeById(employee.Key).Name;
+                string employeePerformance = employee.Value.ToString();
+                TopEmployees.Add($"ID: {employeeID} Name: {employeeName} Performance: {employeePerformance}");
+            }
+            TopEmployeeListView.ItemsSource = TopEmployees;
+        }
 
+        private async void TopEmployeeListView_ItemSelected(object sender, EventArgs e)
+        {
+            string topEmpID;
+            if (TopEmployeeListView.SelectedItem != null)
+            {
+                topEmpID = TopEmployeeListView.SelectedItem.ToString().Split(' ')[1];
+                await Shell.Current.GoToAsync($"{nameof(ManageEmployeeView)}" + $"?EmpID={topEmpID}");
+            }
+        }
     }
 }
