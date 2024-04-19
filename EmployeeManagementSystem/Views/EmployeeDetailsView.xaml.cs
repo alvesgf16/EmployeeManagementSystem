@@ -40,6 +40,8 @@ public partial class EmployeeDetailsView : ContentPage
 
             // Save the updated employee to the database
             employeeManager.UpdateEmployee(existingEmployee);
+
+            DisplayAlert("Success", "Your information has been updated successfully.", "OK");
         }
         else
         {

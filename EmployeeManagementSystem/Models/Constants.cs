@@ -106,6 +106,11 @@ public class Constants
                             Title = "Employee Details",
                             ContentTemplate = new DataTemplate(typeof(EmployeeDetailsView))
                         },
+                        new ShellContent
+                        {
+                            Title = "Time Off Request",
+                            ContentTemplate = new DataTemplate(typeof(TimeOffRequestView))
+                        }
                     }
             };
 
