@@ -23,5 +23,6 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(ManagerEmployeePayView), typeof(ManagerEmployeePayView));
         Routing.RegisterRoute(nameof(ManagerWeekDaysSelectionView), typeof(ManagerWeekDaysSelectionView));
         Routing.RegisterRoute(nameof(EmployeeDetailsView), typeof(EmployeeDetailsView));
+        Routing.RegisterRoute(nameof(EmployeeDashboardView), typeof(EmployeeDashboardView));
     }
 }

@@ -40,7 +40,7 @@ public class Constants
         var managerFlyout = Shell.Current.Items.Where((shellItem) => shellItem.Route == nameof(ManagerDashboardView)).FirstOrDefault();
         if (managerFlyout is not null) Shell.Current.Items.Remove(managerFlyout);
 
-        var employeeFlyout = Shell.Current.Items.Where((shellItem) => shellItem.Route.Contains(nameof(EmployeeDetailsView))).FirstOrDefault();
+        var employeeFlyout = Shell.Current.Items.Where((shellItem) => shellItem.Route == nameof(EmployeeDashboardView)).FirstOrDefault();
         if (employeeFlyout is not null) Shell.Current.Items.Remove(employeeFlyout);
 
         if (App.AuthenticatedUser.Position == Position.Manager)
@@ -90,11 +90,17 @@ public class Constants
         {
             var flyoutItem = new FlyoutItem()
             {
-                Title = "Employee Details",
-                Route = $"{nameof(EmployeeDetailsView)}?EmpID={App.AuthenticatedUser.Id}",
+                Title = "Dashboard",
+                Route = nameof(EmployeeDashboardView),
+                //Route = $"{nameof(EmployeeDashboardView)}?EmpID={App.AuthenticatedUser.Id}",
                 FlyoutDisplayOptions = FlyoutDisplayOptions.AsMultipleItems,
                 Items =
                     {
+                        new ShellContent 
+                        { 
+                            Title = "Dashboard", 
+                            ContentTemplate = new DataTemplate(typeof(EmployeeDashboardView))
+                        },
                         new ShellContent
                         {
                             Title = "Employee Details",
@@ -106,7 +112,8 @@ public class Constants
             if (!Shell.Current.Items.Contains(flyoutItem))
             {
                 Shell.Current.Items.Add(flyoutItem);
-                await Shell.Current.GoToAsync($"{nameof(EmployeeDetailsView)}?EmpID={App.AuthenticatedUser.Id}");
+                await Shell.Current.GoToAsync($"//{nameof(EmployeeDashboardView)}");
+                //await Shell.Current.GoToAsync($"{nameof(EmployeeDashboardView)}?EmpID={App.AuthenticatedUser.Id}");
             }
         }
     }
