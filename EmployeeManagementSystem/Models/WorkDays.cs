@@ -10,7 +10,7 @@ namespace EmployeeManagementSystem.Models
 {
     public class WorkDays
     {
-        [PrimaryKey]
+        [PrimaryKey, AutoIncrement]
         public int WorkDayId { get; set; }
         [NotNull]
         public DateTime Date { get; set; }
