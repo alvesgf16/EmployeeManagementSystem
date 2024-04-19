@@ -29,23 +29,22 @@ namespace EmployeeManagementSystem.Services
                         EmployeeID = employee.Id,
                         Salary = 0,
                         TotalHours = 0,
-                        HoursWorkedThisWeek = 0,
-                        OvertimeHoursWorkedThisWeek = 0,
+                        RegHours = 0,
+                        OverTimeHours = 0,
                         Performance = 0
                         
                     };
                 }
 
                 // Calculate gross pay
-                totalPayroll += ((payment.Salary * payment.HoursWorkedThisWeek) 
-                    + (payment.Salary * payment.OvertimeHoursWorkedThisWeek * 1.5));
+                totalPayroll += ((payment.Salary * payment.RegHours) 
+                    + (payment.Salary * payment.OverTimeHours * 1.5));
             }
             return totalPayroll;
         }
-
-        public static Dictionary<int, int> CalculateTopEmployees()
+        //Method to get all employees ID's and performance rating
+        public static Dictionary<int, int> GetEmployeesIDandPR()
         {
-            // Calculate top employees based on performance rating
             EmployeeService employeeManager = new();
             var employees = employeeManager.GetAllEmployees();
             Dictionary<int, int> EmployeeRatingList = [];
@@ -59,8 +58,8 @@ namespace EmployeeManagementSystem.Services
                         EmployeeID = employee.Id,
                         Salary = 0,
                         TotalHours = 0,
-                        HoursWorkedThisWeek = 0,
-                        OvertimeHoursWorkedThisWeek = 0,
+                        RegHours = 0,
+                        OverTimeHours = 0,
                         Performance = 0
                     };
                 }
@@ -68,6 +67,29 @@ namespace EmployeeManagementSystem.Services
             }
             return EmployeeRatingList;
         }
+
+        //Method to calculate an employees accrued PTO
+        public static int CalculatePTO(Employee employee)
+        {
+            EmployeeService employeeManager = new();
+            Payment payment = employeeManager.GetEmployeePay(employee.Id);
+            if (payment is null)
+            {
+                payment = new Payment
+                {
+                    EmployeeID = employee.Id,
+                    Salary = 0,
+                    TotalHours = 0,
+                    RegHours = 0,
+                    OverTimeHours = 0,
+                    Performance = 0
+                };
+            }
+            int PTO = Convert.ToInt32(payment.TotalHours * 0.06);
+            return PTO;
+        }
+
+        
 
     }
 }

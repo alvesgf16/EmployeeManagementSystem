@@ -11,9 +11,9 @@ public class Payment()
 
     public double TotalHours { get; set; }
 
-    public double HoursWorkedThisWeek { get; set; }
+    public double RegHours { get; set; }
 
-    public double OvertimeHoursWorkedThisWeek { get; set; }
+    public double OverTimeHours { get; set; }
 
     public int Performance { get; set; }
 }

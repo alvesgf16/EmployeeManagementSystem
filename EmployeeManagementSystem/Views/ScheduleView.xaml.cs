@@ -142,13 +142,13 @@ public partial class ScheduleView : ContentPage
             {
                 double overtime = hours - 8.5;
                 payment.EmployeeID = employeeID;
-                payment.HoursWorkedThisWeek = payment.HoursWorkedThisWeek + 8.5;
-                payment.OvertimeHoursWorkedThisWeek = payment.OvertimeHoursWorkedThisWeek + overtime;
+                payment.RegHours = payment.RegHours + 8.5;
+                payment.OverTimeHours = payment.OverTimeHours + overtime;
                 employeeManager.UpdatePayment(payment);
             }
             else
             {
-                payment.HoursWorkedThisWeek = payment.HoursWorkedThisWeek + hours;
+                payment.RegHours = payment.RegHours + hours;
                 employeeManager.UpdatePayment(payment);
             }
 

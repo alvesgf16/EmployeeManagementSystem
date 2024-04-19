@@ -6,8 +6,11 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
+            <RowDefinition Height="20"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -19,17 +22,18 @@
 
 
 
-        <Frame Grid.Row="1" BorderColor="Gray" CornerRadius="10"/>
-        <Label Grid.Row="1" Text="Total Upcoming Payroll:" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Start" />
-        <Label Grid.Row="1" x:Name="payroll_display" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Large"/>
+        <Frame Grid.Row="1" Grid.RowSpan="2" BorderColor="Gray" CornerRadius="10"/>
+        <Label Grid.Row="1" Text="Total Upcoming Payroll:" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" />
+        <Label Grid.Row="2" x:Name="payroll_display" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Large"/>
 
-        <Frame Grid.Row="1" Grid.Column="1" BorderColor="Grey" CornerRadius="10"/>
+        <Frame Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" BorderColor="Grey" CornerRadius="10"/>
         <Label Grid.Row="1" Grid.Column="1" Text="Sick Days Taken Year-to-date:" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Start" />
-        <Label Grid.Row="1" Grid.Column="1" x:Name="SickDaysYTD" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Large"/>
+        <Label Grid.Row="2" Grid.Column="1" x:Name="SickDaysYTD" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Large"/>
 
-        <Frame Grid.Row="2" BorderColor="Grey" CornerRadius="10"/>
-        <ScrollView Grid.Row="2" >
-            <ListView Grid.Row="2" x:Name="TopEmployeeListView" ItemSelected="TopEmployeeListView_ItemSelected" Header="Top Performing Employees" Margin="15" >
+        <Frame Grid.Row="3" Grid.RowSpan="2" CornerRadius="10" BorderColor="Grey"/>
+        <Label Grid.Row="3" Text="Lowest Performing Employees" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" />
+        <ScrollView Grid.Row="4" >
+            <ListView Grid.Row="4" x:Name="TopEmployeeListView" ItemSelected="TopEmployeeListView_ItemSelected" Margin="15" >
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -44,17 +48,32 @@
             </ListView>
         </ScrollView>
 
-        <Frame Grid.Row="2" Grid.Column="1" BorderColor="Grey" CornerRadius="10"/>
-        <Label Grid.Row="2" Grid.Column="1" Text="Lowest Performing Employees" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Start" />
-        <Label Grid.Row="2" Grid.Column="1" x:Name="LowestPerformingEmployee" HorizontalOptions="Center" VerticalOptions="Center" />
+        <Frame Grid.Row="3" Grid.RowSpan="2" Grid.Column="1" BorderColor="Grey" CornerRadius="10"/>
+        <Label Grid.Row="3" Grid.Column="1" Text="Lowest Performing Employees" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" />
+        <ScrollView Grid.Row="4" Grid.Column="1" >
+            <ListView Grid.Row="4" Grid.Column="1" x:Name="WorstEmployeeListView" ItemSelected="WorstEmployeeListView_ItemSelected" Margin="15" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Frame BorderColor="Grey" CornerRadius="10" BackgroundColor="MediumPurple" Margin="5" Padding="5">
+                                    <Label Text="{Binding .}" FontAttributes="Bold"  />
+                                </Frame>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ScrollView>
 
-        <Frame Grid.Row="3" Grid.Column="0" BorderColor="Grey" CornerRadius="10"/>
-        <Label Grid.Row="3" Grid.Column="0" Text="Time-off Requests" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Start" />
-        <Label Grid.Row="3" Grid.Column="0" x:Name="PTORequests" HorizontalOptions="Center" VerticalOptions="Center" />
-        
-        <Frame Grid.Row="3" Grid.Column="1" BorderColor="Grey" CornerRadius="10"/>
-        <ScrollView Grid.Row="3" Grid.Column="1">
-            <ListView Grid.Row="3" Grid.Column="1" x:Name="EmployeeListView" ItemSelected="EmployeeListView_ItemSelected" Header="Active Employees" Margin="15" >
+        <Frame Grid.Row="5" Grid.RowSpan="2" Grid.Column="0" BorderColor="Grey" CornerRadius="10"/>
+        <Label Grid.Row="5" Grid.Column="0" Text="Time-off Requests" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" />
+        <Label Grid.Row="6" Grid.Column="0" x:Name="PTORequests" HorizontalOptions="Center" VerticalOptions="Center" />
+
+        <Frame Grid.Row="5" Grid.RowSpan="2" Grid.Column="1" BorderColor="Grey" CornerRadius="10"/>
+        <Label Grid.Row="5" Grid.Column="1" Text="Active Employees" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" />
+        <ScrollView Grid.Row="6" Grid.Column="1">
+            <ListView Grid.Row="6" Grid.Column="1" x:Name="EmployeeListView" ItemSelected="EmployeeListView_ItemSelected" Margin="15" >
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
