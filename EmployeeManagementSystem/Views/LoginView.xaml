@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="EmployeeManagementSystem.Views.LoginView"
-             Shell.FlyoutBehavior="Disabled"
-             >
+             x:Class="EmployeeManagementSystem.Views.LoginView">
     <FlexLayout
         Direction="Row">
         <FlexLayout
@@ -31,21 +29,20 @@
             AlignItems="Center"
             JustifyContent="Center">
             <Entry
-                x:Name="email"
+                Text="{Binding Email}"
                 Placeholder="Email"
                 WidthRequest="300"
                 Margin="25, 10"/>
             <Entry
-                x:Name="password"
+                Text="{Binding Password}"
                 Placeholder="Password"
                 IsPassword="True"
                 WidthRequest="300"
                 Margin="25, 10"
-                Completed="OnEntryCompleted"
             />
             <Button
                 Text="Login"
-                Clicked="OnLoginButtonClicked"
+                Command="{Binding LoginCommand}"
                 WidthRequest="300"
                 Margin="25, 10"
                 BackgroundColor="#4B088A"

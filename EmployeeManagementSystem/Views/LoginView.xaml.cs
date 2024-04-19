@@ -1,34 +1,14 @@
 using EmployeeManagementSystem.Exceptions;
 using EmployeeManagementSystem.Services;
+using EmployeeManagementSystem.ViewModels;
 
 namespace EmployeeManagementSystem.Views;
 
 public partial class LoginView : ContentPage
 {
-    public LoginView()
+    public LoginView(LoginViewModel viewModel)
     {
         InitializeComponent();
+        BindingContext = viewModel;
     }
-
-    private async void OnLoginButtonClicked(object sender, EventArgs e)
-    {
-        try
-        {
-            AuthService authService = new();
-            int authenticatedUserId = authService.AuthenticateUserLogin(email.Text.ToLower(), password.Text);
-            await SecureStorage.Default.SetAsync("user", authenticatedUserId.ToString());
-            await Shell.Current.GoToAsync(nameof(DashboardView));
-
-        }
-        catch (InvalidLoginException ex)
-        {
-            await DisplayAlert("Login Failed", ex.Message, "OK");
-        }
-    }
-
-    private void OnEntryCompleted(object sender, EventArgs e)
-    {
-        OnLoginButtonClicked(sender, e);
-    }
-
 }

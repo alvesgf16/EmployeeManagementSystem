@@ -3,10 +3,10 @@ using EmployeeManagementSystem.Models;
 
 namespace EmployeeManagementSystem.Views;
 
-public partial class WeekDaysSelection : ContentPage
+public partial class WeekDaysSelectionView : ContentPage
 {
-    EmployeeService employeeManager = new EmployeeService();
-	public WeekDaysSelection()
+    EmployeeService employeeManager = new();
+	public WeekDaysSelectionView()
 	{
 		InitializeComponent();
         PopulateEmployeePicker();
@@ -61,8 +61,6 @@ public partial class WeekDaysSelection : ContentPage
 
             int OvertimeHours = 0;
 
-            double ExpectedPay = 0;
-
             if (Monday.IsChecked)
             {
                 TotalHours += 8;
@@ -104,8 +102,7 @@ public partial class WeekDaysSelection : ContentPage
                 TotalHours = 40;
             }
 
-            ExpectedPay = TotalHours * selectedPayment.Salary + OvertimeHours * selectedPayment.Salary * 1.5;
-
+            double ExpectedPay = TotalHours * selectedPayment.Salary + OvertimeHours * selectedPayment.Salary * 1.5;
             TotalHoursEntry.Text = TotalHours.ToString();
 
             OvertimeHoursEntry.Text = OvertimeHours.ToString();

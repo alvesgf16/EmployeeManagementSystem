@@ -1,4 +1,6 @@
-﻿namespace EmployeeManagementSystem
+﻿using EmployeeManagementSystem.Models;
+
+namespace EmployeeManagementSystem
 {
     public partial class App : Application
     {
@@ -9,7 +11,9 @@
             MainPage = new AppShell();
         }
 
-        protected override Window CreateWindow(IActivationState activationState)
+        public static Employee? AuthenticatedUser;
+
+        protected override Window CreateWindow(IActivationState? activationState)
         {
             Window window = base.CreateWindow(activationState);
             

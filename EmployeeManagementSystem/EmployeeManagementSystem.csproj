@@ -73,9 +73,18 @@
 	  <Compile Update="Views\ManageEmployeeView.xaml.cs">
 	    <DependentUpon>ManageEmployeeView.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\LoadingView.xaml.cs">
+	    <DependentUpon>LoadingView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\WeekDaysSelectionView.xaml.cs">
+	    <DependentUpon>WeekDaysSelectionView.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Controls\FlyoutHeaderControl.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\LoginView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -85,10 +94,13 @@
 	  <MauiXaml Update="Views\ManagePayView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\LoadingView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\ScheduleView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\WeekDaysSelection.xaml">
+	  <MauiXaml Update="Views\WeekDaysSelectionView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
