@@ -113,7 +113,7 @@ public partial class ManagerEmployeeDetailsView : ContentPage
 
         // Clear the form after adding the employee
         ClearForm();
-            DisplayAlert("Confirmation", "Employee has been created", "OK");
+        DisplayAlert("Confirmation", "Employee has been created", "OK");
         }
         PopulateEmployeePicker();
     }
@@ -144,6 +144,7 @@ public partial class ManagerEmployeeDetailsView : ContentPage
 
             // Clear the form after updating the employee
             ClearForm();
+            DisplayAlert("Confirmation", "Employee has been updated", "OK");
         }
         else
         {
@@ -156,7 +157,7 @@ public partial class ManagerEmployeeDetailsView : ContentPage
     {
         if (Regex.IsMatch(EmailEntry.Text, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
         {
-            if (PhoneNumberEntry.Text.Length == 9 && ContactPhoneNumberEntry.Text.Length == 9)
+            if (PhoneNumberEntry.Text.Length == 10 && ContactPhoneNumberEntry.Text.Length == 10)
             {
                 return !string.IsNullOrWhiteSpace(EmailEntry.Text) &&
                 !string.IsNullOrWhiteSpace(PasswordEntry.Text) &&
