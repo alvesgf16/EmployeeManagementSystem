@@ -13,6 +13,4 @@ namespace EmployeeManagementSystem.Models
         public double HoursWorked { get; set; }
         public double OvertimeHoursWorked { get; set; }
     }
-
-
 }
