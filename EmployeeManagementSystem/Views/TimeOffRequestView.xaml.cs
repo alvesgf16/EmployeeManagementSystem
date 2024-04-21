@@ -8,8 +8,8 @@ public partial class TimeOffRequestView : ContentPage
     DateTime datetime = DateTime.Now;
     DateTime? date;
     DateTime? sickdate;
-    EmployeeService employeeManager = new();
-    PTORequestService PTORequestManager = new();
+    EmployeeService _employeeService = new();
+    PTORequestService _ptoRequestService = new();
     SickDayRequestService SickDayRequestService = new();
     Employee employee = new();
 
@@ -92,7 +92,7 @@ public partial class TimeOffRequestView : ContentPage
                 {
                     employee.AvailableSickDays -= 1;
                     SickDayRequestService.SaveSickDayRequest(new SickDayRequest { EmployeeID = employee.Id, RequestedDate = (DateTime)SickDate, Approved = false });
-                    employeeManager.UpdateEmployee(employee);
+                    _employeeService.UpdateEmployee(employee);
                     DisplayAlert("Success", "Your Sick day request has been submitted successfully.", "OK");
                 }
                 else

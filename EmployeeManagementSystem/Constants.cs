@@ -101,23 +101,35 @@ public class Constants
         {
             var flyoutItem = new FlyoutItem()
             {
-                Title = "Employee Details",
-                Route = $"{nameof(EmployeeDetailsView)}?EmpID={App.AuthenticatedUser.Id}",
+                Title = "Dashboard",
+                Route = $"{nameof(EmployeeDashboardView)}",
                 FlyoutDisplayOptions = FlyoutDisplayOptions.AsMultipleItems,
                 Items =
                     {
                         new ShellContent
                         {
+                            Title = "Dashboard",
+                            ContentTemplate = new DataTemplate(typeof(EmployeeDashboardView))
+                        },
+
+                        new ShellContent
+                        {
                             Title = "Employee Details",
                             ContentTemplate = new DataTemplate(typeof(EmployeeDetailsView))
                         },
+
+                        new ShellContent
+                        {
+                            Title = "PTO/Sick Days Request",
+                            ContentTemplate = new DataTemplate(typeof(TimeOffRequestView))
+                        }
                     }
             };
 
             if (!Shell.Current.Items.Contains(flyoutItem))
             {
                 Shell.Current.Items.Add(flyoutItem);
-                await Shell.Current.GoToAsync($"{nameof(EmployeeDetailsView)}?EmpID={App.AuthenticatedUser.Id}");
+                await Shell.Current.GoToAsync($"{nameof(EmployeeDashboardView)}");
             }
         }
     }
