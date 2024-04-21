@@ -3,7 +3,6 @@ using EmployeeManagementSystem.Services;
 using System.Runtime.CompilerServices;
 using Microsoft.Maui.Controls;
 using System.ComponentModel;
-using System.Collections.ObjectModel;
 
 namespace EmployeeManagementSystem.Views;
 
@@ -67,11 +66,11 @@ public partial class TimeOffRequestView : ContentPage
 
             if (employee.AvailablePTODays >= 1)
             {
-                if (PTORequestManager.GetPTORequestByDateAndId((DateTime)Date, employee.Id) is null)
+                if (_ptoRequestService.GetPTORequestByDateAndId((DateTime)Date, employee.Id) is null)
                 {
                     employee.AvailablePTODays -= 1;
-                    PTORequestManager.SavePTORequest(new PTORequest { EmployeeID = employee.Id, RequestedDate = (DateTime)Date, Approved = false });
-                    employeeManager.UpdateEmployee(employee);
+                    _ptoRequestService.SavePTORequest(new PTORequest { EmployeeID = employee.Id, RequestedDate = (DateTime)Date, Approved = false });
+                    _employeeService.UpdateEmployee(employee);
                     DisplayAlert("Success", "Your PTO request has been submitted successfully.", "OK");
                     Date = null;
                 }

@@ -13,7 +13,7 @@ namespace EmployeeManagementSystem.Models;
 public partial class Employee : ObservableObject
 {
     private int _id;
-    private string _email;
+    private string? _email;
     private string? _password;
     private string? _name;
     private string? _phoneNumber;
