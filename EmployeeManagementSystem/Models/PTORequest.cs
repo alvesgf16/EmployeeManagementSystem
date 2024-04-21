@@ -1,6 +1,15 @@
 ﻿using SQLite;
 using SQLiteNetExtensions.Attributes;
 
+// Comments
+/*
+    Dominic Goncalves, April 20th, 2024.
+    PTORequest Class.
+
+    Declares PTORequest class.
+    This class is utilized in order for employees to request time off work, and for managers to view the requests, and approve or deny them.
+ */
+
 namespace EmployeeManagementSystem.Models
 {
     public class PTORequest

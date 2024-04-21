@@ -3,12 +3,20 @@ using EmployeeManagementSystem.Views;
 
 namespace EmployeeManagementSystem.Models;
 
+// Comments
+/*
+    Dominic Goncalves, April 20th, 2024.
+    Constants Page.
+    Declares variables for the name of the Database file and the path to the database file. This allows easy and fail-proof connection to the database from other services.
+    Declares a task for creating the flyout menu and views when either an employee or a manager log in to the system. It does this by checking the 'Position' value of the employee object and creating either a 'Manager' view or an 'Employee' view
+ */
 public class Constants
-{
+{   // Set database filename
     public const string DatabaseFilename = "EMS.db3";
 
     public Constants() { }
 
+    // Use database filename to locate path to database
     public static string DatabasePath
     {
         get
@@ -20,6 +28,7 @@ public class Constants
             {
                 directory = directory.Parent;
 
+                // ensure that database is correctly found and throws error if it is not
                 if (directory == null)
                 {
                     throw new InvalidOperationException("Could not find the project root directory.");
@@ -33,6 +42,7 @@ public class Constants
         }
     }
 
+    // Checks the 'position' value of the employee object that has logged in to the system, and displays either the Manager flyout (contains more information and has authority to perfrom more tasks) or the Employee flyour (contains less information and only allows basic tasks)
     public static async Task AddFlyoutMenuDetails()
     {
         Shell.Current.FlyoutHeader = new FlyoutHeaderControl();

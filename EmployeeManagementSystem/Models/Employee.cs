@@ -3,6 +3,14 @@ using SQLite;
 using System.ComponentModel;
 namespace EmployeeManagementSystem.Models;
 
+// Comments
+/*
+    Dominic Goncalves, April 20th, 2024.
+    Employee Class.
+
+    Employee class is the primary actor in the entire system. 
+    The Employee table is built off of this class, and most methods throughout the system are called by passing an employee ID.
+ */
 public partial class Employee : ObservableObject
 {
     private int _id;
