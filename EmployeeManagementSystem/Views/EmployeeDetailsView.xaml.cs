@@ -108,19 +108,4 @@ public partial class EmployeeDetailsView : ContentPage
             OnPropertyChanged(nameof(EmpID));
         }
     }
-
-    private void PopulateView(Employee employee)
-    {
-        // Populate the entry fields with the selected employee's information
-        EmployeeID.Text = employee.Id.ToString();
-        EmailEntry.Text = employee.Email;
-        PasswordEntry.Text = employee.Password;
-        NameEntry.Text = employee.Name;
-        PhoneNumberEntry.Text = employee.PhoneNumber;
-        AddressEntry.Text = employee.Address;
-        ContactNameEntry.Text = employee.EContactName;
-        ContactPhoneNumberEntry.Text = employee.EContactPhone;
-        PositionPicker.SelectedItem = employee.Position.ToString();
-        SchedulePicker.SelectedItem = employee.Shift.ToString();
-    }
 }
