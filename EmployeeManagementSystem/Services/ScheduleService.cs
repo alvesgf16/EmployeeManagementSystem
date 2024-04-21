@@ -15,9 +15,10 @@ namespace EmployeeManagementSystem.Services
         {
             _database = new SQLiteConnection(Constants.DatabasePath);
             _database.CreateTable<WorkDays>();
+            _database.CreateTable<PTORequest>();
         }
         
-        //Methods
+        //Methods - WorkDays
         public void SaveWorkDay(WorkDays workDay) => _database.Insert(workDay);
         public void DeleteWorkDay(WorkDays workDay) => _database.Delete(workDay);
         public void UpdateWorkDay(WorkDays workDay) => _database.Update(workDay);
@@ -38,5 +39,24 @@ namespace EmployeeManagementSystem.Services
         public List<WorkDays> GetWorkDaysByDate(DateTime date) => _database.Table<WorkDays>().Where(w => w.Date == date).ToList();
         public List<WorkDays> GetWorkDaysByDay(DaysofWeek day) => _database.Table<WorkDays>().Where(w => w.Day == day).ToList();
         
+        //Methods - PTORequest
+        public void SavePTORequest(PTORequest ptoRequest) => _database.Insert(ptoRequest);
+        public void DeletePTORequest(PTORequest ptoRequest) => _database.Delete(ptoRequest);
+        public void UpdatePTORequest(PTORequest ptoRequest) => _database.Update(ptoRequest);
+        public List<PTORequest> GetPTORequestByEmployeeId(int Id)
+        {
+            foreach(var ptoRequest in _database.Table<PTORequest>())
+            {
+                if (ptoRequest.EmployeeID == Id)
+                {
+                    return _database.Table<PTORequest>().Where(w => w.EmployeeID == Id).ToList();
+                }
+            }
+            return [];
+        }
+        public PTORequest GetPTORequestById(int ptoRequestId) => _database.Find<PTORequest>(ptoRequestId);
+        public List<PTORequest> GetAllPTORequests() => _database.Table<PTORequest>().ToList();
+        public List<PTORequest> GetPTORequestsByDate(DateTime date) => _database.Table<PTORequest>().Where(w => w.RequestedDate == date).ToList();
+        public PTORequest GetPTORequestByDateAndId(DateTime date, int Id) => _database.Table<PTORequest>().Where(w => w.RequestedDate == date && w.EmployeeID == Id).FirstOrDefault();
     }
 }

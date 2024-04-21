@@ -26,7 +26,7 @@
             <HorizontalStackLayout>
                 <VerticalStackLayout>
                     <Label Text="PTO Days to Request"/>
-                    <Entry x:Name="PTODaysRequested" Margin="1.5"/>
+                    <DatePicker x:Name="PTORequestEntry" Margin="1.5" DateSelected="Selected_Date" />
                     <Button Text="Request PTO" Clicked="RequestPTO_Clicked" Margin="1.5"/>
                 </VerticalStackLayout>
                 <VerticalStackLayout>

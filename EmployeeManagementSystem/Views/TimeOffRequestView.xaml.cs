@@ -2,6 +2,7 @@ using EmployeeManagementSystem.Models;
 using EmployeeManagementSystem.Services;
 using System.Runtime.CompilerServices;
 using Microsoft.Maui.Controls;
+using System.ComponentModel;
 
 namespace EmployeeManagementSystem.Views;
 
@@ -9,15 +10,34 @@ namespace EmployeeManagementSystem.Views;
 public partial class TimeOffRequestView : ContentPage
 {
     string? empid;
+    DateTime datetime = DateTime.Now;
+    DateTime? date;
     EmployeeService employeeManager = new();
+    ScheduleService ScheduleService = new();
+
+    DateTime? Date
+    {
+        get => date;
+        set
+        {
+            date = value;
+            OnPropertyChanged();
+        }
+    }
     public TimeOffRequestView()
 	{
 		InitializeComponent();
-        empid ??= App.AuthenticatedUser.Id.ToString();
-        PopulateView(GetEmployeeFromDatabase(Convert.ToInt32(empid)));
     }
 
-
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        empid ??= App.AuthenticatedUser.Id.ToString();
+        PopulateView(GetEmployeeFromDatabase(Convert.ToInt32(empid)));
+        Date = null;
+        PTORequestEntry.MinimumDate = datetime;
+        PTORequestEntry.Date = datetime;
+    }
 
     private void RequestPTO_Clicked(object sender, EventArgs e)
     {
@@ -25,28 +45,34 @@ public partial class TimeOffRequestView : ContentPage
         Employee existingEmployee = GetEmployeeFromDatabase(employeeId);
 
         // Update the existing employee with the new information
-        if (ValidateEmployeeInformation())
+        if (ValidateEmployeeInformation() && Date != null)
         {
-            if (int.TryParse(PTODaysRequested.Text, out int ptoDaysRequested))
+
+            if (existingEmployee.AvailablePTODays >= 1)
             {
-                if (ptoDaysRequested <= existingEmployee.AvailablePTODays)
+                if (ScheduleService.GetPTORequestByDateAndId((DateTime)Date, employeeId) is null)
                 {
-                    existingEmployee.AvailablePTODays -= ptoDaysRequested;
+                    existingEmployee.AvailablePTODays -= 1;
+                    ScheduleService.SavePTORequest(new PTORequest { EmployeeID = employeeId, RequestedDate = (DateTime)Date, Approved = false });
                     employeeManager.UpdateEmployee(existingEmployee);
                     DisplayAlert("Success", "Your PTO request has been submitted successfully.", "OK");
                     PopulateView(existingEmployee);
-                    PTODaysRequested.Text = string.Empty;
+                    Date = null;
                 }
                 else
                 {
-                    DisplayAlert("Error", "Insufficient PTO days available.", "OK");
+                    DisplayAlert("Error", "You have already requested PTO for this date.", "OK");
                 }
             }
             else
             {
-                DisplayAlert("Error", "Invalid PTO days requested.", "OK");
+                DisplayAlert("Error", "Insufficient PTO days available.", "OK");
             }
 
+        }
+        else
+        {
+            DisplayAlert("Error", "Please select a date.", "OK");
         }
     }
 
@@ -133,5 +159,8 @@ public partial class TimeOffRequestView : ContentPage
         }
     }
 
-
+    private void Selected_Date(object sender, DateChangedEventArgs e)
+    {
+        Date = e.NewDate;
+    }
 }
