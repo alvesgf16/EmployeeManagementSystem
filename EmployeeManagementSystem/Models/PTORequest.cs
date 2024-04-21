@@ -23,5 +23,10 @@ namespace EmployeeManagementSystem.Models
         public DateTime RequestedDate { get; set; }
 
         public bool Approved { get; set; }
+
+        public override string ToString()
+        {
+            return $"PTORequestId: {PTORequestId}, EmployeeID: {EmployeeID}, RequestedDate: {RequestedDate.Date}, Approved: {Approved}";
+        }
     }
 }

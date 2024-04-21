@@ -7,22 +7,58 @@
              Shell.FlyoutBehavior="Locked"
              x:DataType="model:Employee">
 
-        <StackLayout Padding="20" Spacing="5">
-            <Entry Placeholder="Name" x:Name="NameEntry" Margin="1.5" Text="{Binding Name}"/>
+    <StackLayout Padding="20" Spacing="5">
+        <Entry Placeholder="Name" x:Name="NameEntry" Margin="1.5" Text="{Binding Name}"/>
 
-        
-                <Label Text="PTO Days Available"/>
-                <Entry x:Name="PTODaysAvailableEntry" IsReadOnly="True" Margin="1.5" Text="{Binding AvailablePTODays}"/>
-                <Label Text="Select Date for PTO Request"/>
-                <DatePicker x:Name="PTORequestEntry" Margin="1.5" DateSelected="Selected_Date" />
-                <Button Text="Request PTO" Clicked="RequestPTO_Clicked" Margin="1.5"/>
-         
-            <Label Text="Sick Days Available"/>
-            <Entry x:Name="SickDaysAvailableEntry" IsReadOnly="True" Margin="1.5" Text="{Binding AvailableSickDays}"/>
-            <Label Text="Select Date to Call in Sick"/>
-            <DatePicker x:Name="SickRequestEntry" Margin="1.5" DateSelected="SickRequestEntry_DateSelected" />
-            <Button Text="Request Sick Day" Clicked="RequestSick_Clicked" Margin="1.5"/>
 
-        </StackLayout>
+        <Label Text="PTO Days Available"/>
+        <Entry x:Name="PTODaysAvailableEntry" IsReadOnly="True" Margin="1.5" Text="{Binding AvailablePTODays}"/>
+        <Label Text="Select Date for PTO Request"/>
+        <DatePicker x:Name="PTORequestEntry" Margin="1.5" DateSelected="Selected_Date" />
+        <Button Text="Request PTO" Clicked="RequestPTO_Clicked" Margin="1.5"/>
+
+        <Label Text="Sick Days Available"/>
+        <Entry x:Name="SickDaysAvailableEntry" IsReadOnly="True" Margin="1.5" Text="{Binding AvailableSickDays}"/>
+        <Label Text="Select Date to Call in Sick"/>
+        <DatePicker x:Name="SickRequestEntry" Margin="1.5" DateSelected="SickRequestEntry_DateSelected" />
+        <Button Text="Request Sick Day" Clicked="RequestSick_Clicked" Margin="1.5"/>
+
+        <HorizontalStackLayout >
+            <Frame BorderColor="Gray">
+            <ScrollView >
+                <ListView x:Name="PTOListView" Margin="15" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout>
+                                    <Frame BorderColor="Grey" CornerRadius="10" BackgroundColor="#512BD4" Margin="5" Padding="5">
+                                        <Label Text="{Binding .}" FontAttributes="Bold"  />
+                                    </Frame>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollView>
+            </Frame>
+            <Frame BorderColor="Gray">
+                <ScrollView >
+                    <ListView x:Name="SickDayListView" Margin="15" >
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout>
+                                        <Frame BorderColor="Grey" CornerRadius="10" BackgroundColor="#512BD4" Margin="5" Padding="5">
+                                            <Label Text="{Binding .}" FontAttributes="Bold"  />
+                                        </Frame>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ScrollView>
+            </Frame>
+        </HorizontalStackLayout>
+    </StackLayout>
 
 </ContentPage>

@@ -1,5 +1,8 @@
 using EmployeeManagementSystem.Models;
 using EmployeeManagementSystem.Services;
+using System.Runtime.CompilerServices;
+using Microsoft.Maui.Controls;
+using System.ComponentModel;
 
 namespace EmployeeManagementSystem.Views;
 
@@ -12,6 +15,8 @@ public partial class TimeOffRequestView : ContentPage
     PTORequestService _ptoRequestService = new();
     SickDayRequestService SickDayRequestService = new();
     Employee employee = new();
+    public ObservableCollection<string> PTORequests { get; set; } = [];
+    public ObservableCollection<string> SickDayRequests { get; set; } = [];
 
     DateTime? SickDate
     {
@@ -47,6 +52,10 @@ public partial class TimeOffRequestView : ContentPage
         PTORequestEntry.MinimumDate = datetime;
         PTORequestEntry.Date = datetime;
         SickRequestEntry.MinimumDate = datetime;
+        PTORequests.Clear();
+        PopulatePTORequests();
+        SickDayRequests.Clear();
+        PopulateSickDayRequests();
     }
 
     private void RequestPTO_Clicked(object sender, EventArgs e)
@@ -119,5 +128,16 @@ public partial class TimeOffRequestView : ContentPage
     private void SickRequestEntry_DateSelected(object sender, DateChangedEventArgs e)
     {
         SickDate = e.NewDate;
+    }
+
+    public void PopulatePTORequests()
+    {
+        PTORequestManager.GetPTORequestByEmployeeId(employee.Id).ForEach(r => PTORequests.Add(r.ToString()));
+        PTOListView.ItemsSource = PTORequests;
+    }
+    public void PopulateSickDayRequests()
+    {
+        SickDayRequestService.GetSickDayRequestsByEmployeeId(employee.Id).ForEach(r => SickDayRequests.Add(r.ToString()));
+        SickDayListView.ItemsSource = SickDayRequests;
     }
 }
