@@ -113,12 +113,6 @@ public class Constants
                         },
                         new ShellContent
                         {
-                            Title = "Dashboard",
-                            ContentTemplate = new DataTemplate(typeof(EmployeeDashboardView))
-                        },
-
-                        new ShellContent
-                        {
                             Title = "Employee Details",
                             ContentTemplate = new DataTemplate(typeof(EmployeeDetailsView))
                         },

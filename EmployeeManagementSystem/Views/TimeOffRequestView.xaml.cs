@@ -3,6 +3,7 @@ using EmployeeManagementSystem.Services;
 using System.Runtime.CompilerServices;
 using Microsoft.Maui.Controls;
 using System.ComponentModel;
+using System.Collections.ObjectModel;
 
 namespace EmployeeManagementSystem.Views;
 
@@ -132,7 +133,7 @@ public partial class TimeOffRequestView : ContentPage
 
     public void PopulatePTORequests()
     {
-        PTORequestManager.GetPTORequestByEmployeeId(employee.Id).ForEach(r => PTORequests.Add(r.ToString()));
+        _ptoRequestService.GetPTORequestByEmployeeId(employee.Id).ForEach(r => PTORequests.Add(r.ToString()));
         PTOListView.ItemsSource = PTORequests;
     }
     public void PopulateSickDayRequests()
