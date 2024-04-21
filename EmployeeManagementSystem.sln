@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeManagementSystem", "EmployeeManagementSystem\EmployeeManagementSystem.csproj", "{12FB8DE6-403D-48CB-BC22-61913A07D95E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeManagementSystem", "EmployeeManagementSystem\EmployeeManagementSystem.csproj", "{12FB8DE6-403D-48CB-BC22-61913A07D95E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EMSTest", "EMSTest\EMSTest.csproj", "{B26A8027-C255-49D8-AFC3-79F62B50CF3B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,6 +19,10 @@ Global
 		{12FB8DE6-403D-48CB-BC22-61913A07D95E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12FB8DE6-403D-48CB-BC22-61913A07D95E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{12FB8DE6-403D-48CB-BC22-61913A07D95E}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{B26A8027-C255-49D8-AFC3-79F62B50CF3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B26A8027-C255-49D8-AFC3-79F62B50CF3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B26A8027-C255-49D8-AFC3-79F62B50CF3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B26A8027-C255-49D8-AFC3-79F62B50CF3B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
