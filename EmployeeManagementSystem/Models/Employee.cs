@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using SQLite;
-using System.ComponentModel;
 namespace EmployeeManagementSystem.Models;
 
 // Comments
@@ -24,7 +23,7 @@ public partial class Employee : ObservableObject
     private Position _position;
     private int _availablePTODays;
     private int _availableSickDays;
-    private Schedule _shift;
+    private WorkShift _shift;
     private bool _isActive;
 
     //Properties Getters and Setters
@@ -171,7 +170,7 @@ public partial class Employee : ObservableObject
         }
     }
 
-    public Schedule Shift
+    public WorkShift Shift
     {
         get { return _shift; }
         set

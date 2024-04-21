@@ -1,7 +1,8 @@
 ﻿using EmployeeManagementSystem.Controls;
+using EmployeeManagementSystem.Models;
 using EmployeeManagementSystem.Views;
 
-namespace EmployeeManagementSystem.Models;
+namespace EmployeeManagementSystem;
 
 // Comments
 /*

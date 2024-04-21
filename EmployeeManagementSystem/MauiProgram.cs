@@ -33,11 +33,6 @@ namespace EmployeeManagementSystem
             //View Models
             builder.Services.AddSingleton<LoadingViewModel>();
             builder.Services.AddSingleton<LoginViewModel>();
-            builder.Services.AddSingleton<DashboardViewModel>();
-            builder.Services.AddSingleton<EmployeeDetailsViewModel>();
-            builder.Services.AddSingleton<EmployeePayViewModel>();
-            builder.Services.AddSingleton<ScheduleViewModel>();
-            builder.Services.AddSingleton<WeekDaysSelectionViewModel>();
 
             return builder.Build();
         }

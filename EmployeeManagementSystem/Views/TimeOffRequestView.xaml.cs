@@ -9,18 +9,24 @@ namespace EmployeeManagementSystem.Views;
 [QueryProperty(nameof(EmpID), "EmpID")]
 public partial class TimeOffRequestView : ContentPage
 {
-    string? empid;
-    DateTime datetime = DateTime.Now;
-    DateTime? date;
-    EmployeeService employeeManager = new();
-    ScheduleService ScheduleService = new();
+    private string? _empId;
 
-    DateTime? Date
+    private readonly DateTime _datetime = DateTime.Now;
+
+    private DateTime? _date;
+
+    private readonly EmployeeService _employeeService = new();
+
+    private readonly ScheduleService _scheduleService = new();
+
+    private readonly PTORequestService _ptoRequestService = new();
+
+    private DateTime? Date
     {
-        get => date;
+        get => _date;
         set
         {
-            date = value;
+            _date = value;
             OnPropertyChanged();
         }
     }
@@ -32,11 +38,11 @@ public partial class TimeOffRequestView : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        empid ??= App.AuthenticatedUser.Id.ToString();
-        PopulateView(GetEmployeeFromDatabase(Convert.ToInt32(empid)));
+        _empId ??= App.AuthenticatedUser.Id.ToString();
+        PopulateView(GetEmployeeFromDatabase(Convert.ToInt32(_empId)));
         Date = null;
-        PTORequestEntry.MinimumDate = datetime;
-        PTORequestEntry.Date = datetime;
+        PTORequestEntry.MinimumDate = _datetime;
+        PTORequestEntry.Date = _datetime;
     }
 
     private void RequestPTO_Clicked(object sender, EventArgs e)
@@ -50,11 +56,11 @@ public partial class TimeOffRequestView : ContentPage
 
             if (existingEmployee.AvailablePTODays >= 1)
             {
-                if (ScheduleService.GetPTORequestByDateAndId((DateTime)Date, employeeId) is null)
+                if (_ptoRequestService.GetPTORequestByDateAndId((DateTime)Date, employeeId) is null)
                 {
                     existingEmployee.AvailablePTODays -= 1;
-                    ScheduleService.SavePTORequest(new PTORequest { EmployeeID = employeeId, RequestedDate = (DateTime)Date, Approved = false });
-                    employeeManager.UpdateEmployee(existingEmployee);
+                    _ptoRequestService.SavePTORequest(new PTORequest { EmployeeID = employeeId, RequestedDate = (DateTime)Date, Approved = false });
+                    _employeeService.UpdateEmployee(existingEmployee);
                     DisplayAlert("Success", "Your PTO request has been submitted successfully.", "OK");
                     PopulateView(existingEmployee);
                     Date = null;
@@ -88,7 +94,7 @@ public partial class TimeOffRequestView : ContentPage
                 if (1 <= existingEmployee.AvailableSickDays)
                 {
                     existingEmployee.AvailableSickDays -= 1;
-                    employeeManager.UpdateEmployee(existingEmployee);
+                    _employeeService.UpdateEmployee(existingEmployee);
                     DisplayAlert("Success", "Your Sick day request has been submitted successfully.", "OK");
                     PopulateView(existingEmployee);
                 }
@@ -123,7 +129,7 @@ public partial class TimeOffRequestView : ContentPage
     {
         // Retrieve the employee from the database based on Id
         // You need to implement this method based on your database access logic
-        return employeeManager.GetEmployeeById(employeeId);
+        return _employeeService.GetEmployeeById(employeeId);
     }
 
     private void PopulateView(Employee employee)
@@ -140,10 +146,10 @@ public partial class TimeOffRequestView : ContentPage
 
     public string EmpID
     {
-        get => empid ?? string.Empty;
+        get => _empId ?? string.Empty;
         set
         {
-            empid = value;
+            _empId = value;
             var employee = GetEmployeeFromDatabase(Convert.ToInt32(value));
             if (employee != null)
             {

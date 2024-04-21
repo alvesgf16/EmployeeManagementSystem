@@ -6,7 +6,10 @@ namespace EmployeeManagementSystem.Views;
 
 public partial class ManagerWeekDaysSelectionView : ContentPage
 {
-    EmployeeService employeeManager = new();
+    private readonly EmployeeService _employeeService = new();
+
+    private readonly PaymentService _paymentService = new();
+
 	public ManagerWeekDaysSelectionView()
 	{
 		InitializeComponent();
@@ -16,7 +19,7 @@ public partial class ManagerWeekDaysSelectionView : ContentPage
     private void PopulateEmployeePicker()
     {
         // Retrieve all employees from the database
-        var employees = employeeManager.GetAllEmployees();
+        var employees = _employeeService.GetAllEmployees();
 
         // Clear existing items in the picker
         EmployeePicker.Items.Clear();
@@ -34,8 +37,8 @@ public partial class ManagerWeekDaysSelectionView : ContentPage
         if (selectedIndex != -1)
         {
             string selectedEmployeeName = EmployeePicker.Items[selectedIndex];
-            Employee selectedEmployee = employeeManager.GetEmployeeByName(selectedEmployeeName);
-            Payment selectedPayment = employeeManager.GetEmployeePay(selectedEmployee.Id);
+            Employee selectedEmployee = _employeeService.GetEmployeeByName(selectedEmployeeName);
+            Payment selectedPayment = _paymentService.GetEmployeePay(selectedEmployee.Id);
 
             // Do something with the selected employee
 
@@ -55,8 +58,8 @@ public partial class ManagerWeekDaysSelectionView : ContentPage
         if (selectedIndex != -1)
         {
             string selectedEmployeeName = EmployeePicker.Items[selectedIndex];
-            Employee selectedEmployee = employeeManager.GetEmployeeByName(selectedEmployeeName);
-            Payment selectedPayment = employeeManager.GetEmployeePay(selectedEmployee.Id);
+            Employee selectedEmployee = _employeeService.GetEmployeeByName(selectedEmployeeName);
+            Payment selectedPayment = _paymentService.GetEmployeePay(selectedEmployee.Id);
 
             int TotalHours = 0;
 
@@ -123,10 +126,10 @@ public partial class ManagerWeekDaysSelectionView : ContentPage
             try
             {
                 string selectedEmployeeName = EmployeePicker.Items[selectedIndex];
-                Employee selectedEmployee = employeeManager.GetEmployeeByName(selectedEmployeeName);
-                Payment selectedPayment = employeeManager.GetEmployeePay(selectedEmployee.Id);
+                Employee selectedEmployee = _employeeService.GetEmployeeByName(selectedEmployeeName);
+                Payment selectedPayment = _paymentService.GetEmployeePay(selectedEmployee.Id);
 
-                Payment payment = new Payment
+                Payment payment = new()
                 {
                     EmployeeID = selectedEmployee.Id,
                     Salary = selectedPayment.Salary,
@@ -141,7 +144,7 @@ public partial class ManagerWeekDaysSelectionView : ContentPage
                     throw new InvalidParameterException("Total hours must be at least 40");
                 }
 
-                employeeManager.UpdateEmployeePay(payment);
+                _paymentService.UpdatePayment(payment);
                 DisplayAlert("Confirmation", "Weekly payment information has been saved", "OK");
                 PopulateEmployeePicker();
 
@@ -158,6 +161,6 @@ public partial class ManagerWeekDaysSelectionView : ContentPage
 
     private void ResetWeeklyPayroll_Clicked(object sender, EventArgs e)
     {
-        employeeManager.SetAllPaymentsToZero();
+        _paymentService.SetAllPaymentsToZero();
     }
 }

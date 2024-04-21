@@ -7,23 +7,30 @@ namespace EmployeeManagementSystem.Views
 {
     public partial class ManagerDashboardView : ContentPage
     {
-        public ObservableCollection<Employee> EmployeeCollection { get; set; } = [];
-        public ObservableCollection<string> TopEmployees { get; set; } = [];
-        public ObservableCollection<string> WorstEmployees { get; set; } = [];
-        public EmployeeService EmployeeManager = new();
+        private readonly EmployeeService _employeeService = new();
+
+        private readonly PaymentService _paymentService = new();
+
         public ManagerDashboardView()
         {
             InitializeComponent();
         }
+
         public ManagerDashboardView(Employee employee)
         {
             InitializeComponent();
         }
 
+        public ObservableCollection<Employee> Employees { get; set; } = [];
+
+        public ObservableCollection<string> TopEmployees { get; set; } = [];
+
+        public ObservableCollection<string> WorstEmployees { get; set; } = [];
+
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            EmployeeCollection.Clear();
+            Employees.Clear();
             TopEmployees.Clear();
             WorstEmployees.Clear();
             PopulateEmployeeCollection();
@@ -32,52 +39,49 @@ namespace EmployeeManagementSystem.Views
             PopulateTopEmployees();
             PopulateWorstEmployees();
         }
-       
 
-        public void PopulateEmployeeCollection()
+        private void PopulateEmployeeCollection()
         {
-            EmployeeManager.GetAllEmployees().ForEach(EmployeeCollection.Add);
-            EmployeeListView.ItemsSource = EmployeeCollection;
+            _employeeService.GetAllEmployees().ForEach(Employees.Add);
+            EmployeeListView.ItemsSource = Employees;
         }
-        public void PopulatePayrollDisplay()
+        private void PopulatePayrollDisplay()
         {
-            double totalPayroll = PayrollService.CalculatePayroll();
+            double totalPayroll = _paymentService.CalculatePayroll();
             payroll_display.Text = $"${totalPayroll}";
         }
-        public void CalculateSickDaysTakenYTD() 
+        private void CalculateSickDaysTakenYTD()
         {
-            int availableSickDays = 0;
-            foreach (var employee in EmployeeCollection)
-            {
-                availableSickDays += employee.AvailableSickDays;
-            }
-            int sickDaysTakenYTD = (EmployeeCollection.Count() * 10) - availableSickDays;
+            int availableSickDays = Employees.Aggregate(0, (acc, cur) => acc + cur.AvailableSickDays);
+            int sickDaysTakenYTD = (Employees.Count() * 10) - availableSickDays;
             SickDaysYTD.Text = $"{sickDaysTakenYTD}";
         }
 
         private async void EmployeeListView_ItemSelected(object sender, EventArgs e)
         {
-            if (EmployeeListView.SelectedItem != null)
+            if (EmployeeListView.SelectedItem is not null)
             {
-                await Shell.Current.GoToAsync($"{nameof(ManagerEmployeeDetailsView)}" + $"?EmpID={((Employee)EmployeeListView.SelectedItem).Id}");
+                await Shell.Current.GoToAsync($"{nameof(ManagerEmployeeDetailsView)}" +
+                    $"?EmpID={((Employee)EmployeeListView.SelectedItem).Id}");
             }
-            
+
         }
         //method to populate the top employees list, calculates the top employees based on the performance rating
-        public void PopulateTopEmployees()
+        private void PopulateTopEmployees()
         {
-            var topEmployees = PayrollService.GetEmployeesIDandPR().ToList();
+            var topEmployees = _paymentService.GetEmployeesIDandPR().ToList();
             int noOfTopEmployees = topEmployees.Count;
             if (noOfTopEmployees > 5)
             {
                 noOfTopEmployees = 5;
             }
+
             //get the top 5 employees
             topEmployees = topEmployees.OrderByDescending(e => e.Value).Take(noOfTopEmployees).ToList();
             foreach (var employee in topEmployees)
             {
                 string employeeID = employee.Key.ToString();
-                string employeeName = EmployeeManager.GetEmployeeById(employee.Key).Name;
+                string employeeName = _employeeService.GetEmployeeById(employee.Key).Name;
                 string employeePerformance = employee.Value.ToString();
                 TopEmployees.Add($"ID: {employeeID} Name: {employeeName} Performance: {employeePerformance}");
             }
@@ -95,9 +99,9 @@ namespace EmployeeManagementSystem.Views
         }
 
         //method to populate the worst employees list, calculates the worst employees based on the performance rating
-        public void PopulateWorstEmployees()
+        private void PopulateWorstEmployees()
         {
-            var worstEmployees = PayrollService.GetEmployeesIDandPR().ToList();
+            var worstEmployees = _paymentService.GetEmployeesIDandPR().ToList();
             int noOfWorstEmployees = worstEmployees.Count;
             if (noOfWorstEmployees > 5)
             {
@@ -108,7 +112,7 @@ namespace EmployeeManagementSystem.Views
             foreach (var employee in worstEmployees)
             {
                 string employeeID = employee.Key.ToString();
-                string employeeName = EmployeeManager.GetEmployeeById(employee.Key).Name;
+                string employeeName = _employeeService.GetEmployeeById(employee.Key).Name;
                 string employeePerformance = employee.Value.ToString();
                 WorstEmployees.Add($"ID: {employeeID} Name: {employeeName} Performance: {employeePerformance}");
             }

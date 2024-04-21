@@ -1,11 +1,9 @@
-﻿using EmployeeManagementSystem.Controls;
-using EmployeeManagementSystem.Models;
-using EmployeeManagementSystem.Services;
+﻿using EmployeeManagementSystem.Services;
 using EmployeeManagementSystem.Views;
 
 namespace EmployeeManagementSystem.ViewModels;
 
-public partial class LoadingViewModel
+public partial class LoadingViewModel : BaseViewModel
 {
     public LoadingViewModel()
     {

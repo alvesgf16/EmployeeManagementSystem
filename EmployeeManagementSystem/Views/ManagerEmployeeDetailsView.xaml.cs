@@ -8,9 +8,12 @@ namespace EmployeeManagementSystem.Views;
 [QueryProperty(nameof(EmpID), "EmpID")]
 public partial class ManagerEmployeeDetailsView : ContentPage
 {
-    string? empid;
-    EmployeeService employeeManager = new();
-    
+    private string? _empId;
+
+    private readonly EmployeeService _employeeService = new();
+
+    private readonly PaymentService _paymentService = new();
+
     public ManagerEmployeeDetailsView()
     {
         InitializeComponent();
@@ -20,7 +23,7 @@ public partial class ManagerEmployeeDetailsView : ContentPage
     private void PopulateEmployeePicker()
     {
         // Retrieve all employees from the database
-        var employees = employeeManager.GetAllEmployees();
+        var employees = _employeeService.GetAllEmployees();
 
         // Clear existing items in the picker
         EmployeePicker.Items.Clear();
@@ -49,7 +52,7 @@ public partial class ManagerEmployeeDetailsView : ContentPage
         {
             // Retrieve the corresponding employee from the database
             var selectedEmployeeName = EmployeePicker.Items[selectedIndex];
-            var selectedEmployee = employeeManager.GetEmployeeByName(selectedEmployeeName);
+            var selectedEmployee = _employeeService.GetEmployeeByName(selectedEmployeeName);
 
             // Populate the entry fields with the selected employee's information
             EmployeeID.Text = selectedEmployee.Id.ToString();
@@ -82,16 +85,15 @@ public partial class ManagerEmployeeDetailsView : ContentPage
                 Position = (Position)Enum.Parse(typeof(Position), PositionPicker.SelectedItem.ToString()),
                 AvailablePTODays = 0,
                 AvailableSickDays = 10,
-                Shift = (Schedule)Enum.Parse(typeof(Schedule), SchedulePicker.SelectedItem.ToString()),
+                Shift = (WorkShift)Enum.Parse(typeof(WorkShift), SchedulePicker.SelectedItem.ToString()),
                 IsActive = true // Assuming new employees are always active
             };
 
             // Save the new employee to the database
-            employeeManager.SaveEmployee(newEmployee);
+            _employeeService.SaveEmployee(newEmployee);
 
-            double salary = 0;
-
-            if (newEmployee.Position.ToString().ToLower() == "manager")
+            double salary;
+            if (newEmployee.Position.ToString().Equals("manager", StringComparison.CurrentCultureIgnoreCase))
             {
                 salary = 25;
             }
@@ -110,11 +112,15 @@ public partial class ManagerEmployeeDetailsView : ContentPage
             };
 
             //Save the new payment to the database
-            employeeManager.SavePayment(newPayment);
+            _paymentService.SavePayment(newPayment);
 
-        // Clear the form after adding the employee
-        ClearForm();
-        DisplayAlert("Confirmation", "Employee has been created", "OK");
+            // Clear the form after adding the employee
+            ClearForm();
+            DisplayAlert("Confirmation", "Employee has been created", "OK");
+        }
+        else
+        {
+            DisplayAlert("Error", "Please fill out all fields correctly.", "OK");
         }
         PopulateEmployeePicker();
     }
@@ -138,14 +144,13 @@ public partial class ManagerEmployeeDetailsView : ContentPage
             existingEmployee.Position = (Position)Enum.Parse(typeof(Position), PositionPicker.SelectedItem.ToString());
             existingEmployee.AvailablePTODays = 0;
             existingEmployee.AvailableSickDays = 10;
-            existingEmployee.Shift = (Schedule)Enum.Parse(typeof(Schedule), SchedulePicker.SelectedItem.ToString());
+            existingEmployee.Shift = (WorkShift)Enum.Parse(typeof(WorkShift), SchedulePicker.SelectedItem.ToString());
 
             // Save the updated employee to the database
-            employeeManager.UpdateEmployee(existingEmployee);
+            _employeeService.UpdateEmployee(existingEmployee);
 
             // Clear the form after updating the employee
             ClearForm();
-            DisplayAlert("Confirmation", "Employee has been updated", "OK");
         }
         else
         {
@@ -164,7 +169,7 @@ public partial class ManagerEmployeeDetailsView : ContentPage
                 throw new InvalidActionException("No action can be taken as no employee has been selected");
             }
 
-            if (Regex.IsMatch(EmailEntry.Text, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+            if (EmailRegex().IsMatch(EmailEntry.Text))
             {
                 if (PhoneNumberEntry.Text.Length == 10 && ContactPhoneNumberEntry.Text.Length == 10)
                 {
@@ -220,14 +225,14 @@ public partial class ManagerEmployeeDetailsView : ContentPage
     {
         // Retrieve the employee from the database based on Id
         // You need to implement this method based on your database access logic
-        return employeeManager.GetEmployeeById(employeeId);
+        return _employeeService.GetEmployeeById(employeeId);
     }
     public string EmpID
     {
-        get => empid ?? string.Empty;
+        get => _empId ?? string.Empty;
         set
         {
-            empid = value;
+            _empId = value;
             var employee = GetEmployeeFromDatabase(Convert.ToInt32(value));
             if (employee != null)
             {
@@ -247,8 +252,8 @@ public partial class ManagerEmployeeDetailsView : ContentPage
         }
     }
 
-     public void SetEmployeeInactive_Clicked(object sender, EventArgs e)
-     {
+    public void SetEmployeeInactive_Clicked(object sender, EventArgs e)
+    {
         // Get the selected employee index
         int selectedIndex = EmployeePicker.SelectedIndex;
         if (selectedIndex != -1)
@@ -260,12 +265,12 @@ public partial class ManagerEmployeeDetailsView : ContentPage
             selectedEmployee.AvailablePTODays = 0;
             selectedEmployee.AvailableSickDays = 0;
 
-            employeeManager.UpdateEmployee(selectedEmployee);
+            _employeeService.UpdateEmployee(selectedEmployee);
 
             PopulateEmployeePicker();
             ClearForm();
         }
-     }
+    }
 
     private void DeleteEmployee_Clicked(object sender, EventArgs e)
     {
@@ -284,7 +289,7 @@ public partial class ManagerEmployeeDetailsView : ContentPage
                 if (answer)
                 {
                     // Delete the employee from the database
-                    employeeManager.DeleteEmployee(selectedEmployee);
+                    _employeeService.DeleteEmployee(selectedEmployee);
 
                     // Refresh the picker and clear the form
                     PopulateEmployeePicker();
@@ -298,4 +303,7 @@ public partial class ManagerEmployeeDetailsView : ContentPage
     {
         PopulateEmployeePicker();
     }
+
+    [GeneratedRegex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$")]
+    private static partial Regex EmailRegex();
 }

@@ -10,6 +10,6 @@ Creates the CalendarDay model, which is used for creation of the schedule in 'Ca
 
 public class CalendarDay()
 {
-    public int Day { get; set; }
-    public Color BackgroundColor { get; set; }
+    public int? Day { get; set; }
+    public Color? BackgroundColor { get; set; }
 }

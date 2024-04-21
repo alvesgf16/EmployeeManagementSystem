@@ -1,10 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using EmployeeManagementSystem.Controls;
 using EmployeeManagementSystem.Exceptions;
-using EmployeeManagementSystem.Models;
 using EmployeeManagementSystem.Services;
-using EmployeeManagementSystem.Views;
 
 namespace EmployeeManagementSystem.ViewModels;
 
@@ -18,7 +15,7 @@ public partial class LoginViewModel : BaseViewModel
 
     #region Commands
     [RelayCommand]
-    async Task Login()
+    private async Task Login()
     {
         try
         {
