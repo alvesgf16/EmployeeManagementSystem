@@ -1,6 +1,7 @@
 using EmployeeManagementSystem.Models;
 using EmployeeManagementSystem.Services;
 using System.ComponentModel;
+using EmployeeManagementSystem.Exceptions;
 
 namespace EmployeeManagementSystem.Views;
 
@@ -70,19 +71,56 @@ public partial class ManagerEmployeePayView : ContentPage, INotifyPropertyChange
 
     private void UpdateEPayInfo_Clicked(object sender, EventArgs e)
     {
-        int employeeID = int.Parse(EmployeeID.Text);
-        Payment selectedPayment = _paymentService.GetEmployeePay(employeeID);
+        try
+        {
 
-        selectedPayment.Salary = double.Parse(EmployeeSalary.Text);
-        selectedPayment.Performance = int.Parse(EmployeePerformance.Text);
+            // Get the selected employee index
+            int selectedIndex = EmployeePicker.SelectedIndex;
+
+            if (selectedIndex != -1)
+            {
+                int employeeID = int.Parse(EmployeeID.Text);
+                Employee selectedEmployee = _employeeService.GetEmployeeById(employeeID);
+                Payment selectedPayment = _paymentService.GetEmployeePay(employeeID);
+
+                if (string.IsNullOrEmpty(EmployeeSalary.Text) || string.IsNullOrEmpty(EmployeePerformance.Text))
+                {
+                    throw new ManagePayException("Please fill in all fields");
+                }
+
+                if (double.Parse(EmployeeSalary.Text) < 15)
+                {
+                    throw new ManagePayException("Salary cannot below minimum wage");
+                }
+
+                if (int.Parse(EmployeePerformance.Text) < 1 || int.Parse(EmployeePerformance.Text) > 10)
+                {
+                    throw new ManagePayException("Performance must be between 0 and 10");
+                }
+
+                selectedPayment.Salary = double.Parse(EmployeeSalary.Text);
+                selectedPayment.Performance = int.Parse(EmployeePerformance.Text);
 
         _paymentService.UpdatePayment(selectedPayment);
 
-        EmployeeSalary.Text = selectedPayment.Salary.ToString();
-        EmployeePerformance.Text = selectedPayment.Performance.ToString();
-        ClearForm();
-        DisplayAlert("Confirmation", "Payment information has been saved", "OK");
-        PopulateEmployeePicker();
+                EmployeeSalary.Text = selectedPayment.Salary.ToString();
+                EmployeePerformance.Text = selectedPayment.Performance.ToString();
+                ClearForm();
+                DisplayAlert("Confirmation", "Payment information has been saved", "OK");
+                PopulateEmployeePicker();
+
+            }
+            else
+            {
+                // Display an error message
+                DisplayAlert("Error", "Please select an employee", "OK");
+            }
+        }
+        catch (Exception ex)
+        {
+            // Display an error message
+            DisplayAlert("Error", ex.Message, "OK");
+        }
     }
 
     protected override void OnPropertyChanged(string propertyName)

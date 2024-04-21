@@ -12,7 +12,7 @@ public partial class ManagerEmployeeDetailsView : ContentPage
     private readonly EmployeeService _employeeService = new();
 
     private readonly PaymentService _paymentService = new();
-    
+
     public ManagerEmployeeDetailsView()
     {
         InitializeComponent();
@@ -113,8 +113,8 @@ public partial class ManagerEmployeeDetailsView : ContentPage
             //Save the new payment to the database
             _paymentService.SavePayment(newPayment);
 
-        // Clear the form after adding the employee
-        ClearForm();
+            // Clear the form after adding the employee
+            ClearForm();
             DisplayAlert("Confirmation", "Employee has been created", "OK");
         }
         else
@@ -164,16 +164,16 @@ public partial class ManagerEmployeeDetailsView : ContentPage
         {
             if (PhoneNumberEntry.Text.Length == 10 && ContactPhoneNumberEntry.Text.Length == 10)
             {
-        return !string.IsNullOrWhiteSpace(EmailEntry.Text) &&
-               !string.IsNullOrWhiteSpace(PasswordEntry.Text) &&
-               !string.IsNullOrWhiteSpace(NameEntry.Text) &&
-               !string.IsNullOrWhiteSpace(PhoneNumberEntry.Text) &&
-               !string.IsNullOrWhiteSpace(AddressEntry.Text) &&
-               !string.IsNullOrWhiteSpace(ContactNameEntry.Text) &&
-               !string.IsNullOrWhiteSpace(ContactPhoneNumberEntry.Text) &&
-               PositionPicker.SelectedItem != null &&
-               SchedulePicker.SelectedItem != null;
-    }
+                return !string.IsNullOrWhiteSpace(EmailEntry.Text) &&
+                       !string.IsNullOrWhiteSpace(PasswordEntry.Text) &&
+                       !string.IsNullOrWhiteSpace(NameEntry.Text) &&
+                       !string.IsNullOrWhiteSpace(PhoneNumberEntry.Text) &&
+                       !string.IsNullOrWhiteSpace(AddressEntry.Text) &&
+                       !string.IsNullOrWhiteSpace(ContactNameEntry.Text) &&
+                       !string.IsNullOrWhiteSpace(ContactPhoneNumberEntry.Text) &&
+                       PositionPicker.SelectedItem != null &&
+                       SchedulePicker.SelectedItem != null;
+            }
             else
             {
                 DisplayAlert("Error", "Please enter valid phone numbers.", "OK");
@@ -233,8 +233,8 @@ public partial class ManagerEmployeeDetailsView : ContentPage
         }
     }
 
-     public void SetEmployeeInactive_Clicked(object sender, EventArgs e)
-     {
+    public void SetEmployeeInactive_Clicked(object sender, EventArgs e)
+    {
         // Get the selected employee index
         int selectedIndex = EmployeePicker.SelectedIndex;
         if (selectedIndex != -1)
@@ -251,7 +251,7 @@ public partial class ManagerEmployeeDetailsView : ContentPage
             PopulateEmployeePicker();
             ClearForm();
         }
-     }
+    }
 
     private void DeleteEmployee_Clicked(object sender, EventArgs e)
     {
