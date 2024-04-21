@@ -1,5 +1,6 @@
 using EmployeeManagementSystem.Services;
 using EmployeeManagementSystem.Models;
+using EmployeeManagementSystem.Exceptions;
 
 namespace EmployeeManagementSystem.Views;
 
@@ -140,7 +141,7 @@ public partial class ManagerWeekDaysSelectionView : ContentPage
 
                 if (payment.TotalHours < 40)
                 {
-                    throw new Exception("Total hours must be at least 40");
+                    throw new InvalidParameterException("Total hours must be at least 40");
                 }
 
                 _paymentService.UpdatePayment(payment);

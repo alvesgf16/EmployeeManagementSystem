@@ -1,6 +1,7 @@
 using EmployeeManagementSystem.Models;
 using EmployeeManagementSystem.Services;
 using System.Text.RegularExpressions;
+using EmployeeManagementSystem.Exceptions;
 
 namespace EmployeeManagementSystem.Views;
 
@@ -160,31 +161,49 @@ public partial class ManagerEmployeeDetailsView : ContentPage
 
     private bool ValidateEmployeeInformation()
     {
-        if (EmailRegex().IsMatch(EmailEntry.Text))
+        try
         {
-            if (PhoneNumberEntry.Text.Length == 10 && ContactPhoneNumberEntry.Text.Length == 10)
+            
+            if (string.IsNullOrWhiteSpace(EmailEntry.Text) || string.IsNullOrWhiteSpace(PasswordEntry.Text) || string.IsNullOrWhiteSpace(NameEntry.Text) || string.IsNullOrWhiteSpace(PhoneNumberEntry.Text) || string.IsNullOrWhiteSpace(AddressEntry.Text) || string.IsNullOrWhiteSpace(ContactNameEntry.Text) || string.IsNullOrWhiteSpace(ContactPhoneNumberEntry.Text) || PositionPicker.SelectedItem == null || SchedulePicker.SelectedItem == null)
             {
-                return !string.IsNullOrWhiteSpace(EmailEntry.Text) &&
-                       !string.IsNullOrWhiteSpace(PasswordEntry.Text) &&
-                       !string.IsNullOrWhiteSpace(NameEntry.Text) &&
-                       !string.IsNullOrWhiteSpace(PhoneNumberEntry.Text) &&
-                       !string.IsNullOrWhiteSpace(AddressEntry.Text) &&
-                       !string.IsNullOrWhiteSpace(ContactNameEntry.Text) &&
-                       !string.IsNullOrWhiteSpace(ContactPhoneNumberEntry.Text) &&
-                       PositionPicker.SelectedItem != null &&
-                       SchedulePicker.SelectedItem != null;
+                throw new InvalidActionException("No action can be taken as no employee has been selected");
+            }
+
+            if (EmailRegex().IsMatch(EmailEntry.Text))
+            {
+                if (PhoneNumberEntry.Text.Length == 10 && ContactPhoneNumberEntry.Text.Length == 10)
+                {
+                    return !string.IsNullOrWhiteSpace(EmailEntry.Text) &&
+                    !string.IsNullOrWhiteSpace(PasswordEntry.Text) &&
+                    !string.IsNullOrWhiteSpace(NameEntry.Text) &&
+                    !string.IsNullOrWhiteSpace(PhoneNumberEntry.Text) &&
+                    !string.IsNullOrWhiteSpace(AddressEntry.Text) &&
+                    !string.IsNullOrWhiteSpace(ContactNameEntry.Text) &&
+                    !string.IsNullOrWhiteSpace(ContactPhoneNumberEntry.Text) &&
+                    PositionPicker.SelectedItem != null &&
+                    SchedulePicker.SelectedItem != null;
+                }
+                else
+                {
+                    DisplayAlert("Error", "Please enter valid phone numbers.", "OK");
+                    return false;
+                }
             }
             else
             {
-                DisplayAlert("Error", "Please enter valid phone numbers.", "OK");
+                DisplayAlert("Error", "Please enter a valid email address.", "OK");
                 return false;
             }
+
         }
-        else
+
+        catch (Exception ex)
         {
-            DisplayAlert("Error", "Please enter a valid email address.", "OK");
+            DisplayAlert("Error", ex.Message, "OK");
             return false;
         }
+
+
     }
 
     private void ClearForm()

@@ -85,17 +85,17 @@ public partial class ManagerEmployeePayView : ContentPage, INotifyPropertyChange
 
                 if (string.IsNullOrEmpty(EmployeeSalary.Text) || string.IsNullOrEmpty(EmployeePerformance.Text))
                 {
-                    throw new ManagePayException("Please fill in all fields");
+                    throw new InvalidParameterException("Please fill in all fields");
                 }
 
                 if (double.Parse(EmployeeSalary.Text) < 15)
                 {
-                    throw new ManagePayException("Salary cannot below minimum wage");
+                    throw new InvalidParameterException("Salary cannot below minimum wage");
                 }
 
                 if (int.Parse(EmployeePerformance.Text) < 1 || int.Parse(EmployeePerformance.Text) > 10)
                 {
-                    throw new ManagePayException("Performance must be between 0 and 10");
+                    throw new InvalidParameterException("Performance must be between 0 and 10");
                 }
 
                 selectedPayment.Salary = double.Parse(EmployeeSalary.Text);
