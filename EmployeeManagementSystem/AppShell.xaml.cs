@@ -7,7 +7,7 @@ namespace EmployeeManagementSystem;
 
 public partial class AppShell : Shell
 {
-    readonly EmployeeService employeeManager = new();
+    private readonly EmployeeService _employeeService = new();
 
     public AppShell()
     {

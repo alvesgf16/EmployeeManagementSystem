@@ -6,10 +6,12 @@ namespace EmployeeManagementSystem.Views;
 [QueryProperty(nameof(EmpID), "EmpID")]
 public partial class EmployeeDashboardView : ContentPage
 {
-    string? empid;
-    EmployeeService employeeManager = new();
-    Employee employee = new();
-    Payment employeePay = new();
+    private string? _empId;
+
+    private readonly EmployeeService _employeeService = new();
+
+    private Employee _employee = new();
+
     public EmployeeDashboardView()
     {
         InitializeComponent();
@@ -17,21 +19,18 @@ public partial class EmployeeDashboardView : ContentPage
 
     public string EmpID
     {
-        get => empid ?? string.Empty;
+        get => _empId ?? string.Empty;
         set
         {
-            empid = value;
-            var emp = employeeManager.GetEmployeeById(Convert.ToInt32(value));
-            if (emp != null)
+            _empId = value;
+            var employee = _employeeService.GetEmployeeById(Convert.ToInt32(value));
+
+            if (employee is not null)
             {
-                employee = emp;
+                _employee = employee;
             }
+
             OnPropertyChanged(nameof(EmpID));
         }
-    }
-
-    public void GetEmployeePayment()
-    {
-        employeePay = employeeManager.GetEmployeePay(employee.Id);
     }
 }

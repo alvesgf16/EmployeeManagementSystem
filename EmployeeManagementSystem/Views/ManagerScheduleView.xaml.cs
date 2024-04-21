@@ -7,37 +7,39 @@ namespace EmployeeManagementSystem.Views;
 
 public partial class ManagerScheduleView : ContentPage
 {
-    public ObservableCollection<CalendarDay> CalendarDays { get; set; }
-    
-    public ICommand DayTappedCommand { get; private set; }
+    private readonly EmployeeService _employeeService = new();
 
-    private DateTime currentMonth;
+    private readonly PaymentService _paymentService = new();
+
+    private DateTime _currentMonth;
 
     public ManagerScheduleView()
     {
         InitializeComponent();
         DayTappedCommand = new Command<CalendarDay>(OnDayTapped);
-        currentMonth = DateTime.Today;
+        _currentMonth = DateTime.Today;
         UpdateMonthYearLabel();
         InitializeCalendar();
         PopulateEmployeePicker();
     }
 
-    EmployeeService employeeManager = new();
+    public ObservableCollection<CalendarDay> CalendarDays { get; set; }
+
+    public ICommand DayTappedCommand { get; private set; }
 
     private void InitializeCalendar()
     {
         // Initialize the calendar with days, months, and years
-        CalendarDays = new ObservableCollection<CalendarDay>();
+        CalendarDays = [];
         // Populate the CalendarDays collection with appropriate data based on the desired date range
 
         // For example, populate with dummy data for demonstration
-        for (int i = 1; i <= DateTime.DaysInMonth(currentMonth.Year, currentMonth.Month); i++)
+        for (int i = 1; i <= DateTime.DaysInMonth(_currentMonth.Year, _currentMonth.Month); i++)
         {
             CalendarDays.Add(new CalendarDay
             {
                 Day = i,
-                BackgroundColor = Color.FromHex("#00FFFFFF") // Set default background color
+                BackgroundColor = Color.FromArgb("#00FFFFFF") // Set default background color
             });
         }
 
@@ -51,34 +53,34 @@ public partial class ManagerScheduleView : ContentPage
         {
             if (day == dayViewModel)
             {
-                day.BackgroundColor = Color.FromHex("#ADD8E6"); // Highlight selected day
-                int selectedDay = day.Day;
+                day.BackgroundColor = Color.FromArgb("#ADD8E6"); // Highlight selected day
+                int selectedDay = (int)day.Day!;
 
                 // Set the selected date to the Entry named "Date"
-                Date.Text = new DateTime(currentMonth.Year, currentMonth.Month, selectedDay).ToString("MM/dd/yyyy");
+                Date.Text = new DateTime(_currentMonth.Year, _currentMonth.Month, selectedDay).ToString("MM/dd/yyyy");
             }
             else
             {
-                day.BackgroundColor = Color.FromHex("#00FFFFFF"); // Reset other days
+                day.BackgroundColor = Color.FromArgb("#00FFFFFF"); // Reset other days
             }
         }
     }
 
     private void UpdateMonthYearLabel()
     {
-        MonthYearLabel.Text = currentMonth.ToString("MMMM yyyy");
+        MonthYearLabel.Text = _currentMonth.ToString("MMMM yyyy");
     }
 
     private void PreviousMonth_Clicked(object sender, EventArgs e)
     {
-        currentMonth = currentMonth.AddMonths(-1);
+        _currentMonth = _currentMonth.AddMonths(-1);
         UpdateMonthYearLabel();
         // You may want to reinitialize the calendar or update it here based on the new month
     }
 
     private void NextMonth_Clicked(object sender, EventArgs e)
     {
-        currentMonth = currentMonth.AddMonths(1);
+        _currentMonth = _currentMonth.AddMonths(1);
         UpdateMonthYearLabel();
         // You may want to reinitialize the calendar or update it here based on the new month
     }
@@ -86,7 +88,7 @@ public partial class ManagerScheduleView : ContentPage
     private void PopulateEmployeePicker()
     {
         // Retrieve all employees from the database
-        var employees = employeeManager.GetAllEmployees();
+        var employees = _employeeService.GetAllEmployees();
 
         // Clear existing items in the picker
         EmployeePicker.Items.Clear();
@@ -103,11 +105,12 @@ public partial class ManagerScheduleView : ContentPage
     {
         SearchBar searchBar = (SearchBar)sender;
 
-        EmployeePicker.ItemsSource = employeeManager.GetAllEmployees().Where(employee => employee.Name.ToLower().Contains(searchBar.Text.ToLower())).ToList();
+        EmployeePicker.ItemsSource = _employeeService.GetAllEmployees()
+                                                     .Where(employee => employee.Name
+                                                     .Contains(searchBar.Text, StringComparison.CurrentCultureIgnoreCase))
+                                                     .ToList();
 
-        var employees = employeeManager.GetAllEmployees();
-
-        // Clear existing items in the picker
+        var employees = _employeeService.GetAllEmployees();
     }
 
     private void EmployeePicker_SelectedIndexChanged(object sender, EventArgs e)
@@ -119,10 +122,7 @@ public partial class ManagerScheduleView : ContentPage
         {
             // Retrieve the corresponding employee from the database
             var selectedEmployeeName = EmployeePicker.Items[selectedIndex];
-            var selectedEmployee = employeeManager.GetEmployeeByName(selectedEmployeeName);
-
-            int selectedEmployeeId = selectedEmployee.Id;
-            Payment selectedPayment = employeeManager.GetEmployeePay(selectedEmployeeId);
+            var selectedEmployee = _employeeService.GetEmployeeByName(selectedEmployeeName);
 
             // Populate the entry fields with the selected employee's information
             EmployeeID.Text = selectedEmployee.Id.ToString();
@@ -132,32 +132,27 @@ public partial class ManagerScheduleView : ContentPage
 
     private void LogHoursButton_Clicked(object sender, EventArgs e)
     {
+        int employeeID = int.Parse(EmployeeID.Text);
+        Payment payment = _paymentService.GetEmployeePay(employeeID);
         double hours = double.Parse(HoursToday.Text);
 
-        if (EmployeeID.Text != "Hours" && hours < 25)
+        if (EmployeeID.Text != "Hours")
         {
-            int employeeID = int.Parse(EmployeeID.Text);
-            Payment payment = employeeManager.GetEmployeePay(employeeID);
             if (hours > 8.5)
             {
                 double overtime = hours - 8.5;
                 payment.EmployeeID = employeeID;
                 payment.RegHours = payment.RegHours + 8.5;
                 payment.OverTimeHours = payment.OverTimeHours + overtime;
-                employeeManager.UpdatePayment(payment);
+                _paymentService.UpdatePayment(payment);
             }
             else
             {
                 payment.RegHours = payment.RegHours + hours;
-                employeeManager.UpdatePayment(payment);
+                _paymentService.UpdatePayment(payment);
             }
 
             ClearForm();
-            DisplayAlert("Confirmation", "Hours have been logged", "OK");
-        }
-        else
-        {
-            DisplayAlert("Error", "Please confirm all entry's are filled correctly.", "OK");
         }
     }
 
