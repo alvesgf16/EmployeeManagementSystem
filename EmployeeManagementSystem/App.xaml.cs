@@ -18,7 +18,7 @@ namespace EmployeeManagementSystem
             Window window = base.CreateWindow(activationState);
             
             window.Width = 900;
-            window.Height = 1000;
+            window.Height = 900;
 
             if (window != null)
             {

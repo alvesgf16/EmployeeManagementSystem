@@ -8,12 +8,12 @@ namespace EmployeeManagementSystem.Views;
 
 public partial class TimeOffRequestView : ContentPage
 {
-    string? empid;
     DateTime datetime = DateTime.Now;
     DateTime? date;
     DateTime? sickdate;
     EmployeeService employeeManager = new();
-    ScheduleService ScheduleService = new();
+    PTORequestService PTORequestManager = new();
+    SickDayRequestService SickDayRequestService = new();
     Employee employee = new();
 
     DateTime? SickDate
@@ -38,7 +38,6 @@ public partial class TimeOffRequestView : ContentPage
     public TimeOffRequestView()
 	{
 		InitializeComponent();
-        empid ??= App.AuthenticatedUser.Id.ToString();
         employee = App.AuthenticatedUser;
         this.BindingContext = employee;
     }
@@ -47,6 +46,7 @@ public partial class TimeOffRequestView : ContentPage
     {
         base.OnAppearing();
         Date = null;
+        SickDate = null;
         PTORequestEntry.MinimumDate = datetime;
         PTORequestEntry.Date = datetime;
         SickRequestEntry.MinimumDate = datetime;
@@ -60,10 +60,10 @@ public partial class TimeOffRequestView : ContentPage
 
             if (employee.AvailablePTODays >= 1)
             {
-                if (ScheduleService.GetPTORequestByDateAndId((DateTime)Date, employee.Id) is null)
+                if (PTORequestManager.GetPTORequestByDateAndId((DateTime)Date, employee.Id) is null)
                 {
                     employee.AvailablePTODays -= 1;
-                    ScheduleService.SavePTORequest(new PTORequest { EmployeeID = employee.Id, RequestedDate = (DateTime)Date, Approved = false });
+                    PTORequestManager.SavePTORequest(new PTORequest { EmployeeID = employee.Id, RequestedDate = (DateTime)Date, Approved = false });
                     employeeManager.UpdateEmployee(employee);
                     DisplayAlert("Success", "Your PTO request has been submitted successfully.", "OK");
                     Date = null;
@@ -87,18 +87,31 @@ public partial class TimeOffRequestView : ContentPage
 
    private void RequestSick_Clicked(object sender, EventArgs e)
     {
-        // Update the existing employee with the new information
-                if (1 <= employee.AvailableSickDays)
+        if (SickDate != null)
+        {
+            if (employee.AvailableSickDays >= 1)
+            {
+                if (SickDayRequestService.GetSickDayRequestsByEmployeeIdAndDate(employee.Id, (DateTime)SickDate) is null)
                 {
                     employee.AvailableSickDays -= 1;
+                    SickDayRequestService.SaveSickDayRequest(new SickDayRequest { EmployeeID = employee.Id, RequestedDate = (DateTime)SickDate, Approved = false });
                     employeeManager.UpdateEmployee(employee);
                     DisplayAlert("Success", "Your Sick day request has been submitted successfully.", "OK");
                 }
                 else
                 {
-                    DisplayAlert("Error", "Insufficient Sick days available.", "OK");
+                    DisplayAlert("Error", "You have already requested a Sick day for this date.", "OK");
                 }
-
+            }
+            else
+            {
+                DisplayAlert("Error", "Insufficient Sick days available.", "OK");
+            }
+        }
+        else
+        {
+            DisplayAlert("Error", "Please select a date.", "OK");
+        }
     }
 
     private void Selected_Date(object sender, DateChangedEventArgs e)
