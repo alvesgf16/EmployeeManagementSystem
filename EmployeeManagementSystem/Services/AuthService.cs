@@ -9,7 +9,7 @@ internal class AuthService : BaseService
     {
         if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password)) throw new InvalidLoginException("Invalid email or password");
 
-        var userToAuth = _database.Table<Employee>().FirstOrDefault((employee) => employee.Email.Equals(email, StringComparison.CurrentCultureIgnoreCase) && employee.Password == password);
+        var userToAuth = _database.Table<Employee>().FirstOrDefault((employee) => employee.Email == email && employee.Password == password);
 
         return userToAuth is null ? throw new InvalidLoginException("Invalid email or password") : userToAuth;
     }

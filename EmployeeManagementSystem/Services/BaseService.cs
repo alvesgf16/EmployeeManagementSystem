@@ -13,5 +13,7 @@ public abstract class BaseService
         _database.CreateTable<Employee>();
         _database.CreateTable<Payment>();
         _database.CreateTable<Schedule>();
+        _database.CreateTable<PTORequest>();
+        _database.CreateTable<SickDayRequest>();
     }
 }

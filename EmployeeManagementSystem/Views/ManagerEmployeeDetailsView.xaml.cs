@@ -93,7 +93,7 @@ public partial class ManagerEmployeeDetailsView : ContentPage
             _employeeService.SaveEmployee(newEmployee);
 
             double salary;
-            if (newEmployee.Position.ToString().Equals("manager", StringComparison.CurrentCultureIgnoreCase))
+            if (newEmployee.Position.ToString() == "manager")
             {
                 salary = 25;
             }

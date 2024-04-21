@@ -1,8 +1,5 @@
 using EmployeeManagementSystem.Models;
 using EmployeeManagementSystem.Services;
-using System.Runtime.CompilerServices;
-using Microsoft.Maui.Controls;
-using System.ComponentModel;
 
 namespace EmployeeManagementSystem.Views;
 
@@ -12,8 +9,9 @@ public partial class TimeOffRequestView : ContentPage
     DateTime datetime = DateTime.Now;
     DateTime? date;
     DateTime? sickdate;
-    EmployeeService employeeManager = new();
-    ScheduleService ScheduleService = new();
+    EmployeeService _employeeService = new();
+    ScheduleService _scheduleService = new();
+    PTORequestService _ptoRequestService = new();
     Employee employee = new();
 
     DateTime? SickDate
@@ -60,11 +58,11 @@ public partial class TimeOffRequestView : ContentPage
 
             if (employee.AvailablePTODays >= 1)
             {
-                if (ScheduleService.GetPTORequestByDateAndId((DateTime)Date, employee.Id) is null)
+                if (_ptoRequestService.GetPTORequestByDateAndId((DateTime)Date, employee.Id) is null)
                 {
                     employee.AvailablePTODays -= 1;
-                    ScheduleService.SavePTORequest(new PTORequest { EmployeeID = employee.Id, RequestedDate = (DateTime)Date, Approved = false });
-                    employeeManager.UpdateEmployee(employee);
+                    _ptoRequestService.SavePTORequest(new PTORequest { EmployeeID = employee.Id, RequestedDate = (DateTime)Date, Approved = false });
+                    _employeeService.UpdateEmployee(employee);
                     DisplayAlert("Success", "Your PTO request has been submitted successfully.", "OK");
                     Date = null;
                 }
@@ -91,7 +89,7 @@ public partial class TimeOffRequestView : ContentPage
                 if (1 <= employee.AvailableSickDays)
                 {
                     employee.AvailableSickDays -= 1;
-                    employeeManager.UpdateEmployee(employee);
+                    _employeeService.UpdateEmployee(employee);
                     DisplayAlert("Success", "Your Sick day request has been submitted successfully.", "OK");
                 }
                 else
