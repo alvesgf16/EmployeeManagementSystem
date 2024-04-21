@@ -6,19 +6,22 @@ namespace EmployeeManagementSystem.Views;
 
 public partial class ManagerEmployeePayView : ContentPage, INotifyPropertyChanged
 {
+    private readonly EmployeeService _employeeService = new();
+
+    private readonly PaymentService _paymentService = new();
+
 	public ManagerEmployeePayView()
 	{
 		InitializeComponent();
         PopulateEmployeePicker();
     }
 
-    EmployeeService employeeManager = new();
-
+    public event PropertyChangedEventHandler PropertyChanged;
 
     private void PopulateEmployeePicker()
     {
         // Retrieve all employees from the database
-        var employees = employeeManager.GetAllEmployees();
+        var employees = _employeeService.GetAllEmployees();
 
         // Clear existing items in the picker
         EmployeePicker.Items.Clear();
@@ -35,9 +38,9 @@ public partial class ManagerEmployeePayView : ContentPage, INotifyPropertyChange
     { 
         SearchBar searchBar = (SearchBar)sender;
 
-        EmployeePicker.ItemsSource = employeeManager.GetAllEmployees().Where(employee => employee.Name.ToLower().Contains(searchBar.Text.ToLower())).ToList();
+        EmployeePicker.ItemsSource = _employeeService.GetAllEmployees().Where(employee => employee.Name.ToLower().Contains(searchBar.Text.ToLower())).ToList();
 
-        var employees = employeeManager.GetAllEmployees();
+        var employees = _employeeService.GetAllEmployees();
 
         // Clear existing items in the picker
     }
@@ -51,10 +54,10 @@ public partial class ManagerEmployeePayView : ContentPage, INotifyPropertyChange
         {
             // Retrieve the corresponding employee from the database
             var selectedEmployeeName = EmployeePicker.Items[selectedIndex];
-            var selectedEmployee = employeeManager.GetEmployeeByName(selectedEmployeeName);
+            var selectedEmployee = _employeeService.GetEmployeeByName(selectedEmployeeName);
 
             int selectedEmployeeId = selectedEmployee.Id;
-            Payment selectedPayment = employeeManager.GetEmployeePay(selectedEmployeeId);
+            Payment selectedPayment = _paymentService.GetEmployeePay(selectedEmployeeId);
 
             // Populate the entry fields with the selected employee's information
             EmployeeID.Text = selectedEmployee.Id.ToString();
@@ -65,45 +68,15 @@ public partial class ManagerEmployeePayView : ContentPage, INotifyPropertyChange
         }
     }
 
-    private double CalculateTax(double pay)
-    {
-        double tax = 0;
-        double taxRate = 0;
-        switch (pay)
-        {
-            case double p when p < 2137:
-                taxRate = 0.15;
-                break;
-            case double p when p < 4297:
-                taxRate = 0.205;
-                break;
-            case double p when p < 6661:
-                taxRate = 0.26;
-                break;
-            case double p when p < 9490:
-                taxRate = 0.29;
-                break;
-            default:
-                taxRate = 0.33;
-                break;
-        }
-
-        tax = pay * taxRate;
-        return tax;
-    }
-
-    public event PropertyChangedEventHandler PropertyChanged;
-
     private void UpdateEPayInfo_Clicked(object sender, EventArgs e)
     {
         int employeeID = int.Parse(EmployeeID.Text);
-        Employee selectedEmployee = employeeManager.GetEmployeeById(employeeID);
-        Payment selectedPayment = employeeManager.GetEmployeePay(employeeID);
+        Payment selectedPayment = _paymentService.GetEmployeePay(employeeID);
 
         selectedPayment.Salary = double.Parse(EmployeeSalary.Text);
         selectedPayment.Performance = int.Parse(EmployeePerformance.Text);
 
-        employeeManager.UpdateEmployeePay(selectedPayment);
+        _paymentService.UpdatePayment(selectedPayment);
 
         EmployeeSalary.Text = selectedPayment.Salary.ToString();
         EmployeePerformance.Text = selectedPayment.Performance.ToString();
@@ -112,7 +85,7 @@ public partial class ManagerEmployeePayView : ContentPage, INotifyPropertyChange
         PopulateEmployeePicker();
     }
 
-    protected virtual void OnPropertyChanged(string propertyName)
+    protected override void OnPropertyChanged(string propertyName)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }

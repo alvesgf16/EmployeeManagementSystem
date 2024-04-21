@@ -8,8 +8,8 @@ namespace EmployeeManagementSystem.Views;
 [QueryProperty(nameof(EmpID), "EmpID")]
 public partial class TimeOffRequestView : ContentPage
 {
-    string? empid;
-    EmployeeService employeeManager = new();
+    private string? empid;
+    private readonly EmployeeService employeeManager = new();
     public TimeOffRequestView()
 	{
 		InitializeComponent();

@@ -1,22 +1,21 @@
 using EmployeeManagementSystem.Models;
 using EmployeeManagementSystem.Services;
-using System.Runtime.CompilerServices;
 
 namespace EmployeeManagementSystem.Views;
 
 [QueryProperty(nameof(EmpID), "EmpID")]
 public partial class EmployeeDetailsView : ContentPage
 {
-    string? empid;
-    EmployeeService employeeManager = new();
+    private string? _empId;
+
+    private readonly EmployeeService _employeeService = new();
     
     public EmployeeDetailsView()
     {
         InitializeComponent();
-        empid ??= App.AuthenticatedUser.Id.ToString();
-        PopulateView(GetEmployeeFromDatabase(Convert.ToInt32(empid)));
+        _empId ??= App.AuthenticatedUser.Id.ToString();
     }
-    
+
     private void UpdateExistingEmployee_Clicked(object sender, EventArgs e)
     {
         if (ValidateEmployeeInformation())
@@ -36,12 +35,10 @@ public partial class EmployeeDetailsView : ContentPage
             existingEmployee.Position = (Position)Enum.Parse(typeof(Position), PositionPicker.SelectedItem.ToString());
             existingEmployee.AvailablePTODays = 0;
             existingEmployee.AvailableSickDays = 10;
-            existingEmployee.Shift = (Schedule)Enum.Parse(typeof(Schedule), SchedulePicker.SelectedItem.ToString());
+            existingEmployee.Shift = (WorkShift)Enum.Parse(typeof(WorkShift), SchedulePicker.SelectedItem.ToString());
 
             // Save the updated employee to the database
-            employeeManager.UpdateEmployee(existingEmployee);
-
-            DisplayAlert("Success", "Your information has been updated successfully.", "OK");
+            _employeeService.UpdateEmployee(existingEmployee);
         }
         else
         {
@@ -68,30 +65,15 @@ public partial class EmployeeDetailsView : ContentPage
     {
         // Retrieve the employee from the database based on Id
         // You need to implement this method based on your database access logic
-        return employeeManager.GetEmployeeById(employeeId);
-    }
-
-    private void PopulateView(Employee employee)
-    {
-        // Populate the entry fields with the selected employee's information
-        EmployeeID.Text = employee.Id.ToString();
-        EmailEntry.Text = employee.Email;
-        PasswordEntry.Text = employee.Password;
-        NameEntry.Text = employee.Name;
-        PhoneNumberEntry.Text = employee.PhoneNumber;
-        AddressEntry.Text = employee.Address;
-        ContactNameEntry.Text = employee.EContactName;
-        ContactPhoneNumberEntry.Text = employee.EContactPhone;
-        PositionPicker.SelectedItem = employee.Position.ToString();
-        SchedulePicker.SelectedItem = employee.Shift.ToString();
+        return _employeeService.GetEmployeeById(employeeId);
     }
 
     public string EmpID
     {
-        get => empid ?? string.Empty;
+        get => _empId ?? string.Empty;
         set
         {
-            empid = value;
+            _empId = value;
             var employee = GetEmployeeFromDatabase(Convert.ToInt32(value));
             if (employee != null)
             {
