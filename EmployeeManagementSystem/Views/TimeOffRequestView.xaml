@@ -5,8 +5,9 @@
              xmlns:model="clr-namespace:EmployeeManagementSystem.Models"
              x:Class="EmployeeManagementSystem.Views.TimeOffRequestView"
              Shell.FlyoutBehavior="Locked"
-             x:DataType="model:Employee">
-
+             x:DataType="model:Employee"
+             >
+    <ScrollView>
     <StackLayout Padding="20" Spacing="5">
         <Entry Placeholder="Name" x:Name="NameEntry" Margin="1.5" Text="{Binding Name}"/>
 
@@ -23,9 +24,10 @@
         <DatePicker x:Name="SickRequestEntry" Margin="1.5" DateSelected="SickRequestEntry_DateSelected" />
         <Button Text="Request Sick Day" Clicked="RequestSick_Clicked" Margin="1.5"/>
 
-        <HorizontalStackLayout >
-            <Frame BorderColor="Gray">
-            <ScrollView >
+        <Grid ColumnDefinitions="*,*">
+
+            <Frame BorderColor="Gray" Grid.Column="0"/>
+
                 <ListView x:Name="PTOListView" Margin="15" >
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -39,26 +41,27 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-            </ScrollView>
-            </Frame>
-            <Frame BorderColor="Gray">
-                <ScrollView >
-                    <ListView x:Name="SickDayListView" Margin="15" >
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <ViewCell>
-                                    <StackLayout>
-                                        <Frame BorderColor="Grey" CornerRadius="10" BackgroundColor="#512BD4" Margin="5" Padding="5">
-                                            <Label Text="{Binding .}" FontAttributes="Bold"  />
-                                        </Frame>
-                                    </StackLayout>
-                                </ViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </ScrollView>
-            </Frame>
-        </HorizontalStackLayout>
-    </StackLayout>
 
+
+
+            <Frame BorderColor="Gray" Grid.Column="1"/>
+            
+                <ListView x:Name="SickDayListView" Margin="15" Grid.Column="1">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout>
+                                    <Frame BorderColor="Grey" CornerRadius="10" BackgroundColor="#512BD4" Margin="5" Padding="5">
+                                        <Label Text="{Binding .}" FontAttributes="Bold"  />
+                                    </Frame>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+
+        </Grid>
+    </StackLayout>
+    </ScrollView>
 </ContentPage>

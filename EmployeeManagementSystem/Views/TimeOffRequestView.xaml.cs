@@ -133,12 +133,20 @@ public partial class TimeOffRequestView : ContentPage
 
     public void PopulatePTORequests()
     {
-        _ptoRequestService.GetPTORequestByEmployeeId(employee.Id).ForEach(r => PTORequests.Add(r.ToString()));
+        List<PTORequest> ptoRequests = _ptoRequestService.GetPTORequestByEmployeeId(employee.Id);
+        foreach (var ptoRequest in ptoRequests)
+        {
+            PTORequests.Add(ptoRequest.ToString());
+        }
         PTOListView.ItemsSource = PTORequests;
     }
     public void PopulateSickDayRequests()
     {
-        _sickDayRequestService.GetSickDayRequestsByEmployeeId(employee.Id).ForEach(r => SickDayRequests.Add(r.ToString()));
+        List<SickDayRequest> sickDays = _sickDayRequestService.GetSickDayRequestsByEmployeeId(employee.Id);
+        foreach (var sickDay in sickDays)
+        {
+            SickDayRequests.Add(sickDay.ToString());
+        }
         SickDayListView.ItemsSource = SickDayRequests;
     }
 }

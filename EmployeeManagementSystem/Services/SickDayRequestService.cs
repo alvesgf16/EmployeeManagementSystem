@@ -15,7 +15,17 @@ namespace EmployeeManagementSystem.Services
 
         public void DeleteSickDayRequest(SickDayRequest sickDayRequest) => _database.Delete(sickDayRequest);
 
-        public List<SickDayRequest> GetSickDayRequestsByEmployeeId(int employeeId) => _database.Table<SickDayRequest>().Where(s => s.EmployeeID == employeeId).ToList();
+        public List<SickDayRequest> GetSickDayRequestsByEmployeeId(int employeeId)
+        {
+            foreach (var sickDayRequest in _database.Table<SickDayRequest>())
+            {
+                if (sickDayRequest.EmployeeID == employeeId)
+                {
+                    return [.. _database.Table<SickDayRequest>().Where(w => w.EmployeeID == employeeId)];
+                }
+            }
+            return [];
+        }
 
         public List<SickDayRequest> GetSickDayRequestsByDate(DateTime date) => _database.Table<SickDayRequest>().Where(s => s.RequestedDate == date).ToList();
         public SickDayRequest GetSickDayRequestsByEmployeeIdAndDate(int employeeId, DateTime date) => _database.Table<SickDayRequest>().Where(s => s.EmployeeID == employeeId && s.RequestedDate == date).FirstOrDefault();
