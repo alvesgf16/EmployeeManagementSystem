@@ -3,6 +3,7 @@ using EmployeeManagementSystem.Services;
 using System.Runtime.CompilerServices;
 using Microsoft.Maui.Controls;
 using System.ComponentModel;
+using System.Collections.ObjectModel;
 
 namespace EmployeeManagementSystem.Views;
 
@@ -11,9 +12,9 @@ public partial class TimeOffRequestView : ContentPage
     DateTime datetime = DateTime.Now;
     DateTime? date;
     DateTime? sickdate;
-    EmployeeService employeeManager = new();
-    PTORequestService PTORequestManager = new();
-    SickDayRequestService SickDayRequestService = new();
+    EmployeeService _employeeService = new();
+    PTORequestService _ptoRequestService = new();
+    SickDayRequestService _sickDayRequestService = new();
     Employee employee = new();
     public ObservableCollection<string> PTORequests { get; set; } = [];
     public ObservableCollection<string> SickDayRequests { get; set; } = [];
@@ -97,11 +98,11 @@ public partial class TimeOffRequestView : ContentPage
         {
             if (employee.AvailableSickDays >= 1)
             {
-                if (SickDayRequestService.GetSickDayRequestsByEmployeeIdAndDate(employee.Id, (DateTime)SickDate) is null)
+                if (_sickDayRequestService.GetSickDayRequestsByEmployeeIdAndDate(employee.Id, (DateTime)SickDate) is null)
                 {
                     employee.AvailableSickDays -= 1;
-                    SickDayRequestService.SaveSickDayRequest(new SickDayRequest { EmployeeID = employee.Id, RequestedDate = (DateTime)SickDate, Approved = false });
-                    employeeManager.UpdateEmployee(employee);
+                    _sickDayRequestService.SaveSickDayRequest(new SickDayRequest { EmployeeID = employee.Id, RequestedDate = (DateTime)SickDate, Approved = false });
+                    _employeeService.UpdateEmployee(employee);
                     DisplayAlert("Success", "Your Sick day request has been submitted successfully.", "OK");
                 }
                 else
@@ -132,12 +133,12 @@ public partial class TimeOffRequestView : ContentPage
 
     public void PopulatePTORequests()
     {
-        PTORequestManager.GetPTORequestByEmployeeId(employee.Id).ForEach(r => PTORequests.Add(r.ToString()));
+        _ptoRequestService.GetPTORequestByEmployeeId(employee.Id).ForEach(r => PTORequests.Add(r.ToString()));
         PTOListView.ItemsSource = PTORequests;
     }
     public void PopulateSickDayRequests()
     {
-        SickDayRequestService.GetSickDayRequestsByEmployeeId(employee.Id).ForEach(r => SickDayRequests.Add(r.ToString()));
+        _sickDayRequestService.GetSickDayRequestsByEmployeeId(employee.Id).ForEach(r => SickDayRequests.Add(r.ToString()));
         SickDayListView.ItemsSource = SickDayRequests;
     }
 }
