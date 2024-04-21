@@ -69,6 +69,21 @@ public partial class EmployeeDetailsView : ContentPage
         return _employeeService.GetEmployeeById(employeeId);
     }
 
+    private void PopulateView(Employee employee)
+    {
+        // Populate the entry fields with the selected employee's information
+        EmployeeID.Text = employee.Id.ToString();
+        EmailEntry.Text = employee.Email;
+        PasswordEntry.Text = employee.Password;
+        NameEntry.Text = employee.Name;
+        PhoneNumberEntry.Text = employee.PhoneNumber;
+        AddressEntry.Text = employee.Address;
+        ContactNameEntry.Text = employee.EContactName;
+        ContactPhoneNumberEntry.Text = employee.EContactPhone;
+        PositionPicker.SelectedItem = employee.Position.ToString();
+        SchedulePicker.SelectedItem = employee.Shift.ToString();
+    }
+
     public string EmpID
     {
         get => _empId ?? string.Empty;
