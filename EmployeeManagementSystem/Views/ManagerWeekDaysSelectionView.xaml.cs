@@ -118,24 +118,41 @@ public partial class ManagerWeekDaysSelectionView : ContentPage
         int selectedIndex = EmployeePicker.SelectedIndex;
         if (selectedIndex != -1)
         {
-            string selectedEmployeeName = EmployeePicker.Items[selectedIndex];
-            Employee selectedEmployee = employeeManager.GetEmployeeByName(selectedEmployeeName);
-            Payment selectedPayment = employeeManager.GetEmployeePay(selectedEmployee.Id);
 
-            Payment payment = new Payment
+            try
             {
-                EmployeeID = selectedEmployee.Id,
-                Salary = selectedPayment.Salary,
-                TotalHours = int.Parse(TotalHoursEntry.Text),
-                RegHours = int.Parse(TotalHoursEntry.Text),
-                OverTimeHours = int.Parse(OvertimeHoursEntry.Text),
-                Performance = 0
-            };
+                string selectedEmployeeName = EmployeePicker.Items[selectedIndex];
+                Employee selectedEmployee = employeeManager.GetEmployeeByName(selectedEmployeeName);
+                Payment selectedPayment = employeeManager.GetEmployeePay(selectedEmployee.Id);
 
-            employeeManager.UpdateEmployeePay(payment);
+                Payment payment = new Payment
+                {
+                    EmployeeID = selectedEmployee.Id,
+                    Salary = selectedPayment.Salary,
+                    TotalHours = int.Parse(TotalHoursEntry.Text),
+                    RegHours = int.Parse(TotalHoursEntry.Text),
+                    OverTimeHours = int.Parse(OvertimeHoursEntry.Text),
+                    Performance = 0
+                };
+
+                if (payment.TotalHours < 40)
+                {
+                    throw new Exception("Total hours must be at least 40");
+                }
+
+                employeeManager.UpdateEmployeePay(payment);
+                DisplayAlert("Confirmation", "Weekly payment information has been saved", "OK");
+                PopulateEmployeePicker();
+
+
+            }
+            catch (Exception ex)
+            {
+                DisplayAlert("Error", ex.Message, "OK");
+            }
+            
         }
-        DisplayAlert("Confirmation", "Weekly payment information has been saved", "OK");
-        PopulateEmployeePicker();
+        
     }
 
     private void ResetWeeklyPayroll_Clicked(object sender, EventArgs e)

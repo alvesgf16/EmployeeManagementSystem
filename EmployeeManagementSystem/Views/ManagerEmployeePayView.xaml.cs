@@ -114,7 +114,12 @@ public partial class ManagerEmployeePayView : ContentPage, INotifyPropertyChange
                     throw new ManagePayException("Please fill in all fields");
                 }
 
-                if (int.Parse(EmployeePerformance.Text) < 0 || int.Parse(EmployeePerformance.Text) > 10)
+                if (double.Parse(EmployeeSalary.Text) < 15)
+                {
+                    throw new ManagePayException("Salary cannot below minimum wage");
+                }
+
+                if (int.Parse(EmployeePerformance.Text) < 1 || int.Parse(EmployeePerformance.Text) > 10)
                 {
                     throw new ManagePayException("Performance must be between 0 and 10");
                 }
