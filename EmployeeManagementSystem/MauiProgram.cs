@@ -28,8 +28,8 @@ namespace EmployeeManagementSystem
             builder.Services.AddSingleton<ManagerEmployeePayView>();
             builder.Services.AddSingleton<ManagerScheduleView>();
             builder.Services.AddSingleton<ManagerWeekDaysSelectionView>();
-            builder.Services.AddSingleton<EmployeeDetailsView>();
             builder.Services.AddSingleton<EmployeeDashboardView>();
+            builder.Services.AddSingleton<EmployeeDetailsView>();
             builder.Services.AddSingleton<TimeOffRequestView>();
 
             //View Models

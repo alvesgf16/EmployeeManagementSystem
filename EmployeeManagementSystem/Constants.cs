@@ -111,18 +111,22 @@ public class Constants
                             Title = "Dashboard",
                             ContentTemplate = new DataTemplate(typeof(EmployeeDashboardView))
                         },
+                        new ShellContent
+                        {
+                            Title = "Dashboard",
+                            ContentTemplate = new DataTemplate(typeof(EmployeeDashboardView))
+                        },
 
                         new ShellContent
                         {
                             Title = "Employee Details",
                             ContentTemplate = new DataTemplate(typeof(EmployeeDetailsView))
                         },
-
                         new ShellContent
                         {
-                            Title = "PTO/Sick Days Request",
+                            Title = "PTO/Sick Day Request",
                             ContentTemplate = new DataTemplate(typeof(TimeOffRequestView))
-                        }
+                        },
                     }
             };
 
