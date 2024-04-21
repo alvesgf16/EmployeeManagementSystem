@@ -11,5 +11,10 @@ namespace EmployeeManagementSystem.Models
         public int EmployeeID { get; set; }
         public DateTime RequestedDate { get; set; }
         public bool Approved { get; set; }
+
+        public override string ToString()
+        {
+            return $"Request ID: {SickDayRequestId}, EmployeeID: {EmployeeID}, RequestedDate: {RequestedDate.Date}, Approved: {Approved}";
+        }
     }
 }
